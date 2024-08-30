@@ -1,0 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_libft.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/27 15:44:00 by lai-elho          #+#    #+#             */
+/*   Updated: 2024/08/29 21:40:04 by lai-elho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/minishell.h"
+
+char *ft_strcpy(char *dest, const char *src)
+{
+    size_t i = 0;
+
+    while (src[i])
+    {
+        dest[i] = src[i];
+        i++;
+    }
+    dest[i] = '\0';
+    return dest;
+}
+
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if ((unsigned char)s1[i] > (unsigned char)s2[i])
+			return (1);
+		if ((unsigned char)s1[i] < (unsigned char)s2[i])
+			return (-1);
+		i++;
+	}
+	return (0);
+}
