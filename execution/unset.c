@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:11:54 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/29 17:11:25 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:29:05 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    ft_lstremove( char *key)
 {
     t_env   *current;
     t_env   *prev;
-    t_env   *temp;
+    // t_env   *temp;
 
     if (!g_global->env || !key)
         return;

@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 09:30:13 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 21:35:13 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:22:23 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,15 @@ size_t  len_double_str(char **str)
 char	*help_pipe_quote(char *str)
 {
 	int	i;
-	int	s_flag;
-	int	d_flag;
+	t_flag	b;
 
 	i = 0;
-	s_flag = 0;
-	d_flag = 0;
+	b.s_quote = 0;
+	b.d_quote = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' && !d_flag)
-			s_flag = !s_flag;
-		if (str[i] == '\"' && !s_flag)
-			d_flag = !d_flag;
-		if (str[i] == '|' && (s_flag || d_flag))
+		ft_bool_quote(&b.s_quote, &b.d_quote, str[i]);
+		if (str[i] == '|' && (b.s_quote || b.d_quote))
 			str[i] *= -1;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/30 11:36:24 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:27:40 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void ft_execution(t_minishell *strct, t_execution *exec)
     if(strcmp(strct->cmd[0], "env") == 0)
         print_env(g_global->env);
     if(strcmp(strct->cmd[0], "echo") == 0)
-        ft_echo(exec->ac, exec->ac, exec->env);
+        ft_echo(exec->ac, exec->av, exec->env);
     if(strcmp(strct->cmd[0], "unset") == 0)
         unset(exec->av);
 }

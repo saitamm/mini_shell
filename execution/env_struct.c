@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/29 15:44:10 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:42:59 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ t_env *create_node(char *key, char *value)
     return new_node;
 }
 
-void add_to_list(char *key,char *value) {
+void add_to_list(t_env **head, char *key, char *value)
+{
     t_env *new_node = create_node(key, value);
     if (!new_node)
         return;
-    
-    new_node->next = g_global->env;
-    g_global->env = new_node;
+    new_node->next = *head;
+    *head = new_node;
 }
+
 
 int ft_find_key_len(char *env_var)
 {
@@ -62,7 +63,6 @@ void parse_env_var(char **env_var)
 
     if (env_var == NULL)
         return;
-
     while (env_var[i])
     {
         char *equal_sign = ft_strchr(env_var[i], '=');
@@ -77,8 +77,7 @@ void parse_env_var(char **env_var)
                 free(value);
                 return;
             }
-            add_to_list(key, value);
-
+            add_to_list(&g_global->env, key, value);
             free(key);
             free(value);
         }

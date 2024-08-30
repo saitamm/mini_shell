@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/30 11:35:07 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:43:34 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,19 @@ int main(int ac, char **av, char **env)
     char    *line;
     t_minishell *strct;
     t_execution *execution_struct = NULL;
+    g_global = malloc (sizeof(t_global));
     
+    execution_struct = malloc(sizeof(t_execution));
+    if (!execution_struct)
+        return (0);
     execution_struct->ac = ac;
     execution_struct->av = av;
     execution_struct->env = env;
-
     parse_env_var(env);
-    print_list(g_global->env);
+    // print_env(g_global->env);
     while (1)
     {
-        line = readline("$>");
+        line = readline(GOLD "$minishell>" RESET);
         
         if (!line)
             return 0 ;

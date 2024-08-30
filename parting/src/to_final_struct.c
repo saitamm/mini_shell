@@ -5,69 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 20:56:08 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/29 21:35:47 by lai-elho         ###   ########.fr       */
+/*   Created: 2024/08/30 10:47:36 by sait-amm          #+#    #+#             */
+/*   Updated: 2024/08/30 13:22:58 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
-void free_files(t_file *head) {
-    t_file *tmp;
-
-    while (head) {
-        tmp = head;
-        head = head->next;
-        free(tmp->file);  // Free the file name string
-        free(tmp);        // Free the node
-    }
-}
-void free_cmds(t_cmd *head) {
-    t_cmd *tmp;
-
-    while (head) {
-        tmp = head;
-        head = head->next;
-        
-        if (tmp->cmd) {
-            printf("Freeing command: %s\n", tmp->cmd);
-            free(tmp->cmd);  // Free the command string
-        } else {
-            printf("Command is NULL\n");
-        }
-        
-        printf("Freeing node\n");
-        free(tmp);       // Free the node
-    }
-}
-
-void free_data(t_data *head) {
-    t_data *tmp;
-
-    while (head) {
-        tmp = head;
-        head = head->next;
-        
-        // Free the command list
-        free_cmds(tmp->command);
-        
-        // Free the file list
-        free_files(tmp->files);
-        
-        // Free the t_data node
-        free(tmp);
-    }
-}
-
-void print_list(t_env *head)
-{
-    while (head)
-    {
-        printf("%s = %s\n", head->key, head->value);
-        head = head->next;
-    }
-}
 
 t_minishell *lstlast_minishell(t_minishell *lst)
 {
@@ -140,6 +83,22 @@ void    to_final_struct(t_data *data, t_minishell **strct)
         k = lstlast_minishell(*strct);
 	    k->next = s;
         d = d->next;
-        // printf(":::::%s\n", d->command->cmd);
     }
+}
+
+t_minishell *parce(char *line)
+{
+    char    **splt_line;
+    t_minishell *str;
+    t_data *data;
+
+    data = NULL;
+	str = NULL;
+    if (parce_error(line))
+			return (NULL);
+    splt_line = ft_split_with_pipe(line);
+	init_data(&data, splt_line);
+    to_final_struct(data, &str);
+    ft_free(splt_line, len_double_str(splt_line));
+    return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 21:35:05 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:22:08 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,26 @@ t_file	*ft_lstlast_file(t_file *lst)
 }
 
 
-void	ft_lstadd_file(t_file **lst, char *str)
+void	ft_lstadd_file(t_file **lst, char *str, t_file *new)
 {
 	t_file	*k;
-    t_file  *s;
 	char	*src;
 
-    s = (t_file *)malloc(sizeof(t_file));
-	s->flag = 0;
+	new->flag = 0;
 	src = ft_strdup(str);
-	src = help_file(str, &s , src);
-    s->file = src;
-    s->next = NULL;
+	src = help_file(str, &new , src);
+    new->file = src;
+    new->next = NULL;
     k = *lst;   
 	if (!lst)
 		return ;
 	if (!*lst)
 	{
-		*lst = s;
+		*lst = new;
 		return ;
 	}
 	k = ft_lstlast_file(*lst);
-	k->next = s;
+	k->next = new;
 }
 
 t_cmd	*ft_lstlast_cmd(t_cmd *lst)

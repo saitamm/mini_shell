@@ -6,11 +6,11 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:09:43 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 21:36:11 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:25:41 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 int	ft_strncmp(const char	*str1, const char	*str2, size_t n)
 {

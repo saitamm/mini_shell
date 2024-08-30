@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/15 11:03:33 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 21:36:24 by lai-elho         ###   ########.fr       */
+/*   Created: 2024/08/14 10:57:44 by sait-amm          #+#    #+#             */
+/*   Updated: 2024/08/30 13:25:38 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
-char	*ft_strchr(const char	*s, int c)
+size_t	ft_strlen(const char	*str)
 {
-	char	find;
-	int		i;
+	size_t	i;
 
-	find = (unsigned char)c;
 	i = 0;
-	while (s[i] != '\0')
+	while (str[i])
 	{
-		if (s[i] == find)
-			return ((char *)s + i);
 		i++;
 	}
-	if (s[i] == find)
-		return ((char *)s + i);
-	return (0);
+	return (i);
 }

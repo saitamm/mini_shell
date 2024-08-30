@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:39:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 21:35:22 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:24:14 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_cpy_dolar(char *str)
 char	*help_expand(char *str)
 {
 	t_env	*env;
-	
+
 	env = g_global->env;
 	while(env)
 	{

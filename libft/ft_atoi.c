@@ -6,11 +6,11 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 10:52:00 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 21:36:35 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:25:07 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 int	ft_whitespace(char c)
 {

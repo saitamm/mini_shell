@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:13:57 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 21:35:25 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:22:36 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*remove_quote(char *str)
 	int		i;
 	char	*r_str;
 
-	r_str = malloc((ft_strlen(str) - 2) * sizeof(char));
+	r_str = malloc((ft_strlen(str) - 2 + 1) * sizeof(char));
 	if (!r_str)
 		return (NULL);
 	i = 1;

@@ -6,11 +6,11 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 09:31:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 21:36:28 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:25:21 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 static int	ft_len(const char *s, char c)
 {

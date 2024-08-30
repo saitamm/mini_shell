@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 10:59:21 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 21:35:28 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:22:39 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	full_command(t_data **data, char *str)
 	int		i;
 	t_flag	flag;
 	t_data *s;
-	enum type	k;
 	t_data	*d;
 	char	*file_cmd;
 
@@ -94,28 +93,40 @@ void	full_command(t_data **data, char *str)
 		while (ft_whitespace(str[i]))
 			i++;
 		ft_bool_quote(&flag.d_quote, &flag.s_quote, str[i]);
-		if ((k = append_her_doc(str[i], str[i+1])) && !flag.s_quote && !flag.d_quote)
+		if (append_her_doc(str[i], str[i+1]) && !flag.s_quote && !flag.d_quote)
 		{
 			i = i+2;
+			t_file *new = (t_file *)malloc(sizeof(t_file));
+			if (!new)
+				return ;
 			file_cmd = ft_file(str+i);
-			s->files->file_type = HER_DOC;
-			ft_lstadd_file(&s->files, file_cmd);
+			if (str[i] == '<')
+				new->file_type = HER_DOC;
+			else
+				new->file_type = APPEND;
+			ft_lstadd_file(&s->files, file_cmd, new);
 			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
 		}
 		else if (str[i] == '<' && !flag.s_quote && !flag.d_quote)
 		{
 			i+=1;
 			file_cmd = ft_file(str+i);
-			s->files->file_type = IN;
-			ft_lstadd_file(&s->files, file_cmd);
+			t_file *new = (t_file *)malloc(sizeof(t_file));
+			if (!new)
+				return ;
+			new->file_type = IN;
+			ft_lstadd_file(&s->files, file_cmd, new);
 			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
 		}
 		else if (str[i] == '>' && !flag.s_quote && !flag.d_quote)
 		{
 			file_cmd = ft_file(str+i);
 			i+=1;
-			s->files->file_type = OUT;
-			ft_lstadd_file(&s->files, file_cmd);
+			t_file *new = (t_file *)malloc(sizeof(t_file));
+			if (!new)
+				return ;
+			new->file_type = OUT;
+			ft_lstadd_file(&s->files, file_cmd, new);
 			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
 		}
 		else

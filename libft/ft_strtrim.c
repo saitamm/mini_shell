@@ -6,11 +6,11 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 11:02:58 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 21:36:09 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:25:44 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
