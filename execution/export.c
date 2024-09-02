@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/30 11:36:41 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/02 10:39:19 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ void	print_export()
 	}
 }
 
-void	export(t_execution *exec)
+void	ft_export(t_execution *exec)
 {
 	int	i;
 
 	i = 1;
 	if (!exec->av[i] || (exec->av[i][0] == '\0'
 		&& exec->av[i + 1] == NULL))
-		print_export(exec);
+		print_export();
 	// else
 	// 	while (exec->av[i])
 	// 	{

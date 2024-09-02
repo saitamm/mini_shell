@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/30 13:43:34 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:45:05 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ t_global *g_global = NULL;
 
 int main(int ac, char **av, char **env)
 {
-    (void)ac;
-    (void)av;
     char    *line;
     t_minishell *strct;
     t_execution *execution_struct = NULL;

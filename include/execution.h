@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:56:40 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/30 13:28:01 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/02 10:37:05 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_env {
 } t_env;
 
 
-void ft_echo(int ac, char **str, char **env);
+void    ft_echo(char **str);
 void parse_env_var(char **env_var);
 
 void ft_pwd(void);
@@ -49,5 +49,6 @@ char    *find_home_path();
 void	unset(char **av);
 // void ft_builtins(char *buff);
 void	unset(char **av);
+void	ft_export(t_execution *exec);
 
 #endif

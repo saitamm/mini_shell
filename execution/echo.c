@@ -6,79 +6,57 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:54:41 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/29 15:44:07 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/02 10:24:21 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void    ft_find_in_env(char *to_find, char **env)
-{
-    int i = 0;
-    int len = ft_strlen(to_find);
-    int path_len;
-
-    while (env[i])
-    {
-        if (ft_strncmp(env[i], to_find, len) == 0 && env[i][len] == '=')
-        {
-            path_len = ft_strlen (&env[i][len + 1]);
-            write(1, &env[i][len + 1], path_len);
-            write(1, "\n", 1);
+void ft_find_in_env(char *search_key) {
+    while (g_global->env != NULL) {
+        if (strcmp(g_global->env->key, search_key) == 0) {
+            printf("%s\n", g_global->env->value);
             return;
         }
-        i++;
+        g_global->env = g_global->env->next;
     }
-    write(1, "Variable not found\n", 19);
+    printf("Key not found: %s\n", search_key);
 }
 
-void    ft_echo(int ac, char **str, char **env)
-{
+void ft_echo(char **str) {
     int j = 1;
-    int i;
+    int i = 0;
     int flag = 1;
 
-    if(str[1][0] == '-' && str[1][1] == 'n')
-    {
+    if (str[1] && str[1][0] == '-' && str[1][1] == 'n' && str[1][2] == '\0') {
         flag = 0;
         j++;
     }
-    
-    while(j < ac)
-    {
+    while (str[j]) {
         i = 0;
-        if(str[j][0] == '\'')
-        {
-            while(str[j][i])
-            {
-                write(1,&str[j][i],1);
+        if (str[j][0] == '"') {
+            if (str[j][1] == '$') {
+                ft_find_in_env(str[j]);
+            }
+            else {
+                while (str[j][i]) {
+                    write(1, &str[j][i], 1);
+                    i++;
+                }
+            }
+        }
+        else if (str[j][0] == '\'' || str[j][0] != '\0') {
+            while (str[j][i]) {
+                write(1, &str[j][i], 1);
                 i++;
             }
         }
-        else if(str[j][0] == '"' && str[j][1] != '$')
-        {
-            while(str[j][i])
-            {
-                write(1,&str[j][i],1);
-                i++;
-            }
+        if (str[j + 1]) {
+            write(1, " ", 1);
         }
-        else if(str[j][0] == '"' && str[j][1] == '$')
-        {
-            ft_find_in_env(str[j] , env);
-        }
-        else 
-        {
-            while(str[j][i])
-            {
-                write(1,&str[j][i],1);
-                i++;
-            }
-        }
-        if(j < ac - 1)
-            write(1," ",1);
         j++;
     }
-    if(flag == 1)
-        write(1,"\n",1);
+    if (flag == 1) {
+        write(1, "\n", 1);
+    }
 }
