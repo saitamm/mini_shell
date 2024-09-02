@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 11:38:58 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/02 10:56:26 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ char	*ft_file(char *str)
 		c = str[i++];
 	}
 	while ((!ft_whitespace(str[i]) && str[i] && flag) || (str[i] && str[i] != c && !flag))
+	{
+		if (flag && (str[i] == '\'' || str[i] == '\"'))
+			break;
 		i++;
+	}
 	if (flag == 0)
 		i++;
 	file = malloc((i+1) * sizeof(char));

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:13:57 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/31 11:09:22 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/02 10:31:45 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*remove_quote(char *str)
 {
 	int		i;
 	char	*r_str;
-
+	printf("**********%s\n", str);
 	r_str = malloc((ft_strlen(str) - 2 + 1) * sizeof(char));
 	if (!r_str)
 		return (NULL);
