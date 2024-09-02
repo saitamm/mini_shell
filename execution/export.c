@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/02 10:39:19 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/02 10:43:39 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_list_sort(t_env **env)
 	{
 		i = 0;
 		tmp = *env;
-		// printf("tmp->name is :%s", tmp->name);
 		while (tmp->next)
 		{
 			if (ft_strcmp(tmp->key, tmp->next->key) > 0)
