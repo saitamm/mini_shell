@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 10:59:21 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 11:28:12 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:50:18 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,21 @@ int	ft_skip(char *str)
 		i++;
 	return (i);
 }
-enum type	append_her_doc(char a, char b)
+int	append_her_doc(char a, char b)
 {
 	if (a == '<' && a == b)
-		return (HER_DOC);
+		return (1);
 	else if (a == '>' && a == b)
-		return (APPEND);
+		return (1);
 	return (0);
 }
 
-
+// void	add_node_file(t_file **s, char *str)
+// {
+// 	char	*file_name;
+	
+	
+// }
 void	full_command(t_data **data, char *str)
 {
 	int		i;
@@ -92,18 +97,25 @@ void	full_command(t_data **data, char *str)
 	{
 		while (ft_whitespace(str[i]))
 			i++;
-		ft_bool_quote(&flag.d_quote, &flag.s_quote, str[i]);
+		update_quotes(&flag.d_quote, &flag.s_quote, str[i]);
 		if (append_her_doc(str[i], str[i+1]) && !flag.s_quote && !flag.d_quote)
 		{
 			i = i+2;
+			// add_node_file(&s, str + i);
 			t_file *new = (t_file *)malloc(sizeof(t_file));
 			if (!new)
 				return ;
 			file_cmd = ft_file(str+i);
-			if (str[i] == '<')
+			if (str[i - 1] == '<')
+			{
+				// printf("her_doc +== *%c*\n", str[i]);
 				new->file_type = HER_DOC;
+			}
 			else
+			{
+				// printf(">>>>>append == *%c*\n", str[i]);
 				new->file_type = APPEND;
+			}
 			ft_lstadd_file(&s->files, file_cmd, new);
 			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
 		}
@@ -135,7 +147,7 @@ void	full_command(t_data **data, char *str)
 			size_t k = ft_strlen(file_cmd);
 			ft_lstadd_cmd(&s->command, file_cmd);
 			i = i + ft_skip(str+i) + k;		
-			ft_bool_quote(&flag.d_quote, &flag.s_quote, str[i-1]);
+			update_quotes(&flag.d_quote, &flag.s_quote, str[i-1]);
 		}
 	}
 	s->next = NULL;
@@ -149,6 +161,68 @@ void	full_command(t_data **data, char *str)
 	d = ft_lstlast_data(*data);
 	d->next = s;
 }
+
+// void ft_skip_whitespace(int *i, char *str) {
+//     while (ft_whitespace(str[*i])) (*i)++;
+// }
+
+// void ft_update_quotes(t_flag *flag, char c) {
+//     update_quotes(&flag->d_quote, &flag->s_quote, c);
+// }
+
+// int is_redirection(char c, char next_c) {
+//     return (c == '<' || c == '>') && next_c == c;
+// }
+
+// t_file *create_file_node(int *i, char *str) {
+//     (*i) += 2;
+//     t_file *new = (t_file *)malloc(sizeof(t_file));
+//     if (!new) return NULL;
+//     new->file = ft_file(str + (*i));
+//     new->file_type = (str[*i] == '<') ? HER_DOC : APPEND;
+//     *i += ft_skip(str + (*i)) + ft_strlen(new->file);
+//     return new;
+// }
+
+// void add_data_node(t_data **data, t_data *s) {
+//     s->next = NULL;
+//     if (!(*data)) {
+//         *data = s;
+//     } else {
+//         t_data *last = ft_lstlast_data(*data);
+//         last->next = s;
+//     }
+// }
+
+// void full_command(t_data **data, char *str) {
+//     int i = 0;
+//     t_flag flag = {false, false};
+//     t_data *s = (t_data *)malloc(sizeof(t_data));
+// 	char *file_cmd;
+//     if (!s) return;
+//     s->files = NULL;
+//     s->command = NULL;
+
+//     while (str[i]) {
+//         ft_skip_whitespace(&i, str);
+//         ft_update_quotes(&flag, str[i]);
+
+//         if (is_redirection(str[i], str[i + 1]) && !flag.s_quote && !flag.d_quote) {
+//             t_file *new_file = create_file_node(&i, str);
+//             if (!new_file) return;
+//             ft_lstadd_file(&s->files, new_file->file, new_file);
+//         } else if (!flag.s_quote && !flag.d_quote) {
+//             file_cmd = ft_file(str + i);
+//             ft_lstadd_cmd(&s->command, file_cmd);
+//             i += ft_skip(str + i) + ft_strlen(file_cmd);
+//             ft_update_quotes(&flag, str[i - 1]);
+//         }
+//     }
+
+//     add_data_node(data, s);
+// }
+
+
 
 void    init_data(t_data **data, char **line)
 {

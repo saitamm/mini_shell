@@ -6,7 +6,7 @@
 #    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/08/30 11:30:04 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/08/31 10:59:33 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRC = minishell.c \
 		src/expand.c \
 		src/ft_split_whitespace.c \
 		src/help_expand.c \
-		src/to_final_struct.c
+		src/to_final_struct.c \
+		src/free_fun.c
 
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft

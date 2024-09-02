@@ -6,14 +6,14 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:13:57 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 11:24:21 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:09:22 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 
-void	ft_bool_quote(bool *s, bool *d, char c)
+void	update_quotes(bool *s, bool *d, char c)
 {
 	if (c == '\'' && !(*d))
 			(*s) = !(*s);

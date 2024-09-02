@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:16:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/19 09:32:37 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:55:50 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,19 @@ int	check_bracket(char *str)
 	return (0);
 }
 
+int	space_pipe(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str[i] == '|')
+		i++;
+	while (ft_whitespace(str[i]))
+			i++;
+	if (str[i] == '|')
+		return (1);
+	return (0);
+}
 int	check_logical(char *str)
 {
 	int	i;
@@ -73,7 +86,7 @@ int	check_logical(char *str)
 			s_flag = !s_flag;
 		if (str[i] == '\"' && !s_flag)
 			d_flag = !d_flag;
-		if ((str[i] == '|' && str[i + 1] == '|') && !s_flag && !d_flag)
+		if ((str[i] == '|' && space_pipe(str + i)) && !s_flag && !d_flag)
 			return (1);
 		if ((str[i] == '&' &&  str[i + 1] == '&') && !s_flag && !d_flag)
 			return (1);

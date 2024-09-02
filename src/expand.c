@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/29 09:29:13 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:09:22 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	need_expand(char *str)
 		return (0);
 	while (str[i])
 	{
-		ft_bool_quote(&flag.s_quote, &flag.d_quote, str[i]);
+		update_quotes(&flag.s_quote, &flag.d_quote, str[i]);
 		if (str[i] == '$' && !flag.s_quote && ft_isalpha(str[i+1]))
 			return (1);
 		i++;
@@ -45,7 +45,7 @@ char	*expand_str(char *string)
 	b.s_quote = 0;
 	while (string[i])
 	{
-		ft_bool_quote(&b.s_quote, &b.d_quote, string[i]);
+		update_quotes(&b.s_quote, &b.d_quote, string[i]);
 		if (!b.s_quote && string[i] == '$' && ft_isalpha(string[i+1]))
 			break;
 		i++;
