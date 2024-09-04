@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/02 10:56:26 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:48:36 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ char	*ft_file(char *str)
 	while (ft_whitespace(str[i]) == 1)
 		str++;
 	flag = 1;
-	if (str[i] == '\'' || str[i] == '\"')
+	while (str[i] == '\'' || str[i] == '\"')
 	{
-		flag = 0;
+		flag = !flag;
 		c = str[i++];
 	}
 	while ((!ft_whitespace(str[i]) && str[i] && flag) || (str[i] && str[i] != c && !flag))
@@ -48,7 +48,7 @@ char	*ft_file(char *str)
 		i++;
 	}
 	
-	while ((!ft_whitespace(str[i]) && str[i] && flag) || (str[i] && str[i] != c && !flag))
+	while ((!ft_whitespace(str[i]) && str[i] && flag) || (str[i] && str[i] != c && !flag ))
 	{
 		file[i] = str[i];
 		i++;

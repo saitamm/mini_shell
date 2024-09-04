@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 10:59:21 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/02 10:54:58 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:46:21 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,16 @@ void	full_command(t_data **data, char *str)
 		{
 			i = i+2;
 			// add_node_file(&s, str + i);
+		// while (str[i] == '\'' || str[i] == '\"')
+		// {
+		// 	update_quotes(&flag.d_quote, &flag.s_quote, str[i]);
+		// 	i++;
+		// }
 			t_file *new = (t_file *)malloc(sizeof(t_file));
 			if (!new)
 				return ;
 			file_cmd = ft_file(str+i);
+			printf(">>>>%s\n", file_cmd);
 			if (str[i - 1] == '<')
 			{
 				// printf("her_doc +== *%c*\n", str[i]);

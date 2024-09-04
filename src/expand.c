@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/02 10:33:42 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:17:20 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ char	*expand_str(char *string)
 	while (string[i])
 	{
 		update_quotes(&b.s_quote, &b.d_quote, string[i]);
-		if (!b.s_quote && string[i] == '$' && ft_isalpha(string[i+1]))
+		if (string[i] == '$' && string[i+1])
+			i++;
+		else if (!b.s_quote && string[i] == '$' && ft_isalpha(string[i+1]))
 			break;
 		i++;
 	}
