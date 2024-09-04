@@ -6,7 +6,7 @@
 #    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/09/02 10:38:51 by lai-elho         ###   ########.fr        #
+#    Updated: 2024/09/04 10:26:33 by lai-elho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC =  minishell.c \
 		execution/ft_libft.c \
 		execution/execution.c \
 		execution/unset.c \
-		execution/export.c
+		execution/export.c \
+		execution/exit.c
 
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft
@@ -43,7 +44,7 @@ INCLUDES = -I . -I include -I $(LIBFT_DIR)
 
 C = cc
 
-CFLAGS =  -Wall -Werror -Wextra #-fsanitize=address -g3
+CFLAGS =  -Wall -Werror -Wextra -fsanitize=address -g3
 
 all: $(NAME)
 
