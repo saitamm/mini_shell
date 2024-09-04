@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:56:40 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/03 23:39:24 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:24:27 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ size_t	ft_strlen(const char *c);
 char *ft_strcpy(char *dest, const char *src);
 char    *find_home_path();
 void	unset(char **av);
-// void ft_builtins(char *buff);
 void	unset(char **av);
 void	ft_export(t_execution *exec);
 void	ft_exit(char **cmd);

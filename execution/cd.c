@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/29 15:42:09 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:20:45 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,20 @@ void    ft_cd(char *Path)
     if (Path == NULL || ft_strcmp(Path, "~") == 0 || ft_strcmp(Path, "--") == 0) 
     {
         Path = find_home_path();
-        printf("the path is :%s",Path);
+        // printf("the path is :%s",Path);
     }
-    else
-    {
-        chdir(Path);
-        ft_pwd();
-    }
+    // else
+    // {
+    //     chdir(Path);
+    // }
     // if(i == -1)
     //     perror("error");
     if (chdir(Path) == 0)
     {
         getcwd(cwd, sizeof(cwd));
+        ft_pwd();
     }
+    write(1,"\n",1);
 }
 
 
