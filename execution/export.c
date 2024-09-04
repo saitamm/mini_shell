@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/02 10:43:39 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:44:32 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,16 @@ void	print_export()
 	t_env	*tmp;
 
 	tmp = g_global->env;
+	int i = 0;
 	ft_list_sort(&tmp);
 	while (tmp)
 	{
-		if (tmp->value)
+		if (tmp->value && tmp->key)
 			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		else if (!tmp->value)
 			printf("declare -x %s\n", tmp->key);
 		tmp = tmp->next;
+		i++;
 	}
 }
 

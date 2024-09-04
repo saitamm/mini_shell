@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/04 13:20:45 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:48:45 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char    *find_home_path()
 
     while(g_global->env->next)
     {
-        if(ft_strcmp(g_global->env->key, "HOME") != 0 )
+        if(ft_strcmp(g_global->env->key, "HOME") == 0 )
         {
             HOME_path = g_global->env->value;
             return (g_global->env->value);
@@ -31,19 +31,14 @@ char    *find_home_path()
     return NULL;
 }
 
-void    ft_cd(char *Path)
+void ft_cd(char *Path)
 {
-    char    cwd[1024];
-    
-    if (Path == NULL || ft_strcmp(Path, "~") == 0 || ft_strcmp(Path, "--") == 0) 
+    char cwd[1024];
+
+    if (Path == NULL || ft_strcmp(Path, "~") == 0 || ft_strcmp(Path, "--") == 0)
     {
         Path = find_home_path();
-        // printf("the path is :%s",Path);
     }
-    // else
-    // {
-    //     chdir(Path);
-    // }
     // if(i == -1)
     //     perror("error");
     if (chdir(Path) == 0)
@@ -51,8 +46,5 @@ void    ft_cd(char *Path)
         getcwd(cwd, sizeof(cwd));
         ft_pwd();
     }
-    write(1,"\n",1);
+        // printf("the path is :%s\n", Path);
 }
-
-
-
