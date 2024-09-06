@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/04 14:44:32 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:52:07 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,41 @@ void	print_export()
 	}
 }
 
-void	ft_export(t_execution *exec)
+void ft_add_to_export(char *str) {
+    char *equal_sign = strchr(str, '=');
+
+    if (equal_sign) {
+        char *key = get_key(str);  // Get the key up to the '='
+        char *value = equal_sign + 1;  // Get value after '='
+
+        if (key && value) {
+            add_to_list(&g_global->env, key, value);
+        }
+        
+        free(key);  // Free the key memory after it's used
+    } else {
+        // If there is no '=', treat the whole string as a key with an empty value
+        char *key = ft_strdup(str);
+        if (key) {
+            add_to_list(&g_global->env, key, "");  // Add with an empty value
+        }
+        free(key);
+    }
+}
+
+void	ft_export(t_minishell *strct)
 {
 	int	i;
 
 	i = 1;
-	if (!exec->av[i] || (exec->av[i][0] == '\0'
-		&& exec->av[i + 1] == NULL))
-		print_export();
-	// else
-	// 	while (exec->av[i])
-	// 	{
-	// 		//add
-	// 			return ;
-	//  }
-}        
+	// If no arguments passed, or if the first argument is empty, print current export
+	if (!strct->cmd[i] || (strct->cmd[i][0] == '\0' && strct->cmd[i + 1] == NULL)) {
+		print_export();  // Function to print environment variables
+	} else {
+		// Process each command argument and add it to the export list
+		while (strct->cmd[i]) {
+			ft_add_to_export(strct->cmd[i]);
+			i++;
+	 	}
+	}
+}     

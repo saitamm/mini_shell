@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:11:54 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/04 16:24:03 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/06 23:27:08 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ void    ft_lstremove( char *key)
 {
     t_env   *current;
     t_env   *prev;
-
+    
     if (!g_global || !g_global->env || !key)
         return;
-
     current = g_global->env;
     prev = NULL;
 
@@ -44,14 +43,14 @@ void    ft_lstremove( char *key)
     }
 }
 
-void	unset(char **av)
+void	unset(char **cmd)
 {
 	int	i;
-
 	i = 1;
-	while (av[i])
-	{
-		ft_lstremove(av[i]);
+    
+	while (cmd[i])
+	{      
+	    ft_lstremove(cmd[i]);
 		i++;
 	}
 }

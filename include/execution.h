@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:56:40 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/04 13:24:27 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:53:56 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ char *ft_strcpy(char *dest, const char *src);
 char    *find_home_path();
 void	unset(char **av);
 void	unset(char **av);
-void	ft_export(t_execution *exec);
-void	ft_exit(char **cmd);
+void ft_exit(char **cmd);
+void add_to_list(t_env **head, char *key, char *value);
+char *get_key(char *s);
+char *ft_putkey(char *env_var);
+int ft_find_key_len(char *env_var);
+void add_to_list(t_env **head, char *key, char *value);
+t_env *create_node(char *key, char *value);
 
 #endif
