@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/04 16:31:46 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:10:33 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,4 @@ void ft_exit(char **cmd)
             printf("eroooooor]\n");
     }else
         exit(0);
-        
 }
