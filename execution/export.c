@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/07 01:08:57 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:00:19 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void	ft_export(t_minishell *strct)
 		print_export();
 	} else {
 		while (strct->cmd[i]) {
-			ft_add_to_export(strct->cmd[i]);
+			// if(ft_check_modify_export(strct->cmd[i]))
+				ft_add_to_export(strct->cmd[i]);
 			i++;
 	 	}
 	}

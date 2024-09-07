@@ -6,7 +6,7 @@
 #    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/09/04 16:30:30 by lai-elho         ###   ########.fr        #
+#    Updated: 2024/09/07 10:03:09 by lai-elho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRC =  minishell.c \
 		execution/execution.c \
 		execution/unset.c \
 		execution/export.c \
-		execution/exit.c
+		execution/exit.c\
+		execution/export2.c
 
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft

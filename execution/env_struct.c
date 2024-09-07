@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/06 22:49:39 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/07 11:16:32 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int ft_find_key_len(char *env_var)
     int i = 0;
     while (env_var[i] != '=' && env_var)
         i++;
+    if(env_var[i - 1] == '+')
+    {
+        g_global->flag = 1;
+        i--;
+    }
     return (i);
 }
 
