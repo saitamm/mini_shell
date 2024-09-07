@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/07 12:04:35 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/07 21:54:31 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef struct s_global
 
 extern t_global *g_global;
 
-void ft_execution(t_minishell *strct);
+void    ft_execution(t_minishell *strct);
 void	ft_export(t_minishell *strct);
-// int ft_check_modify_export(char *cmd);
+int process_env_variable(char *str) ;
 
 #endif
