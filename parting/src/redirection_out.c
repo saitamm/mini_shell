@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_out.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:01:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:22:54 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:02:34 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_red_out(char *str)
 
 int	ft_pipe_out(char *str)
 {
-	if (str[0] == '>' && str[1] == '|' && !str[2])
+	if (str[0] == '>' && str[1] == '|')
 		return (1);
 	return (0);
 }

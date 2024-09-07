@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_in.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:03:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:22:51 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:51:10 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	in_norm(char *str, int s_flag, int d_flag)
 	else if (str[0] == '<' && ft_three_in(str) && !s_flag && !d_flag)
 		return (1);
 	else if (str[0] == '<' && str[1] == '|' && !s_flag && !d_flag)
+		return (1);
+	else if (str[0] == '<' && str[1] == str[0]  && str[2] == str[0])
 		return (1);
 	return (0);
 }

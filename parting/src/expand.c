@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/07 11:33:42 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/07 20:17:57 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ char	*expand_str(char *string)
 	}
 	sub_2 = ft_substr(string+i, 0, j);
 	sub2_exp = help_expand(sub_2);
+	sub2_exp = help_quote_exp(sub2_exp);
 	sub_2 = ft_strjoin(sub_1, sub2_exp);
 	sub_2 = ft_strjoin(sub_2, string + i + j);
 	free(string);

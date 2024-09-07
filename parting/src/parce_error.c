@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:16:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/06 13:08:52 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:53:34 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	check_logical(char *str)
 		if ((str[i] == '|' && str[i + 1] == '|') && !s_flag && !d_flag)
 			return (1);
 		if ((str[i] == '&' &&  str[i + 1] == '&') && !s_flag && !d_flag)
+			return (1);
+		if ((str[i] == '|' && str[i + 1] == '\0') && !s_flag && !d_flag)
 			return (1);
 		i++;
 	}

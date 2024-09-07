@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/07 13:06:20 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/07 20:16:55 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,10 @@ void	ft_lstadd_file(t_file **lst, char *str, t_file *new)
 	t_file	*k;
 	char	*src;
 
-	new->flag = 0;
+	new->flag = 0;	
 	src = ft_strdup(str);
 	src = help_file(str, &new , src);
     new->file = src;
-	printf("::::%s\n", new->file);
-	// if (!new->file)
-	// {
-	// 	new->file = str;
-	// 	new->flag = AMB;
-	// }
     new->next = NULL;
     k = *lst;   
 	if (!lst)
@@ -65,7 +59,9 @@ char	**help_cmd(char *str)
 	
 	a = 0;
 	while (need_expand(str))
+	{
 		str = expand_str(str);
+	}
 	cmd_plt = split_str(str, &a);
 	return (cmd_plt);
 }
@@ -76,7 +72,7 @@ void    ft_lstadd_cmd(t_cmd **head, char *str)
     t_cmd   *k;
 	char	**cmd_split;
 	size_t i = 0 ;
-
+	
    	cmd_split = help_cmd(str);
 	if (!cmd_split)
 		return ;
