@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 11:02:58 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 10:59:53 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:25:44 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!str)
 		return (NULL);
 	ft_strlcpy((char *)str, (char *)&s1[s], i - s + 2);
-	// free(s1);
 	return ((char *)str);
 }

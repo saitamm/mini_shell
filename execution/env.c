@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/15 11:03:33 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:25:25 by lai-elho         ###   ########.fr       */
+/*   Created: 2024/08/17 10:49:44 by lai-elho          #+#    #+#             */
+/*   Updated: 2024/09/04 14:15:18 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_strchr(const char	*s, int c)
+void print_env(t_env *head)
 {
-	char	find;
-	int		i;
-
-	find = (unsigned char)c;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == find)
-			return ((char *)s + i);
-		i++;
-	}
-	if (s[i] == find)
-		return ((char *)s + i);
-	return (0);
+    t_env *temp = head;
+   
+        while (temp)
+        {
+            if (temp->key && temp->value)
+                printf("%s = %s\n", temp->key, temp->value);
+            temp = temp->next;
+        }
 }

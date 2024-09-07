@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_whitespace.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/15 09:31:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:25:21 by lai-elho         ###   ########.fr       */
+/*   Created: 2024/08/28 12:08:51 by sait-amm          #+#    #+#             */
+/*   Updated: 2024/08/30 13:22:28 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-static int	ft_len(const char *s, char c)
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h> 
+
+static int	ft_len(const char *s)
 {
 	int	i;
 	int	len;
@@ -23,7 +27,7 @@ static int	ft_len(const char *s, char c)
 	flag = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (ft_whitespace(s[i]))
 			flag = 0;
 		else if (flag == 0)
 		{
@@ -35,14 +39,14 @@ static int	ft_len(const char *s, char c)
 	return (len);
 }
 
-static int	sub_len(const	char	*s, char c)
+static int	sub_len(const	char	*s)
 {
 	int	i;
 	int	len;
 
 	len = 0;
 	i = 0;
-	while (s[i] && s[i] != c)
+	while (s[i] && !ft_whitespace(s[i]))
 	{
 		len++;
 		i++;
@@ -50,14 +54,14 @@ static int	sub_len(const	char	*s, char c)
 	return (len);
 }
 
-static char	*ft_cpy(const char *s, char c)
+static char	*ft_cpy(const char *s)
 {
 	char	*d;
 	int		i;
 	int		w;
 
 	i = 0;
-	w = sub_len(s, c);
+	w = sub_len(s);
 	d = (char *)malloc(sizeof(char) * (w + 1));
 	if (!d)
 		return (NULL);
@@ -70,14 +74,7 @@ static char	*ft_cpy(const char *s, char c)
 	return (d);
 }
 
-void	ft_free(char	**str, int i)
-{
-	while (i > 0)
-		free(str[--i]);
-	free(str);
-}
-
-char	**ft_split(const char *s, char c)
+char	**ft_split_whitesp(const char *s)
 {
 	char	**str;
 	int		i;
@@ -85,23 +82,25 @@ char	**ft_split(const char *s, char c)
 
 	if (!s)
 		return (NULL);
-	cw = ft_len(s, c);
+	cw = ft_len(s); 
 	str = (char **)malloc((cw + 1) * sizeof(char *));
 	if (!str)
 		return (NULL);
 	i = 0;
 	while (i < cw)
 	{
-		while (*s == c)
+		while (*s && ft_whitespace(*s)) 
 			s++;
-		str[i] = ft_cpy(s, c);
+		str[i] = ft_cpy(s);
 		if (!str[i++])
 		{
 			ft_free(str, i);
 			return (NULL);
 		}
-		s = s + ft_strlen(str[i - 1]);
+		s = s + sub_len(s);
 	}
 	str[i] = NULL;
+	// free((char *	)s);	
 	return (str);
 }
+

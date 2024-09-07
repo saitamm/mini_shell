@@ -1,46 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_libft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 10:52:00 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:25:07 by lai-elho         ###   ########.fr       */
+/*   Created: 2024/08/27 15:44:00 by lai-elho          #+#    #+#             */
+/*   Updated: 2024/08/29 21:40:04 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_whitespace(char c)
+char *ft_strcpy(char *dest, const char *src)
 {
-	if (c == ' ' || c == '\t' || c == '\r'
-		|| c == '\f' || c == '\n' || c == '\v')
-		return (1);
-	return (0);
+    size_t i = 0;
+
+    while (src[i])
+    {
+        dest[i] = src[i];
+        i++;
+    }
+    dest[i] = '\0';
+    return dest;
 }
 
-int	ft_atoi(const char	*c)
+
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int	i;
-	int	sign;
-	int	result;
+	size_t	i;
 
 	i = 0;
-	result = 0;
-	sign = 1;
-	while (ft_whitespace(c[i]) == 1)
-		i++;
-	if (c[i] == '+' || c[i] == '-')
+	while (s1[i] || s2[i])
 	{
-		if (c[i] == '-')
-			sign = (-1) * sign;
+		if ((unsigned char)s1[i] > (unsigned char)s2[i])
+			return (1);
+		if ((unsigned char)s1[i] < (unsigned char)s2[i])
+			return (-1);
 		i++;
 	}
-	while (c[i] >= '0' && c[i] <= '9')
-	{
-		result = result * 10 + c[i] - '0';
-		i++;
-	}
-	return (result * sign);
+	return (0);
 }

@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/15 11:03:33 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:25:25 by lai-elho         ###   ########.fr       */
+/*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
+/*   Updated: 2024/08/29 15:44:00 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_strchr(const char	*s, int c)
-{
-	char	find;
-	int		i;
-
-	find = (unsigned char)c;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == find)
-			return ((char *)s + i);
-		i++;
-	}
-	if (s[i] == find)
-		return ((char *)s + i);
-	return (0);
-}
+// void ft_builtins(char *buff)
+// {
+//     if(strchr(buff, "cd") == 0)
+//         printf("cd");
+    
+// }

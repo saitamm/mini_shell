@@ -6,26 +6,35 @@
 #    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/08/31 10:59:33 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/09/07 09:17:21 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = minishell.c \
-		src/parce_error.c \
-		src/print_error.c \
-		src/redirection_in.c \
-		src/redirection_out.c \
-		src/ft_split_pipe.c \
-		src/init_struct.c \
-		src/add_fun.c \
-		src/fun_file.c \
-		src/help_quote.c \
-		laila/env_struct.c \
-		src/expand.c \
-		src/ft_split_whitespace.c \
-		src/help_expand.c \
-		src/to_final_struct.c \
-		src/free_fun.c
+SRC =  minishell.c \
+		parting/src/parce_error.c \
+		parting/src/print_error.c \
+		parting/src/redirection_in.c \
+		parting/src/redirection_out.c \
+		parting/src/ft_split_pipe.c \
+		parting/src/init_struct.c \
+		parting/src/add_fun.c \
+		parting/src/fun_file.c \
+		parting/src/help_quote.c \
+		parting/src/expand.c \
+		parting/src/ft_split_whitespace.c \
+		parting/src/help_expand.c \
+		parting/src/to_final_struct.c \
+		execution/echo.c \
+		execution/env.c \
+		execution/builtins.c \
+ 		execution/env_struct.c \
+		execution/pwd.c \
+		execution/cd.c \
+		execution/ft_libft.c \
+		execution/execution.c \
+		execution/unset.c \
+		execution/export.c \
+		execution/exit.c
 
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft
@@ -35,7 +44,7 @@ INCLUDES = -I . -I include -I $(LIBFT_DIR)
 
 C = cc
 
-CFLAGS =  -Wall -Werror -Wextra #-fsanitize=address -g3
+CFLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address 
 
 all: $(NAME)
 
