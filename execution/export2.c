@@ -6,11 +6,27 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:09:53 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/07 21:57:37 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:01:26 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int ft_check_export_unset_args(char *str)
+{
+    if(str == NULL)
+        return 0;
+    int i = 0;
+    while(str[i])
+    {
+        printf("teest\n\n");
+        if((str[i] <= 'z' && str[i] >= 'a') || (str[i] <= 'Z' && str[i] >= 'A' )|| (str[i] <= '9' && str[i] >= '0' )|| str[i] == '_')
+            i++;
+        else 
+            return 0;
+    }
+    return 1;
+}
 
 t_env *find_key(t_env *env, const char *key) {
     while (env) {

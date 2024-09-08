@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/07 22:10:33 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:04:42 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ void ft_exit(char **cmd)
 {
     if(!cmd)
         return;
-    if(cmd[1])
-    {
-        if(isanumvalue(cmd[1]))
+    if(cmd[1] && cmd[2] == NULL)
+    {	
+        if(isanumvalue(cmd[1]) )
             exit(atoll(cmd[1])); // don't forget to change atoll to ft_....
         else
-            printf("eroooooor]\n");
+            printf("exit \nbash: exit: %s: numeric argument required\n",cmd[1]);
+			exit(2);
     }else
-        exit(0);
+		printf("exit \nbash: exit: too many arguments\n");
 }
