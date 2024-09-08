@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/30 11:36:41 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:14:38 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_list_sort(t_env **env)
 	{
 		i = 0;
 		tmp = *env;
-		// printf("tmp->name is :%s", tmp->name);
 		while (tmp->next)
 		{
 			if (ft_strcmp(tmp->key, tmp->next->key) > 0)
@@ -55,29 +54,56 @@ void	print_export()
 	t_env	*tmp;
 
 	tmp = g_global->env;
+	int i = 0;
 	ft_list_sort(&tmp);
 	while (tmp)
 	{
-		if (tmp->value)
+		if (tmp->value && tmp->key)
 			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		else if (!tmp->value)
 			printf("declare -x %s\n", tmp->key);
 		tmp = tmp->next;
+		i++;
 	}
 }
 
-void	export(t_execution *exec)
+void ft_add_to_export(char *str) {
+    char *equal_sign = strchr(str, '=');
+
+    if (equal_sign) {
+        char *key = get_key(str);
+        char *value = equal_sign + 1;
+
+		if(ft_check_export_unset_args(key) == 0)
+			return ;
+        if (key && value) {
+            add_to_list(&g_global->env, key, value);
+        }
+        
+        free(key);
+    } else {
+        char *key = ft_strdup(str);
+        if (key) {
+            add_to_list(&g_global->env, key, "");
+        }
+        free(key);
+    }
+}
+
+void	ft_export(t_minishell *strct)
 {
 	int	i;
 
 	i = 1;
-	if (!exec->av[i] || (exec->av[i][0] == '\0'
-		&& exec->av[i + 1] == NULL))
-		print_export(exec);
-	// else
-	// 	while (exec->av[i])
-	// 	{
-	// 		//add
-	// 			return ;
-	//  }
-}        
+	if (!strct->cmd[i] || (strct->cmd[i][0] == '\0' && strct->cmd[i + 1] == NULL)) {
+		print_export();
+	} else {
+		while (strct->cmd[i]) {
+			// if(ft_check_export_unset_args(strct->cmd[i]) == 0)
+			// 	return;
+			if(!process_env_variable(strct->cmd[i]))
+				ft_add_to_export(strct->cmd[i]);
+			i++;
+	 	}
+	}
+}     

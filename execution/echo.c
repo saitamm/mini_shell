@@ -1,84 +1,56 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/17 10:54:41 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/08/29 15:44:07 by lai-elho         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../include/minishell.h"
 
-void    ft_find_in_env(char *to_find, char **env)
-{
-    int i = 0;
-    int len = ft_strlen(to_find);
-    int path_len;
-
-    while (env[i])
-    {
-        if (ft_strncmp(env[i], to_find, len) == 0 && env[i][len] == '=')
-        {
-            path_len = ft_strlen (&env[i][len + 1]);
-            write(1, &env[i][len + 1], path_len);
-            write(1, "\n", 1);
+void ft_find_in_env(char *search_key) {
+    while (g_global->env != NULL) {
+        if (strcmp(g_global->env->key, search_key) == 0) {
+            printf("%s\n", g_global->env->value);
             return;
         }
-        i++;
+        g_global->env = g_global->env->next;
     }
-    write(1, "Variable not found\n", 19);
+    printf("Key not found: %s\n", search_key);
 }
 
-void    ft_echo(int ac, char **str, char **env)
-{
-    int j = 1;
-    int i;
-    int flag = 1;
 
-    if(str[1][0] == '-' && str[1][1] == 'n')
-    {
-        flag = 0;
+int check_n(const char *s) {
+    int i = 1; 
+    while (s[i] == 'n') {
+        i++;
+    }
+        if (s[i] == '\0') 
+            return 1;
+        else
+        return 0;
+    }
+
+void ft_echo(char **str) {
+    int j = 1;
+    int newline = 1;
+
+    while (str[j] && str[j][0] == '-' && check_n(str[j])) {
+        newline = 0;
         j++;
     }
-    
-    while(j < ac)
-    {
-        i = 0;
-        if(str[j][0] == '\'')
-        {
-            while(str[j][i])
-            {
-                write(1,&str[j][i],1);
-                i++;
+    // Loop through arguments and print them
+    while (str[j]) {
+        int i = 0;
+        while (str[j][i]) {
+            if (str[j][i] == '$' && str[j][i + 1] != '\0') {
+                // Handle environment variable
+                ft_find_in_env(str[j] + i);
+                break;
+            } else {
+                write(1, &str[j][i], 1);
             }
+            i++;
         }
-        else if(str[j][0] == '"' && str[j][1] != '$')
-        {
-            while(str[j][i])
-            {
-                write(1,&str[j][i],1);
-                i++;
-            }
+        if (str[j + 1]) {
+            write(1, " ", 1);
         }
-        else if(str[j][0] == '"' && str[j][1] == '$')
-        {
-            ft_find_in_env(str[j] , env);
-        }
-        else 
-        {
-            while(str[j][i])
-            {
-                write(1,&str[j][i],1);
-                i++;
-            }
-        }
-        if(j < ac - 1)
-            write(1," ",1);
         j++;
     }
-    if(flag == 1)
-        write(1,"\n",1);
+
+    if (newline) {
+        write(1, "\n", 1);
+    }
 }

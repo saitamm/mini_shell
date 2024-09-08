@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 09:30:13 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:22:23 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:58:08 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*help_pipe_quote(char *str)
 	b.d_quote = 0;
 	while (str[i])
 	{
-		ft_bool_quote(&b.s_quote, &b.d_quote, str[i]);
+		update_quotes(&b.s_quote, &b.d_quote, str[i]);
 		if (str[i] == '|' && (b.s_quote || b.d_quote))
 			str[i] *= -1;
 		i++;
@@ -48,8 +48,11 @@ char	*help_pipe_quote_2(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] < 32 || str[i] > 127)
+		if (str[i] < 0)
+		{
+			printf("%d\n", str[i]);
 			str[i] *= -1;
+		}
 		i++;
 	}
 	return (str);

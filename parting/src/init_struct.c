@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 10:59:21 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:22:39 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:32:12 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	full_command(t_data **data, char *str)
 	{
 		while (ft_whitespace(str[i]))
 			i++;
-		ft_bool_quote(&flag.d_quote, &flag.s_quote, str[i]);
+		update_quotes(&flag.d_quote, &flag.s_quote, str[i]);
 		if (append_her_doc(str[i], str[i+1]) && !flag.s_quote && !flag.d_quote)
 		{
 			i = i+2;
@@ -100,12 +100,13 @@ void	full_command(t_data **data, char *str)
 			if (!new)
 				return ;
 			file_cmd = ft_file(str+i);
-			if (str[i] == '<')
+			if (str[i -1] == '<')
 				new->file_type = HER_DOC;
 			else
 				new->file_type = APPEND;
 			ft_lstadd_file(&s->files, file_cmd, new);
 			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
+			// free(file_cmd);
 		}
 		else if (str[i] == '<' && !flag.s_quote && !flag.d_quote)
 		{
@@ -117,25 +118,28 @@ void	full_command(t_data **data, char *str)
 			new->file_type = IN;
 			ft_lstadd_file(&s->files, file_cmd, new);
 			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
+			// free(file_cmd);
 		}
 		else if (str[i] == '>' && !flag.s_quote && !flag.d_quote)
 		{
+			i++;
 			file_cmd = ft_file(str+i);
-			i+=1;
 			t_file *new = (t_file *)malloc(sizeof(t_file));
 			if (!new)
 				return ;
 			new->file_type = OUT;
 			ft_lstadd_file(&s->files, file_cmd, new);
 			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
+			// free(file_cmd);
 		}
 		else
 		{
 			file_cmd = ft_file(str+i);
 			size_t k = ft_strlen(file_cmd);
 			ft_lstadd_cmd(&s->command, file_cmd);
-			i = i + ft_skip(str+i) + k;		
-			ft_bool_quote(&flag.d_quote, &flag.s_quote, str[i-1]);
+			i = i + ft_skip(str+i) + k;
+			update_quotes(&flag.d_quote, &flag.s_quote, str[i-1]);
+			// free(file_cmd);
 		}
 	}
 	s->next = NULL;
@@ -154,15 +158,24 @@ void    init_data(t_data **data, char **line)
 {
 	size_t     i;
 	size_t  p_nmbr;
+	char	**str;
 
-	i = -1;
-	while (line[++i])
-		line[i] = ft_strtrim(line[i], "\n\r\v\f\t ");
 	i = 0;
 	p_nmbr = len_double_str(line);
+	str = malloc((p_nmbr + 1) * sizeof(char *));
+	if (!str)
+		return ;
+	while (line[i])
+	{
+		str[i] = ft_strtrim(line[i], "\n\r\v\f\t ");
+		i++;
+	}
+	str[i] = NULL;
+	i = 0;
 	while (i < p_nmbr)
 	{
-		full_command(data, line[i]);
+		full_command(data, str[i]);
 		i++; 
 	}
-}
+  	ft_free(str, p_nmbr);
+  }

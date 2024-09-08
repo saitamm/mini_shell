@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parting.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:50:17 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:21:57 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:46:27 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void				init_data(t_data **data, char **line);
 
 char				*help_file(char *str,t_file **s,  char *src);
 char				*ft_file(char *str);
-void				ft_bool_quote(bool *s, bool *d, char c);
+void				update_quotes(bool *s, bool *d, char c);
 
 // linked list function
 

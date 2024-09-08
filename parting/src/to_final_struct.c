@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_final_struct.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:47:36 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:22:58 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:56:52 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,38 @@ void    to_final_struct(t_data *data, t_minishell **strct)
     }
 }
 
+
+void	ft_free_cmd(t_cmd **lst)
+{
+	t_cmd	*k;
+
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		k = *lst;
+		free((*lst)->cmd);
+		*lst = (*lst)->next;
+		free(k);
+	}
+	*lst = NULL;
+}
+
+void    ft_free_data(t_data **data)
+{
+    t_data *k;
+    if (!data)
+        return ;
+    while (*data)
+    {
+        k = *data;
+        ft_free_cmd(&(*data)->command);
+        *data = (*data)->next;
+        free(k);
+    }
+    *data = NULL;
+}
+
 t_minishell *parce(char *line)
 {
     char    **splt_line;
@@ -100,5 +132,6 @@ t_minishell *parce(char *line)
 	init_data(&data, splt_line);
     to_final_struct(data, &str);
     ft_free(splt_line, len_double_str(splt_line));
+    ft_free_data(&data);
     return (str);
 }
