@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 10:59:21 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/07 19:32:12 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:09:30 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	full_command(t_data **data, char *str)
 	t_data *s;
 	t_data	*d;
 	char	*file_cmd;
+	int j = 0;
 
 	
 	i = 0;
@@ -92,7 +93,12 @@ void	full_command(t_data **data, char *str)
 	{
 		while (ft_whitespace(str[i]))
 			i++;
-		update_quotes(&flag.d_quote, &flag.s_quote, str[i]);
+		j = 0;
+		while (ft_whitespace(str[i+j]))
+		{
+			update_quotes(&flag.d_quote, &flag.s_quote, str[i+j]);
+			j++;
+		}
 		if (append_her_doc(str[i], str[i+1]) && !flag.s_quote && !flag.d_quote)
 		{
 			i = i+2;
