@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/07 20:16:55 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/10 10:57:07 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ char	**help_cmd(char *str)
 {
 	char	**cmd_plt;
 	int		a;
+	int		i;
 	
 	a = 0;
-	while (need_expand(str))
-	{
-		str = expand_str(str);
-	}
+	i = 0;
+	while (need_expand(str, &i))
+		str = expand_str(str, i);
 	cmd_plt = split_str(str, &a);
 	return (cmd_plt);
 }

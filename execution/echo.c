@@ -35,13 +35,13 @@ void ft_echo(char **str) {
     while (str[j]) {
         int i = 0;
         while (str[j][i]) {
-            if (str[j][i] == '$' && str[j][i + 1] != '\0') {
-                // Handle environment variable
-                ft_find_in_env(str[j] + i);
-                break;
-            } else {
+            // if (str[j][i] == '$' && str[j][i + 1] != '\0') {
+            //     // Handle environment variable
+            //     ft_find_in_env(str[j] + i);
+            //     break;
+            // } else {
                 write(1, &str[j][i], 1);
-            }
+            // }
             i++;
         }
         if (str[j + 1]) {

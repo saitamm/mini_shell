@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:50:17 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/05 14:46:27 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/10 11:14:43 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int					ft_strncmp(const char	*str1, const char	*str2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const	*s, unsigned int start, size_t	len);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+int	ft_isalnum(unsigned char c);
 int	ft_isalpha(int c);
 
 
@@ -147,7 +148,7 @@ t_data				*ft_lstlast_data(t_data *lst);
 
 //expand	
 
-int	need_expand(char *str);
+int	need_expand(char *str, int *pos);
 char	*help_expand(char *str);
 
 //free function 
@@ -163,7 +164,7 @@ int					synt_error(char *str);
 
 char	**ft_split_whitesp(const char *s);
 char	*ft_cpy_dolar(char *str);
-char	*expand_str(char *string);
+char	*expand_str(char *string, int pos);
 char	*expand(char *str);
 char	**split_str(char *str, int *f);
 char	*help_quote_exp(char *str);

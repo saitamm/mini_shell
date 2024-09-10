@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:39:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/07 11:33:15 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:03:17 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*help_expand(char *str)
 	t_env	*env;
 
 	env = g_global->env;
+	if (!str || str[0] == '\0')
+		return (NULL);
 	while(env)
 	{
 		if (!ft_strncmp(str, env->key, ft_strlen(str)))
