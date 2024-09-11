@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
+#    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/09/08 19:50:20 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/09/11 11:14:56 by lai-elho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ INCLUDES = -I . -I include -I $(LIBFT_DIR)
 
 C = cc
 
-CFLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address 
+CFLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address 
 
 all: $(NAME)
 

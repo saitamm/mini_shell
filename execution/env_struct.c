@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/07 11:16:32 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:09:02 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,39 @@ char *ft_putkey(char *env_var)
 char *get_key(char *s)
 {
     int i = 0;
-
-    while (s[i] && s[i] != '=')
-        i++;
-    char *new = malloc((sizeof(char) * i) + 1);
-    if (!new)
-        return (NULL);
     int j = 0;
-    while (j < i)
+    int separator_pos = -1;
+
+    while (s[i])
     {
-        new[j] = s[j];
+        if (s[i] == '=')
+        {
+            separator_pos = i;
+            if (i > 0 && s[i-1] == '+')
+            {
+                g_global->separator = 1; 
+                separator_pos--;   
+            }
+            else
+                g_global->separator = 0;   
+            break;
+        }
+        i++;
+    }
+    if (separator_pos == -1)
+        return NULL;
+    char *key = malloc((sizeof(char) * separator_pos) + 1);
+    if (!key)
+        return NULL;
+    while( j < separator_pos)
+    {
+        key[j] = s[j];
         j++;
     }
-    new[j] = '\0';
-    return (new);
+    key[separator_pos] = '\0';
+    return key;
 }
+
 
 void parse_env_var(char **env_var)
 {
