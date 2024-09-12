@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:50:17 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/10 22:08:38 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:18:48 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # define ERROR "syntax error near unexpected token"
 # define RED "\033[0;31m"
@@ -165,10 +166,14 @@ int					synt_error(char *str);
 char	**ft_split_whitesp(const char *s);
 char	*ft_cpy_dolar(char *str);
 char	*expand_str(char *string, int pos);
-char	*expand(char *str);
 char	**split_str(char *str, int *f);
 char	*help_quote_exp(char *str);
 char	*remove_quote(char *str);
 t_minishell *parce(char *line);
 
+
+// her doc function
+
+char    *generate_filename();
+char	*create_file_herdoc(char *lim, enum token flag_quote);
 #endif

@@ -6,24 +6,24 @@
 #    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/09/07 19:31:30 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/09/12 11:40:14 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC =  minishell.c \
-		parting/src/parce_error.c \
-		parting/src/print_error.c \
-		parting/src/redirection_in.c \
-		parting/src/redirection_out.c \
-		parting/src/ft_split_pipe.c \
-		parting/src/init_struct.c \
-		parting/src/add_fun.c \
-		parting/src/fun_file.c \
-		parting/src/help_quote.c \
-		parting/src/expand.c \
-		parting/src/ft_split_whitespace.c \
-		parting/src/help_expand.c \
-		parting/src/to_final_struct.c \
+		parsing/src/parce_error.c \
+		parsing/src/print_error.c \
+		parsing/src/redirection_in.c \
+		parsing/src/redirection_out.c \
+		parsing/src/ft_split_pipe.c \
+		parsing/src/init_struct.c \
+		parsing/src/add_fun.c \
+		parsing/src/fun_file.c \
+		parsing/src/help_quote.c \
+		parsing/src/expand.c \
+		parsing/src/ft_split_whitespace.c \
+		parsing/src/help_expand.c \
+		parsing/src/to_final_struct.c \
 		execution/echo.c \
 		execution/env.c \
 		execution/builtins.c \
@@ -34,7 +34,8 @@ SRC =  minishell.c \
 		execution/execution.c \
 		execution/unset.c \
 		execution/export.c \
-		execution/exit.c
+		execution/exit.c \
+		parsing/src/her_doc.c
 
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft

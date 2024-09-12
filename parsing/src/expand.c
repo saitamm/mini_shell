@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/10 22:09:48 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/12 12:01:01 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*find_str_exp(char *str)
 		return(ft_substr(str, 0, 1));
 	while (str[i])
 	{
-		if (!ft_isalpha(str[i]) && str[i] != 95)
+		if (!ft_isalpha(str[i]) && str[i] != 95 && !ft_isalnum(str[i]))
 			break;
 		i++;
 	}
