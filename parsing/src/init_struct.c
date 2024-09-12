@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 10:59:21 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/10 12:09:30 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:21:48 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_skip(char *str)
 		i++;
 	return (i);
 }
-enum type	append_her_doc(char a, char b)
+enum e_type	append_her_doc(char a, char b)
 {
 	if (a == '<' && a == b)
 		return (HER_DOC);

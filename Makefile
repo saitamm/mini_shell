@@ -6,7 +6,7 @@
 #    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/09/12 11:40:14 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/09/12 13:24:04 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC =  minishell.c \
 		execution/execution.c \
 		execution/unset.c \
 		execution/export.c \
+		execution/export2.c \
 		execution/exit.c \
 		parsing/src/her_doc.c
 

@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/07 01:08:57 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:08:50 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,27 +67,6 @@ void	print_export()
 	}
 }
 
-void ft_add_to_export(char *str) {
-    char *equal_sign = strchr(str, '=');
-
-    if (equal_sign) {
-        char *key = get_key(str);
-        char *value = equal_sign + 1;
-
-        if (key && value) {
-            add_to_list(&g_global->env, key, value);
-        }
-        
-        free(key);
-    } else {
-        char *key = ft_strdup(str);
-        if (key) {
-            add_to_list(&g_global->env, key, "");
-        }
-        free(key);
-    }
-}
-
 void	ft_export(t_minishell *strct)
 {
 	int	i;
@@ -97,7 +76,7 @@ void	ft_export(t_minishell *strct)
 		print_export();
 	} else {
 		while (strct->cmd[i]) {
-			ft_add_to_export(strct->cmd[i]);
+			ft_check_key(strct->cmd[i]);
 			i++;
 	 	}
 	}

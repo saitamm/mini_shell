@@ -6,110 +6,99 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:09:53 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/07 01:10:56 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:08:27 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int ft_check_export_unset_args(char *str)
+{
+    if(str == NULL)
+        return 0;
+    int i = 0;
+    while(str[i])
+    {
+        if((str[i] <= 'z' && str[i] >= 'a') || (str[i] <= 'Z' && str[i] >= 'A' )|| (str[i] <= '9' && str[i] >= '0' )|| str[i] == '_')
+            i++;
+        else 
+            return 0;
+    }
+    return 1;
+}
 
-// // Function to safely duplicate strings
-// char *ft_strdup(const char *src) {
-//     char *dup = malloc(strlen(src) + 1);
-//     if (!dup)
-//         return NULL;
-//     strcpy(dup, src);
-//     return dup;
-// }
+int find_key(t_env *env, const char *key) {
+    while (env) {
+        if (strcmp(env->key, key) == 0) 
+            return 1;
+        env = env->next;
+    }
+    return 0;
+}
 
-// // Function to find key length (before '=' or '+=')
-// int find_key_len(const char *str) {
-//     int i = 0;
-//     while (str[i] && str[i] != '=' && !(str[i] == '+' && str[i + 1] == '='))
-//         i++;
-//     return i;
-// }
+void    ft_change_key_value(char *key, char *value)
+{
+    t_env  *head = g_global->env;
+    while (g_global->env)
+    {
+        if (ft_strcmp(key, g_global->env->key) == 0)
+        {
 
-// // Function to extract the key (before '=' or '+=')
-// char *extract_key(const char *str) {
-//     int key_len = find_key_len(str);
-//     char *key = malloc(key_len + 1);
-//     if (!key)
-//         return NULL;
+            if (g_global->separator == 1)
+            {
+                char *new_value;
+                new_value = malloc(ft_strlen(g_global->env->value) + ft_strlen(value) + 1);
+                if (new_value == NULL)
+                    return;
+                                ft_strcpy(new_value, g_global->env->value);
+                ft_strcat(new_value, value);
+                                free(g_global->env->value);
+                g_global->env->value = new_value;
+            }
+            else 
+            {
+                char *new_value = malloc(ft_strlen(value) + 1);
+                if (new_value == NULL)
+                    return; 
+                ft_strcpy(new_value, value);
+                free(g_global->env->value);
+                g_global->env->value = new_value;
+            }
+            break; // Key is found
+        }
+        else
+            g_global->env = g_global->env->next;
+    }
+    g_global->env = head;
+}
 
-//     strncpy(key, str, key_len);
-//     key[key_len] = '\0';  // Null-terminate the key
-//     return key;
-// }
 
-// // Search for the key in the linked list
-// t_env *search_key(t_env *head, const char *key) {
-//     while (head) {
-//         if (strcmp(head->key, key) == 0)
-//             return head;
-//         head = head->next;
-//     }
-//     return NULL;  // Key not found
-// }
 
-// // Function to update or append to the value
-// void modify_value(t_env *node, const char *str) {
-//     char *equal_sign = strchr(str, '=');
-    
-//     if (!equal_sign)
-//         return;  // No '=' found, invalid input
-    
-//     // Check if it's an append operation "+="
-//     if (*(equal_sign - 1) == '+') {
-//         char *new_value = ft_strdup(equal_sign + 1);
-//         if (!new_value)
-//             return;
 
-//         // Append new_value to the existing value
-//         char *combined_value = malloc(strlen(node->value) + strlen(new_value) + 1);
-//         if (!combined_value) {
-//             free(new_value);
-//             return;
-//         }
-//         strcpy(combined_value, node->value);
-//         strcat(combined_value, new_value);
+void    ft_check_key(char *str)
+{
+    char *equal_sign = ft_strchr(str, '=');
+    char *key; 
+    if (equal_sign)
+    {
+        key = get_key(str); // hadle the key+=value (key doesn't exist)
+        // printf("the key = %s\n\n", g_global->separator);
+        char *value = equal_sign + 1;
+        if(ft_check_export_unset_args(key) == 0)
+			return ;
+        if(find_key(g_global->env, key) == 0 && key && value )
+            add_to_list(&g_global->env, key, value);
+        else
+        {
+            ft_change_key_value(key, value);
+        }     
+    }
+    else 
+    {
+    key = ft_strdup(str);
+    if (key)
+        add_to_list(&g_global->env, key, "");
+    }
+    free(key);
 
-//         free(node->value);  // Free the old value
-//         node->value = combined_value;  // Update with the combined value
-//         free(new_value);  // Free the new_value
-//     } else {
-//         // Update with the new value after '='
-//         free(node->value);  // Free the old value
-//         node->value = ft_strdup(equal_sign + 1);
-//     }
-// }
-
-// // Function to process the input string and modify the linked list
-// void process_str(t_env **env_list, const char *str) {
-//     char *key = extract_key(str);
-//     if (!key)
-//         return;  // Memory allocation failed
-
-//     // Search for the key in the linked list
-//     t_env *node = search_key(*env_list, key);
-
-//     if (node) {
-//         // Key found, modify its value
-//         modify_value(node, str);
-//     } else {
-//         // Key not found, create a new node and add it to the list
-//         char *equal_sign = strchr(str, '=');
-//         if (equal_sign) {
-//             char *value = ft_strdup(equal_sign + 1);
-//             t_env *new_node = malloc(sizeof(t_env));
-//             if (new_node) {
-//                 new_node->key = ft_strdup(key);
-//                 new_node->value = value;
-//                 new_node->next = *env_list;
-//                 *env_list = new_node;
-//             }
-//         }
-//     }
-
-//     free(key);  // Free the extracted key
-// }
+}
