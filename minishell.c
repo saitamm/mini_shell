@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/12 14:40:27 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:04:31 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,44 +59,10 @@ int main(int ac, char **av, char **env)
         strct = parce(line);
         if (!strct)
             continue;
-        print(strct);
+        // print(strct);
         ft_execution(strct);
         add_history(line);
         free(line);
     }
     return (0);
 }
-// int main()
-// {
-//     // printf ("::%d\n",ac );
-//     // printf ("::%s\n",av[0]);
-//     printf(">>>>%s\n", generate_filename());
-// }
-
-
-// int main(int ac, char **av, char **env)
-// {
-//     (void)ac;
-//     (void)av;
-//     char    *line;
-//     t_minishell *strct;
-//     g_global = malloc (sizeof(t_global));
-//     parse_env_var(env);
-//     while (1)
-//     {
-//         line = readline(GOLD "$minishell>" RESET); 
-//         if (!line)
-//             return 0 ;
-//         strct = parce(line);
-//         if (!strct)
-//         {
-//             add_history(line);
-//             free(line);
-//             continue;
-//         }
-//         // ft_execution(strct, execution_struct);
-// 		add_history(line);
-//         free(line);
-//     }
-//     return (0);
-// }

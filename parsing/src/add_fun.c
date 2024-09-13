@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/10 10:57:07 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:20:15 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,25 @@ char	**help_cmd(char *str)
 	char	**cmd_plt;
 	int		a;
 	int		i;
+	char	*s;
 	
 	a = 0;
 	i = 0;
-	while (need_expand(str, &i))
-		str = expand_str(str, i);
+	s = ft_strdup(str);
+	while (need_expand(s, &i))
+		s = expand_str(s, i);
 	cmd_plt = split_str(str, &a);
 	return (cmd_plt);
 }
 
-void    ft_lstadd_cmd(t_cmd **head, char *str)
+void    ft_lstadd_cmd(t_cmd **head, char *file_cmd)
 {
     t_cmd   *s;
     t_cmd   *k;
 	char	**cmd_split;
 	size_t i = 0 ;
 	
-   	cmd_split = help_cmd(str);
+   	cmd_split = help_cmd(file_cmd);
 	if (!cmd_split)
 		return ;
 	i= 0 ;
@@ -97,6 +99,7 @@ void    ft_lstadd_cmd(t_cmd **head, char *str)
 		k->next = s;
 		i++;
 	}
+	ft_free(cmd_split, len_double_str(cmd_split));
 }
 
 t_data	*ft_lstlast_data(t_data *lst)

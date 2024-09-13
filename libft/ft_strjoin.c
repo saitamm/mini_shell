@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:09:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:25:31 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:07:44 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*ft_cpy(const char *s1, char const *s2)
 	return (d);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char  *s1, char *s2, int f)
 {
 	char	*d;
 
@@ -50,5 +50,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s2)
 		return (ft_strdup(s1));
 	d = ft_cpy(s1, s2);
+	if (f == 2)
+		{
+			free(s1);
+			free(s2);
+		}
+	else if (f == 1)
+		free(s1);
+	else if (f == 0)
+		free(s2);
 	return (d);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/06 23:17:02 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:21:29 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void ft_execution(t_minishell *strct)
 {
+    if (!strct->cmd[0])
+        return;
     if(ft_strcmp(strct->cmd[0], "pwd") == 0)
         ft_pwd();
     if(ft_strcmp(strct->cmd[0], "env") == 0)

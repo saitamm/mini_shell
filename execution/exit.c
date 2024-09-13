@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/08 20:20:38 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:03:58 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ long ft_atoll(char *c)
 
 void ft_exit(char **cmd)
 {
-	if (!cmd)
-		return;
+	if (!cmd || !cmd[1])
+		exit(0);
 	if (isanumvalue(cmd[1]))
 	{
 		if (cmd[1] && cmd[2] == NULL)

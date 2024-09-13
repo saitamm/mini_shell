@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/12 12:01:01 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:21:51 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,30 +82,34 @@ char	*expand_str(char *string, int pos)
 	char	*sub_2;
 	char	*sub_3;
 	char 	*sub_exp;
+	char	*final;
 
 	sub_1 = ft_substr(string, 0, pos);
 	sub_3 = find_str_exp(string + pos + 1);
 	sub_exp = help_quote_exp(help_expand(sub_3));
-	sub_2 = ft_strjoin(sub_1, sub_exp);
-	sub_2 = ft_strjoin(sub_2, string + pos + ft_strlen(sub_3) + 1);
+	sub_2 = ft_strjoin(sub_1, sub_exp, 2);
+	final = ft_strjoin(sub_2, string + pos + ft_strlen(sub_3) + 1, 1);
+	free(sub_3);
 	free(string);
-	return (sub_2);
+	return (final);
 }
 
 char	**split_str(char *str, int *f)
 {
 	char	**spl_str;
+	char	*temp;
 
 	if (ft_strchr(str, '\'') || ft_strchr(str, '\"'))
 	{
 		*f = 1;
-		str = remove_quote(str);
-		str = help_pipe_quote_2(str);
+		temp = ft_strdup(str);
+		temp = remove_quote(temp);
+		temp = help_pipe_quote_2(temp);
 		spl_str = malloc(2*sizeof(char *));
 		if (!spl_str)
 			return (NULL);
 		spl_str[0] = ft_strdup(str);
-		free(str);
+		free(temp);
 		spl_str[1] = NULL;
 		return (spl_str);
 	}

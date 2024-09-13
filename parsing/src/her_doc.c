@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/12 12:09:25 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:09:42 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,34 @@ char *convert_hex(const char *str, size_t len, const char *base)
 
 char    *generate_filename()
 {
-	int fd_rendom;
+	int fd_random;
 	char    *buff;
 	char    *name;
 	ssize_t size;
+	char	*k;
 
-	fd_rendom = open("/dev/random", O_RDONLY);
-	if (fd_rendom < 0)
+	fd_random = open("/dev/random", O_RDONLY);
+	if (fd_random < 0)
 		return (write(2, "failed to open random\n", 22), NULL);
 	buff = malloc(12*sizeof(char));
 	if (!buff)
 		return (write(2, "failed to allocate memory\n", 27), NULL);
 	while (1)
 	{
-		size = read(fd_rendom, buff, 11);
+		size = read(fd_random, buff, 11);
 		if (size < 0)
 		{
 			return (write(2, "failed to read number of bytes\n", 29 ), NULL);
 		}
 		buff[11] = '\0';
-		name = ft_strjoin("/tmp/.", convert_hex(buff, 11, "0123456789abcdef"));
+		k =  convert_hex(buff, 11, "0123456789abcdef");
+		printf("************%s\n", k);
+		name = ft_strjoin("/tmp/.",k, 0);
+		free(k);
 		if (access(name, F_OK))
 			break;
 	}
-	close(fd_rendom);
+	close(fd_random);
 	return (name);
 }
 
@@ -79,7 +83,7 @@ int	need_expand_her_doc(char *str, int *pos)
 	}
 	return (0);
 }
-char	*create_file_herdoc(char *lim, enum token flag_quote)
+char	*create_file_herdoc(char *lim, enum e_token flag_quote)
 {
 	char	*name_file;
 	char	*d;
@@ -94,7 +98,7 @@ char	*create_file_herdoc(char *lim, enum token flag_quote)
 	while (1)
 	{
 		line = readline(">");
-		if (!ft_strcmp(line, lim))
+		if (!ft_strncmp(line, lim, ft_strlen(line)))
 			break;
 		if (!flag)
 		{
@@ -109,7 +113,7 @@ char	*create_file_herdoc(char *lim, enum token flag_quote)
 		}
 		else
 		{
-			d = ft_strjoin(d, "\n");
+			d = ft_strjoin(d, "\n", 1);
 			line_exp = ft_strdup(line);
 			if (flag_quote != Q_HER)
 			{
@@ -117,14 +121,13 @@ char	*create_file_herdoc(char *lim, enum token flag_quote)
 					line_exp = expand_str(line_exp, i);
 			}
 		}
-		d = ft_strjoin(d, line_exp);
-		free(line);
+		d = ft_strjoin(d, line_exp, 2);
 	}
 	int fd = open(name_file, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, 0400);
 	if (fd < 0)
 		return (write(2, "failed to open file\n", 21), NULL);
 	write(fd, d, ft_strlen(d));
 	close(fd);
-	// free(d);
+	free(d);
 	return (name_file);
 }
