@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/13 11:09:42 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:50:12 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char    *generate_filename()
 		buff[11] = '\0';
 		k =  convert_hex(buff, 11, "0123456789abcdef");
 		printf("************%s\n", k);
-		name = ft_strjoin("/tmp/.",k, 0);
+		name = ft_strjoin("/tmp/.",k);
 		free(k);
 		if (access(name, F_OK))
 			break;
@@ -113,7 +113,7 @@ char	*create_file_herdoc(char *lim, enum e_token flag_quote)
 		}
 		else
 		{
-			d = ft_strjoin(d, "\n", 1);
+			d = ft_strjoin(d, "\n");
 			line_exp = ft_strdup(line);
 			if (flag_quote != Q_HER)
 			{
@@ -121,7 +121,7 @@ char	*create_file_herdoc(char *lim, enum e_token flag_quote)
 					line_exp = expand_str(line_exp, i);
 			}
 		}
-		d = ft_strjoin(d, line_exp, 2);
+		d = ft_strjoin(d, line_exp);
 	}
 	int fd = open(name_file, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, 0400);
 	if (fd < 0)

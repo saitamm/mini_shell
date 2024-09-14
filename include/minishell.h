@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/13 11:05:53 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:03:46 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ typedef struct s_global
 	int					flag;
 	int					exit_status;
 	int					separator;
+	char				*pwd;
+	char				*oldpwd;
+	char				*underscore;
 }						t_global;
 
 extern t_global			*g_global;
@@ -103,7 +106,7 @@ char					*ft_strdup(const char *s1);
 char					*ft_strchr(const char *s, int c);
 int						ft_strncmp(const char *str1, const char *str2,
 							size_t n);
-char					*ft_strjoin(char *s1, char  *s2, int f);
+char					*ft_strjoin(char *s1, char  *s2);
 char					*ft_substr(char const *s, unsigned int start,
 							size_t len);
 void					*ft_memcpy(void *dest, const void *src, size_t n);

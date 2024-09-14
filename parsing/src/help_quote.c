@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:13:57 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/10 09:28:09 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:46:02 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	nomber_quote_dollar(char *str)
 	while (str[i])
 	{
 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
-		if ((!b.s_quote && !b.d_quote) && (str[i] == '\'' || str[i] == '\"' || str[i] == '$' )&& str[i+1])
+		if ((!b.s_quote && !b.d_quote) && (str[i] == '\'' || str[i] == '\"' )&& str[i+1])
 			count++;
 		i++;	
 	}
@@ -59,8 +59,6 @@ int	nomber_quote_dollar(char *str)
 
 int		help_remove_quote(char *str, t_flag b)
 {
-	if (!b.s_quote && str[0] == '$')
-		return (1);
 	if (((!b.s_quote && !b.d_quote) && (str[0] == '\'' || str[0] == '\"') ))
 		return (1);
 	else if (!b.d_quote && str[0] == '\'')
@@ -95,5 +93,5 @@ char	*remove_quote(char *str)
 		}
 	}
 	file[j] = '\0';
-	return (free(str), file);
+	return (file);
 }

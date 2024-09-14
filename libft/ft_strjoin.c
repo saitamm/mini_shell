@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:09:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/13 11:07:44 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:49:23 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*ft_cpy(const char *s1, char const *s2)
 	return (d);
 }
 
-char	*ft_strjoin(char  *s1, char *s2, int f)
+char	*ft_strjoin(char  *s1, char *s2)
 {
 	char	*d;
 
@@ -50,14 +50,5 @@ char	*ft_strjoin(char  *s1, char *s2, int f)
 	if (!s2)
 		return (ft_strdup(s1));
 	d = ft_cpy(s1, s2);
-	if (f == 2)
-		{
-			free(s1);
-			free(s2);
-		}
-	else if (f == 1)
-		free(s1);
-	else if (f == 0)
-		free(s2);
 	return (d);
 }

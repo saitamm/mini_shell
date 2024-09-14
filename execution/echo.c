@@ -38,7 +38,7 @@ void    ft_echo(char **str) {
         {
             if (str[j][i] == '$' && str[j][i + 1] == '?')
             {
-                printf("%d", g_global->exit_status);
+                write(1, &g_global->exit_status, 1);
                 break;
             } 
             else

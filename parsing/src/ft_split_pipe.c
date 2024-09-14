@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 09:30:13 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/10 22:12:32 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:32:59 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ char	*help_pipe_quote_2(char *str)
 	while (str[i])
 	{
 		if (str[i] < 0)
-		{
 			str[i] *= -1;
-		}
 		i++;
 	}
 	return (str);

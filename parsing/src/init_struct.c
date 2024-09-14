@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 10:59:21 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/13 11:17:08 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:53:02 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	full_command(t_data **data, char *str)
 				new->file_type = APPEND;
 			ft_lstadd_file(&s->files, file_cmd, new);
 			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
-			free(file_cmd);
+			// free(file_cmd);
 		}
 		else if (str[i] == '<' && !flag.s_quote && !flag.d_quote)
 		{
@@ -124,7 +124,7 @@ void	full_command(t_data **data, char *str)
 			new->file_type = IN;
 			ft_lstadd_file(&s->files, file_cmd, new);
 			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
-			free(file_cmd);
+			// free(file_cmd);
 		}
 		else if (str[i] == '>' && !flag.s_quote && !flag.d_quote)
 		{
@@ -136,7 +136,7 @@ void	full_command(t_data **data, char *str)
 			new->file_type = OUT;
 			ft_lstadd_file(&s->files, file_cmd, new);
 			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
-			free(file_cmd);
+			// free(file_cmd);
 		}
 		else
 		{
@@ -145,7 +145,7 @@ void	full_command(t_data **data, char *str)
 			ft_lstadd_cmd(&s->command, file_cmd);
 			i = i + ft_skip(str+i) + k;
 			update_quotes(&flag.d_quote, &flag.s_quote, str[i-1]);
-			free(file_cmd);
+			// free(file_cmd);
 		}
 	}
 	s->next = NULL;
@@ -183,5 +183,5 @@ void    init_data(t_data **data, char **line)
 		full_command(data, str[i]);
 		i++; 
 	}
-  	ft_free(str, p_nmbr);
+  	// ft_free(str, p_nmbr);
   }
