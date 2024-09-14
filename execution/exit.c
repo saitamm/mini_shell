@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/13 10:03:58 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/14 09:45:51 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,15 @@ long ft_atoll(char *c)
 void ft_exit(char **cmd)
 {
 	if (!cmd || !cmd[1])
+	{
+		printf("soumaya\n");
 		exit(0);
+	}
 	if (isanumvalue(cmd[1]))
 	{
-		if (cmd[1] && cmd[2] == NULL)
+		if (cmd[1])
 			exit(ft_atoll(cmd[1]));
+		g_global->exit_status = 1;
 		printf("exit \nbash: exit: too many arguments\n");
 	}
 	else

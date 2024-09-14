@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/04 15:48:45 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/14 10:00:08 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void ft_cd(char *Path)
     {
         getcwd(cwd, sizeof(cwd));
         ft_pwd();
+    }
+    else 
+    {
+        perror(Path);
+        g_global->exit_status = 1;
     }
         // printf("the path is :%s\n", Path);
 }
