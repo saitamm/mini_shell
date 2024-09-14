@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/14 14:57:41 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:14:06 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@ int	need_expand(char *str, int *pos)
 		update_quotes(&flag.s_quote, &flag.d_quote, str[i]);
 		if (str[i] == '$' && !flag.s_quote && str[i + 1] && str[i + 1] != '?') 
 			{
-				if (!ft_whitespace(str[i + 1]) && !(str[i + 1] == '\"' && flag.d_quote))
+				if (!ft_whitespace(str[i + 1]) && !(str[i + 1] == '\"' && flag.d_quote) && ft_isalnum(str[i + 1]))
 				{
-					*pos = i;
-					return (1);
+					if (i != 0 && str[i -1] != '\\')
+					{
+						*pos = i;
+						return (1);
+					}
 				}
 			}
 		if (!str[i])
