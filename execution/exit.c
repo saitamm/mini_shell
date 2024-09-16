@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/08 20:20:38 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:13:59 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,29 +69,13 @@ long ft_atoll(char *c)
 	// return (result);
 }
 
-// void ft_exit(char **cmd)
-// {
-// 	if (!cmd)
-// 		return;
-// 	if (cmd[1] && cmd[2] == NULL)
-// 	{
-// 		if (isanumvalue(cmd[1]))
-// 			exit(ft_atoll(cmd[1]));
-// 		else
-// 			printf("exit \nbash: exit: %s: numeric argument required\n", cmd[1]);
-// 		exit(2);
-// 	}
-// 	else
-// 		printf("exit \nbash: exit: too many arguments\n");
-// }
-
 void ft_exit(char **cmd)
 {
-	if (!cmd)
-		return;
+	if (!cmd || !cmd[1])
+		exit (0);
 	if (isanumvalue(cmd[1]))
 	{
-		if (cmd[1] && cmd[2] == NULL)
+		if (cmd[1])
 			exit(ft_atoll(cmd[1]));
 		printf("exit \nbash: exit: too many arguments\n");
 	}
