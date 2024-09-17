@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/14 15:56:10 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:27:21 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ char	*create_file_herdoc(char *lim, enum e_token flag_quote)
 	int fd = open(name_file, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, 0400);
 	if (fd < 0)
 		return (write(2, "failed to open file\n", 21), NULL);
+	if (!d)
+		return (close(fd), name_file);
 	write(fd, d, ft_strlen(d));
 	close(fd);
 	free(d);

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/14 16:14:06 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:39:48 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,10 @@ int	need_expand(char *str, int *pos)
 	while (str[i])
 	{
 		update_quotes(&flag.s_quote, &flag.d_quote, str[i]);
-		if (str[i] == '$' && !flag.s_quote && str[i + 1] && str[i + 1] != '?') 
+		if (str[i] == '$' && !flag.s_quote && str[i + 1] && str[i + 1] != '?' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_')) 
 			{
-				if (!ft_whitespace(str[i + 1]) && !(str[i + 1] == '\"' && flag.d_quote) && ft_isalnum(str[i + 1]))
-				{
-					if (i != 0 && str[i -1] != '\\')
-					{
 						*pos = i;
 						return (1);
-					}
-				}
 			}
 		if (!str[i])
 			break;
@@ -103,11 +97,28 @@ char	*expand_str(char *string, int pos)
 	return (final);
 }
 
+// int	have_to_split(char *str)
+// {
+// 	int	i;
+// 	t_flag	b;
+
+// 	i = 0;
+// 	b.s_quote = false;
+// 	b.d_quote = false;
+// 	while (str[i])
+// 	{
+// 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
+// 		if (ft_whitespace(str[i]) && !b.s_quote && !b.d_quote)
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 char	**split_str(char *str, int *f)
 {
 	char	**spl_str;
 	char	*temp;
-
+	
 	if (ft_strchr(str, '\'') || ft_strchr(str, '\"'))
 	{
 		*f = 1;
@@ -118,7 +129,6 @@ char	**split_str(char *str, int *f)
 		if (!spl_str)
 			return (NULL);
 		spl_str[0] = ft_strdup(temp);
-		// free(temp);
 		spl_str[1] = NULL;
 		return (spl_str);
 	}

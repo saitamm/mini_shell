@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:09:53 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/11 17:08:27 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:45:07 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void    ft_change_key_value(char *key, char *value)
 void    ft_check_key(char *str)
 {
     char *equal_sign = ft_strchr(str, '=');
-    char *key; 
+    char *key;
+
     if (equal_sign)
     {
         key = get_key(str); // hadle the key+=value (key doesn't exist)

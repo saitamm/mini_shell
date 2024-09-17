@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/11 17:08:50 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:40:42 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,52 @@ void	ft_export(t_minishell *strct)
 			i++;
 	 	}
 	}
-}     
+}
+
+
+// int		check_error_export(char *str)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (str[0] == '-')
+// 		{
+// 			write(1, "not a valid option\n", 24);
+// 			return (1);
+// 		}
+// 	if (!ft_isalpha(str[i]) && str[0] != '_')
+// 		{
+			
+// 			write(1, "not a valid identifier\n", 24);
+// 			return (1);
+// 		}
+// 	while (str[i] && str[i] != '=')
+// 	{
+// 		if (str[i] == '+' && str[i + 1] == '=')
+// 			break;
+// 		if (!ft_isalnum(str[i]) && str[i] != '_')
+// 		{
+// 			write(2, "not a valid identifier\n", 24);
+// 			return (1);
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+// void	ft_export(t_minishell *strct)
+// {
+// 	int		i;
+
+// 	i = 1;
+// 	if (strct->cmd[1] == NULL)
+// 		print_export();
+// 	else
+// 	{
+// 		while (strct->cmd[i])
+// 		{
+// 			if (!check_error_export(strct->cmd[1]))
+// 				break;
+// 			i++;
+// 		}
+// 	}
+// }

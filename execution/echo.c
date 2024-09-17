@@ -36,12 +36,12 @@ void    ft_echo(char **str) {
         int i = 0;
         while (str[j][i])
         {
-            if (str[j][i] == '$' && str[j][i + 1] == '?')
-            {
-                write(1, &g_global->exit_status, 1);
-                break;
-            } 
-            else
+            // if (str[j][i] == '$' && str[j][i + 1] == '?')
+            // {
+            //     printf("%d\n", g_global->exit_status);
+            //     break;
+            // } 
+            // else
                 write(1, &str[j][i], 1);
             i++;
         }
