@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/14 16:12:37 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:58:44 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,5 +198,8 @@ void					ft_export(t_minishell *strct);
 int						ft_check_export_unset_args(char *str);
 void					ft_check_key(char *str);
 char					*ft_strcat(char *dest, const char *src);
+int find_key(t_env *env, const char *key);
+void    ft_change_key_value(char *key, char *value);
+void    ft_lstremove( char *key);
 
 #endif

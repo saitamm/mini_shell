@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/17 16:57:22 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:35:20 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void    ft_lstadd_cmd(t_cmd **head, char *file_cmd)
     t_cmd   *k;
 	char	**cmd_split;
 	size_t i = 0 ;
-	
    	cmd_split = help_cmd(file_cmd);
 	if (!cmd_split)
 		return ;

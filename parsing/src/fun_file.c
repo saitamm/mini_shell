@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/17 17:48:05 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:28:48 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,15 @@ char	*ft_file(char *str)
 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
 		if (!b.s_quote && !b.d_quote && ft_whitespace(str[i]))
 			break;
-		i++;
+		if (str[i] == '<' && !b.s_quote && !b.d_quote)
+			break;
+		if (str[i] == '>' && !b.s_quote && !b.d_quote)
+			break;
+		if (str[i])
+			i++;
 	}
 	file = ft_substr(str, 0, i);
+	printf("finale string %s\n", file);
 	return (file);
 }
 
@@ -57,7 +63,6 @@ char	*help_file(char *str, t_file **s, char *src)
 	{
 		if ( f == 1)
 			(*s)->flag = 2;
-		printf(":::::::::%s\n", spl_str[0]);
 		src = create_file_herdoc(spl_str[0], (*s)->flag);
 		return (src);
 	}

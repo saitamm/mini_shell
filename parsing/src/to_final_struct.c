@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:47:36 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/14 11:52:54 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 09:25:58 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_minishell *parce(char *line)
     splt_line = ft_split_with_pipe(line);
 	init_data(&data, splt_line);
     to_final_struct(data, &str);
-    // ft_free(splt_line, len_double_str(splt_line));
-    // ft_free_data(&data);
+    ft_free(splt_line, len_double_str(splt_line));
+    ft_free_data(&data);
     return (str);
 }

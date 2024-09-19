@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/17 17:39:48 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:58:51 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,13 @@ int	need_expand(char *str, int *pos)
 	while (str[i])
 	{
 		update_quotes(&flag.s_quote, &flag.d_quote, str[i]);
-		if (str[i] == '$' && !flag.s_quote && str[i + 1] && str[i + 1] != '?' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_')) 
+		if (str[i] == '$' && !flag.s_quote && str[i + 1] && str[i + 1] != '?') 
 			{
+				if ((ft_isalnum(str[i + 1]) || str[i + 1] == '_') || str[i+1] == '$' || (str[i+1] == '"' && !flag.d_quote))
+				{
 						*pos = i;
-						return (1);
+						return (1);	
+				}
 			}
 		if (!str[i])
 			break;
@@ -83,10 +86,10 @@ char	*expand_str(char *string, int pos)
 	char	*sub_3;
 	char 	*sub_exp;
 	char	*final;
-
 	sub_1 = ft_substr(string, 0, pos);
 	sub_3 = find_str_exp(string + pos + 1);
 	sub_exp = help_expand(sub_3);
+	sub_exp = help_quote_exp(sub_exp);
 	sub_2 = ft_strjoin(sub_1, sub_exp);
 	final = ft_strjoin(sub_2, string + pos + ft_strlen(sub_3) + 1);
 	// free(string);

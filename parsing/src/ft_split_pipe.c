@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 09:30:13 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/14 16:13:45 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:59:00 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ char	*help_pipe_quote(char *str)
 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
 		if (str[i] == '|' && (b.s_quote || b.d_quote))
 			str[i] *= -1;
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (str);
 }
@@ -59,7 +60,6 @@ char	**ft_split_with_pipe(char *line)
 {
 	char	**str;
 	int		i;
-
 	line = help_pipe_quote(line);
 	str = ft_split(line, '|');
 	i = 0;

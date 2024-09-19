@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/17 17:27:21 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:55:33 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ char    *generate_filename()
 		}
 		buff[11] = '\0';
 		k =  convert_hex(buff, 11, "0123456789abcdef");
-		// printf("************%s\n", k);
 		name = ft_strjoin("/tmp/.",k);
 		free(k);
 		if (access(name, F_OK))

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 10:59:21 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/14 11:53:02 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:25:57 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,107 @@ int	ft_skip(char *str)
 		i++;
 	return (i);
 }
-enum e_type	append_her_doc(char a, char b)
+
+void	add_her_append(int *i, t_data **s, char *str)
 {
-	if (a == '<' && a == b)
-		return (HER_DOC);
-	else if (a == '>' && a == b)
-		return (APPEND);
-	return (0);
+	char	*string;
+	t_file *new;
+	
+	*i = *i + 2;
+	new = (t_file *)malloc(sizeof(t_file));
+	if (!new)
+		return ;
+	string = ft_file(str + (*i));
+	if (str[*i -1] == '<')
+		new->file_type = HER_DOC;
+	else
+		new->file_type = APPEND;
+	ft_lstadd_file(&(*s)->files, string, new);
+	*i = *i + ft_skip(str + *i) + ft_strlen(string);
+	free(string);
 }
 
+int	  append_her_doc(char a, char b)
+{
+	if (a == '<' && a == b)
+		return (1);
+	else if (a == '>' && a == b)
+		return (1);
+	return (0);
+}
+void	add_infile(int *i, t_data **s, char *str)
+{
+	char	*file_cmd;
+	t_file 	*new;
+	
+	*i = (*i) + 1;
+	file_cmd = ft_file(str + (*i));
+	new = (t_file *)malloc(sizeof(t_file));
+	if (!new)
+		return ;
+	new->file_type = IN;
+	ft_lstadd_file(&(*s)->files, file_cmd, new);
+	(*i) = (*i) + ft_skip(str + (*i)) + ft_strlen(file_cmd);
+	free(file_cmd);
+}
+void	add_outfile(int *i, t_data **s, char *str)
+{
+	char	*file_cmd;
+	t_file 	*new;
+	
+	*i = (*i) + 1;
+	file_cmd = ft_file(str + (*i));
+	new = (t_file *)malloc(sizeof(t_file));
+	if (!new)
+		return ;
+	new->file_type = OUT;
+	ft_lstadd_file(&(*s)->files, file_cmd, new);
+	(*i) = (*i) + ft_skip(str + (*i)) + ft_strlen(file_cmd);
+	free(file_cmd);
+}
 
+void	add_cmd(int *i, t_data **s, char *str)
+{
+	char	*file_cmd;
+	
+	file_cmd = ft_file(str + (*i));
+	size_t k = ft_strlen(file_cmd);
+	ft_lstadd_cmd(&(*s)->command, file_cmd);
+	*i = *i + ft_skip(str+(*i)) + k;
+	free(file_cmd);
+}
+
+t_data	**add_data(t_data **data, t_data *new)
+{
+	t_data	*d;
+
+	
+	if (!data)
+		return NULL;
+	if (!(*data))
+	{
+			*data = new;
+			return NULL;
+	}
+	d = ft_lstlast_data(*data);
+	d->next = new;
+	return (data);
+}
+
+void	add_file(int *i, char *str, t_data **s)
+{
+	if (append_her_doc(str[*i], str[(*i) + 1]))
+			add_her_append(i, s, str);
+	else if (str[*i] == '<')
+			add_infile(i, s, str);
+	else if (str[*i] == '>')
+			add_outfile(i, s, str);
+}
 void	full_command(t_data **data, char *str)
 {
 	int		i;
 	t_flag	flag;
 	t_data *s;
-	t_data	*d;
-	char	*file_cmd;
-	int j = 0;
-
 	
 	i = 0;
 	flag.s_quote = false;
@@ -93,71 +175,15 @@ void	full_command(t_data **data, char *str)
 	{
 		while (ft_whitespace(str[i]))
 			i++;
-		j = 0;
-		while (ft_whitespace(str[i+j]))
-		{
-			update_quotes(&flag.d_quote, &flag.s_quote, str[i+j]);
-			j++;
-		}
-		if (append_her_doc(str[i], str[i+1]) && !flag.s_quote && !flag.d_quote)
-		{
-			i = i+2;
-			t_file *new = (t_file *)malloc(sizeof(t_file));
-			if (!new)
-				return ;
-			file_cmd = ft_file(str+i);
-			if (str[i -1] == '<')
-				new->file_type = HER_DOC;
-			else
-				new->file_type = APPEND;
-			ft_lstadd_file(&s->files, file_cmd, new);
-			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
-			// free(file_cmd);
-		}
-		else if (str[i] == '<' && !flag.s_quote && !flag.d_quote)
-		{
-			i+=1;
-			file_cmd = ft_file(str+i);
-			t_file *new = (t_file *)malloc(sizeof(t_file));
-			if (!new)
-				return ;
-			new->file_type = IN;
-			ft_lstadd_file(&s->files, file_cmd, new);
-			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
-			// free(file_cmd);
-		}
-		else if (str[i] == '>' && !flag.s_quote && !flag.d_quote)
-		{
-			i++;
-			file_cmd = ft_file(str+i);
-			t_file *new = (t_file *)malloc(sizeof(t_file));
-			if (!new)
-				return ;
-			new->file_type = OUT;
-			ft_lstadd_file(&s->files, file_cmd, new);
-			i = i + ft_skip(str+i) + ft_strlen(file_cmd);
-			// free(file_cmd);
-		}
+		while ((str[i] == '"' || str[i] == '\'')&& (str[i + 1] == str[i]))
+			update_quotes(&flag.d_quote, &flag.s_quote, str[i++]);
+		if ((str[i] == '<' || str[i] == '>') && !flag.s_quote && !flag.d_quote)
+			add_file(&i, str, &s);
 		else
-		{
-			file_cmd = ft_file(str+i);
-			size_t k = ft_strlen(file_cmd);
-			ft_lstadd_cmd(&s->command, file_cmd);
-			i = i + ft_skip(str+i) + k;
-			update_quotes(&flag.d_quote, &flag.s_quote, str[i-1]);
-			// free(file_cmd);
-		}
+			add_cmd(&i, &s, str);
 	}
 	s->next = NULL;
-	if (!data)
-		return ;
-	if (!(*data))
-	{
-			*data = s;
-			return ;
-	}
-	d = ft_lstlast_data(*data);
-	d->next = s;
+	data = add_data(data, s);
 }
 
 void    init_data(t_data **data, char **line)
@@ -180,8 +206,9 @@ void    init_data(t_data **data, char **line)
 	i = 0;
 	while (i < p_nmbr)
 	{
+		// printf("full commad _____ %s\n", str[i]);
 		full_command(data, str[i]);
 		i++; 
 	}
-  	// ft_free(str, p_nmbr);
+  	ft_free(str, p_nmbr);
   }

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/17 16:42:09 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:36:59 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int main(int ac, char **av, char **env)
         if (!strct)
             continue;
         print(strct);
-        ft_execution(strct);
+        // ft_execution(strct);
         add_history(line);
         free(line);
     }

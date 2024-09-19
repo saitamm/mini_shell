@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:09:53 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/17 11:45:07 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:12:17 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int ft_check_export_unset_args(char *str)
     return 1;
 }
 
-int find_key(t_env *env, const char *key) {
+int find_key(t_env *env, const char *key)
+{
     while (env) {
         if (strcmp(env->key, key) == 0) 
             return 1;
