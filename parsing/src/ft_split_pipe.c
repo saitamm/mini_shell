@@ -12,10 +12,9 @@
 
 #include "../../include/minishell.h"
 
-
-size_t  len_double_str(char **str)
+size_t	len_double_str(char **str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -25,7 +24,7 @@ size_t  len_double_str(char **str)
 
 char	*help_pipe_quote(char *str)
 {
-	int	i;
+	int		i;
 	t_flag	b;
 
 	i = 0;
@@ -60,6 +59,7 @@ char	**ft_split_with_pipe(char *line)
 {
 	char	**str;
 	int		i;
+
 	line = help_pipe_quote(line);
 	str = ft_split(line, '|');
 	i = 0;
@@ -70,4 +70,3 @@ char	**ft_split_with_pipe(char *line)
 	}
 	return (str);
 }
-

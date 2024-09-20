@@ -6,33 +6,26 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:13:57 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/19 13:59:55 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 20:47:31 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
 void	update_quotes(bool *s, bool *d, char c)
 {
-	// while (str[(*i)])
-	// {
-		// if (str[(*i)] != '\'' && str[(*i)] != '"')
-		// 	break;
-		if (c == '\'' && !(*d))
-			(*s) = !(*s);
-		if (c == '\"' && !(*s))
-			(*d) = !(*d);
-	// 	(*i)++;
-	// }
+	if (c == '\'' && !(*d))
+		(*s) = !(*s);
+	if (c == '\"' && !(*s))
+		(*d) = !(*d);
 }
 
 char	*help_quote_exp(char *str)
-{	
+{
 	int	i;
 
 	i = 0;
-	if (!str)	
+	if (!str)
 		return (0);
 	while (str[i])
 	{
@@ -45,10 +38,10 @@ char	*help_quote_exp(char *str)
 
 int	nomber_quote_dollar(char *str)
 {
-	int	i;
+	int		i;
 	t_flag	b;
-	int	count;
-	
+	int		count;
+
 	i = 0;
 	count = 0;
 	b.s_quote = false;
@@ -56,17 +49,18 @@ int	nomber_quote_dollar(char *str)
 	while (str[i])
 	{
 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
-		if ((!b.s_quote && !b.d_quote) && (str[i] == '\'' || str[i] == '\"' )&& str[i+1])
+		if ((!b.s_quote && !b.d_quote) && (str[i] == '\'' || str[i] == '\"')
+				&& str[i + 1])
 			count++;
 		if (str[i])
-			i++;	
+			i++;
 	}
-	return(count);
+	return (count);
 }
 
-int		help_remove_quote(char *str, t_flag b)
+int	help_remove_quote(char *str, t_flag b)
 {
-	if (((!b.s_quote && !b.d_quote) && (str[0] == '\'' || str[0] == '\"') ))
+	if (((!b.s_quote && !b.d_quote) && (str[0] == '\'' || str[0] == '\"')))
 		return (1);
 	else if (!b.d_quote && str[0] == '\'')
 		return (1);
@@ -77,13 +71,14 @@ int		help_remove_quote(char *str, t_flag b)
 char	*remove_quote(char *str)
 {
 	int		i;
-	int 	j;
+	int		j;
 	char	*file;
 	t_flag	b;
-	
+
 	b.s_quote = false;
 	b.d_quote = false;
-	file = malloc((ft_strlen(str) - nomber_quote_dollar(str) + 1) * sizeof(char));
+	file = malloc((ft_strlen(str) - nomber_quote_dollar(str) + 1)
+			* sizeof(char));
 	if (!file)
 		return (NULL);
 	i = 0;
@@ -92,16 +87,16 @@ char	*remove_quote(char *str)
 	{
 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
 		if (help_remove_quote(str + i, b))
-			{
-				if (str[i])
-					i++;
-			}
-		else
 		{
-			file[j]= str[i];
 			if (str[i])
 				i++;
-			j++; 
+		}
+		else
+		{
+			file[j] = str[i];
+			if (str[i])
+				i++;
+			j++;
 		}
 	}
 	file[j] = '\0';

@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int    synt_error(char *str)
+int	synt_error(char *str)
 {
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);

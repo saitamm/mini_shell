@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/18 15:21:56 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 20:52:48 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,8 @@ void	add_to_env(char *str, char *key)
 		}
 	}
 	else
-		add_to_list(&g_global->env, key, NULL);
+		if (find_key(g_global->env, key) == 0)
+			add_to_list(&g_global->env, key, NULL);
 }
 void	add_key_export(char *str)
 {

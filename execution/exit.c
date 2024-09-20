@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/17 11:18:29 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/20 09:22:02 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void ft_exit(char **cmd)
 	{
 		printf("exit\n");
 		g_global->exit_status = 0;
+		free_minishell(&g_global->min_str);
 		exit(g_global->exit_status);
 	}
 	if (isanumvalue(cmd[1]))

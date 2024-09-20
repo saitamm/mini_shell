@@ -6,7 +6,7 @@
 #    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/09/17 17:25:08 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/09/20 09:57:39 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,11 @@ SRC =  minishell.c \
 		parsing/src/redirection_in.c \
 		parsing/src/redirection_out.c \
 		parsing/src/ft_split_pipe.c \
-		parsing/src/init_struct.c \
-		parsing/src/add_fun.c \
+		parsing/src/add_cmd.c \
+		parsing/src/add_file.c \
+		parsing/src/add_file_2.c \
+		parsing/src/add_data.c \
+		parsing/src/free_function.c \
 		parsing/src/fun_file.c \
 		parsing/src/help_quote.c \
 		parsing/src/expand.c \
@@ -46,7 +49,7 @@ INCLUDES = -I . -I include -I $(LIBFT_DIR)
 
 C = cc
 
-CFLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address 
+CFLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address 
 
 all: $(NAME)
 
