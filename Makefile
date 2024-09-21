@@ -3,27 +3,30 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
+#    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/09/11 11:14:56 by lai-elho         ###   ########.fr        #
+#    Updated: 2024/09/20 09:57:39 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC =  minishell.c \
-		parting/src/parce_error.c \
-		parting/src/print_error.c \
-		parting/src/redirection_in.c \
-		parting/src/redirection_out.c \
-		parting/src/ft_split_pipe.c \
-		parting/src/init_struct.c \
-		parting/src/add_fun.c \
-		parting/src/fun_file.c \
-		parting/src/help_quote.c \
-		parting/src/expand.c \
-		parting/src/ft_split_whitespace.c \
-		parting/src/help_expand.c \
-		parting/src/to_final_struct.c \
+		parsing/src/parce_error.c \
+		parsing/src/print_error.c \
+		parsing/src/redirection_in.c \
+		parsing/src/redirection_out.c \
+		parsing/src/ft_split_pipe.c \
+		parsing/src/add_cmd.c \
+		parsing/src/add_file.c \
+		parsing/src/add_file_2.c \
+		parsing/src/add_data.c \
+		parsing/src/free_function.c \
+		parsing/src/fun_file.c \
+		parsing/src/help_quote.c \
+		parsing/src/expand.c \
+		parsing/src/ft_split_whitespace.c \
+		parsing/src/help_expand.c \
+		parsing/src/to_final_struct.c \
 		execution/echo.c \
 		execution/env.c \
 		execution/builtins.c \
@@ -34,9 +37,9 @@ SRC =  minishell.c \
 		execution/execution.c \
 		execution/unset.c \
 		execution/export.c \
+		execution/export2.c \
 		execution/exit.c \
-		execution/export2.c
-
+		parsing/src/her_doc.c
 
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft

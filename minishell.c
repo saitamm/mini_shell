@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/08 20:24:38 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:32:34 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,60 +37,37 @@ void    print(t_minishell *strct)
         strct = strct->next;
         }
 }
+
+void initialise_struct(char **env)
+{
+    g_global = malloc(sizeof(t_global));
+    memset(g_global, 0 , sizeof(t_global));
+    parse_env_var(env);
+	// add underscore
+	//init old pwd && pwd 
+	//shell level (bahs bahs)
+}
+
 int main(int ac, char **av, char **env)
 {
+    (void)ac;
+    (void)av;
     char *line;
-    t_minishell *strct;
-    t_execution *execution_struct = NULL;
-    g_global = malloc(sizeof(t_global));
-    execution_struct = malloc(sizeof(t_execution));
-    if (!execution_struct)
-        return (0);
-    execution_struct->ac = ac;
-    execution_struct->av = av;
-    execution_struct->env = env;
-    g_global->env = NULL;
-    parse_env_var(env);
+    initialise_struct(env);
     while (1)
     {
         line = readline("Minishell$>" );
         if (!line)
             return 0;
-        strct = parce(line);
-        if (!strct)
+        g_global->strct = parce(line);
+        if (!g_global->strct)
             continue;
-        // print(strct);
-        ft_execution(strct);
+        print(g_global->strct);
+        ft_execution(g_global->strct);
+        
         add_history(line);
         free(line);
+        // char *arg[] = {"-e", NULL};
+        // execve("/bin/cat", arg, NULL);
     }
-    return (0);
 }
-
-
-// int main(int ac, char **av, char **env)
-// {
-//     (void)ac;
-//     (void)av;
-//     char    *line;
-//     t_minishell *strct;
-//     g_global = malloc (sizeof(t_global));
-//     parse_env_var(env);
-//     while (1)
-//     {
-//         line = readline(GOLD "$minishell>" RESET); 
-//         if (!line)
-//             return 0 ;
-//         strct = parce(line);
-//         if (!strct)
-//         {
-//             add_history(line);
-//             free(line);
-//             continue;
-//         }
-//         // ft_execution(strct, execution_struct);
-// 		add_history(line);
-//         free(line);
-//     }
-//     return (0);
-// }

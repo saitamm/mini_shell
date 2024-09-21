@@ -12,11 +12,11 @@
 
 #include "../../include/minishell.h"
 
-int check_quote(char *line)
+int	check_quote(char *line)
 {
-	int i;
-	int s_flag;
-	int d_flag;
+	int	i;
+	int	s_flag;
+	int	d_flag;
 
 	i = 0;
 	s_flag = 0;
@@ -28,7 +28,7 @@ int check_quote(char *line)
 		if (line[i] == '\"' && !s_flag)
 			d_flag = !d_flag;
 		if (line[i] == '\'' && !d_flag)
-			s_flag = !s_flag;			
+			s_flag = !s_flag;
 		i++;
 	}
 	if (s_flag == 1 || d_flag == 1)
@@ -75,7 +75,7 @@ int	check_logical(char *str)
 			d_flag = !d_flag;
 		if ((str[i] == '|' && str[i + 1] == '|') && !s_flag && !d_flag)
 			return (1);
-		if ((str[i] == '&' &&  str[i + 1] == '&') && !s_flag && !d_flag)
+		if ((str[i] == '&' && str[i + 1] == '&') && !s_flag && !d_flag)
 			return (1);
 		if ((str[i] == '|' && str[i + 1] == '\0') && !s_flag && !d_flag)
 			return (1);
@@ -84,11 +84,11 @@ int	check_logical(char *str)
 	return (0);
 }
 
-int    parce_error(char *line)
+int	parce_error(char *line)
 {
 	if (check_quote(line))
 		return (synt_error(ERROR));
-	if (check_bracket(line) )
+	if (check_bracket(line))
 		return (synt_error(ERROR));
 	if (check_logical(line))
 		return (synt_error(ERROR));
@@ -97,5 +97,4 @@ int    parce_error(char *line)
 	if (check_red_in(line))
 		return (synt_error(ERROR));
 	return (0);
-	
 }

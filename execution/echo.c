@@ -23,7 +23,7 @@ int check_n(const char *s) {
         return 0;
     }
 
-void ft_echo(char **str) {
+void    ft_echo(char **str) {
     int j = 1;
     int newline = 1;
 
@@ -31,17 +31,18 @@ void ft_echo(char **str) {
         newline = 0;
         j++;
     }
-    // Loop through arguments and print them
-    while (str[j]) {
+    while (str[j])
+    {
         int i = 0;
-        while (str[j][i]) {
-            if (str[j][i] == '$' && str[j][i + 1] != '\0') {
-                // Handle environment variable
-                ft_find_in_env(str[j] + i);
-                break;
-            } else {
+        while (str[j][i])
+        {
+            // if (str[j][i] == '$' && str[j][i + 1] == '?')
+            // {
+            //     printf("%d\n", g_global->exit_status);
+            //     break;
+            // } 
+            // else
                 write(1, &str[j][i], 1);
-            }
             i++;
         }
         if (str[j + 1]) {
@@ -49,8 +50,6 @@ void ft_echo(char **str) {
         }
         j++;
     }
-
-    if (newline) {
+    if (newline)
         write(1, "\n", 1);
-    }
 }

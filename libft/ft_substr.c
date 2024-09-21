@@ -12,10 +12,10 @@
 
 #include "../include/minishell.h"
 
-char	*ft_substr(char const	*s, unsigned int start, size_t	len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*sub;
-	size_t	i;
+	char *sub;
+	size_t i;
 
 	if (!s)
 		return (NULL);
