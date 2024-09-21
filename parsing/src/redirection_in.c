@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:03:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/19 20:36:00 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:53:25 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ int	check_red_in(char *str)
 	{
 		update_quotes(&l.s_quote, &l.d_quote, str[i]);
 		if (in_norm(str + i, l.s_quote, l.d_quote))
-			return (1);
-		if (!ft_whitespace(str[i]) && str[i] == '<' && !l.s_quote && !l.d_quote)
 			return (1);
 		i++;
 	}

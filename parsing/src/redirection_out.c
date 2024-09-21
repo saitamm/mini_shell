@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:01:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/19 20:31:52 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:53:35 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	check_red_out(char *str)
 				|| ft_three_out(str + i) || ft_pipe_out(str + i)) && !f.s_quote
 			&& !f.d_quote)
 			return (1);
-		if (!ft_whitespace(str[i]) && str[i] == '>' && !f.s_quote && !f.d_quote)
-			return (1);
+	
 		i++;
 	}
 	return (0);
