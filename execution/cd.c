@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/20 10:06:27 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:50:35 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char    *find_home_path()
     }
     g_global->env = head;
     if(g_global->env->next)
-        printf("bash: cd: HOME not set\n");
+        printf("minishell: cd: HOME not set\n");
     return NULL;
 }
 
@@ -135,11 +135,12 @@ void ft_cd(char *Path)
     if (!Path || ft_strcmp(Path, "~") == 0 || ft_strcmp(Path, "--") == 0)
     {
         Path = find_home_path();
+        return;
         // ft_find_current_pwd();
         // ft_change_curr_and_old_path(Path);
     }
     
-    if (chdir(Path) == 0)
+   if (chdir(Path) == 0)
     {
         getcwd(cwd, sizeof(cwd));
         ft_find_current_pwd();

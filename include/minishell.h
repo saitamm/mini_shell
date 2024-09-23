@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/20 10:07:21 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/23 09:34:36 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ typedef struct s_env
 typedef struct s_minishell	t_minishell;
 typedef struct s_global
 {
-	t_env					*env;
-	int						flag;
-	int						exit_status;
-	int						separator;
+	t_env					*env;//env
+	int						flag;//flag for execution
+	int						exit_status;//exit status
+	int						separator;//??
 	char					*pwd;
 	char					*oldpwd;
-	char					*current_path;
+	char					*current_path;//??
 	char					*underscore;
-	t_minishell				*min_str;
+	t_minishell				*min_str;//our struct
 }							t_global;
 
 extern t_global				*g_global;
@@ -113,6 +113,7 @@ char						*ft_strjoin(char *s1, char *s2);
 char						*ft_substr(char const *s, unsigned int start,
 								size_t len);
 void						*ft_memcpy(void *dest, const void *src, size_t n);
+char						*ft_itoa(int n);
 int							ft_isalnum(unsigned char c);
 int							ft_isalpha(int c);
 // function parce Error

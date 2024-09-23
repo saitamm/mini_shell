@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:11:54 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/08 11:11:41 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/23 09:20:09 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void    ft_lstremove( char *key)
 
     while (current)
     {
-        if (strcmp(current->key, key) == 0)
+        if (strcmp(current->key, key) == 0)// change to ft_strcmp
         {
             if (prev)
                 prev->next = current->next;

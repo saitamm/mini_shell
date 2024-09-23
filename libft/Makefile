@@ -6,7 +6,7 @@
 #    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/30 13:15:44 by lai-elho          #+#    #+#              #
-#    Updated: 2024/09/10 11:05:29 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/09/23 09:34:46 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRCF =  ft_atoi.c \
 		ft_substr.c \
 		ft_memcpy.c \
 		ft_isalpha.c \
-		ft_isalnum.c
+		ft_isalnum.c \
+		ft_itoa.c
 
 
 CC = cc

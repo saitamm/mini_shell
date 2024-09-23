@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/20 10:59:52 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/23 09:25:14 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ int main(int ac, char **av, char **env)
 	execution_struct->av = av;
 	execution_struct->env = env;
 	g_global->env = NULL;
-	g_global->pwd= ft_strdup("/nfs/homes/sait-amm/Desktop/mini_shell");
-	g_global->pwd= ft_strdup("/nfs/homes/sait-amm/Desktop/mini_shell/include");
+	// g_global->pwd= ft_strdup("/nfs/homes/sait-amm/Desktop/mini_shell");
+	// g_global->pwd= ft_strdup("/nfs/homes/sait-amm/Desktop/mini_shell/include");
 	parse_env_var(env);
 	// g_global->pwd = ft_strdup();
-	printf(":::::::::%s\n", g_global->pwd);
+	// printf(":::::::::%s\n", g_global->pwd);
 	while (1)
 	{
 		line = readline("Minishell$>" );
