@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:09:43 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/17 17:50:45 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:25:41 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_strncmp(const char *str1, const char *str2, size_t n)
+int	ft_strncmp(const char	*str1, const char	*str2, size_t n)
 {
 	size_t			i;
 	unsigned char	*a1;
@@ -27,7 +27,5 @@ int	ft_strncmp(const char *str1, const char *str2, size_t n)
 			return (a1[i] - a2[i]);
 		i++;
 	}
-	if (!str1[i] && !str2[i])
-		return (0);
-	return (str1[i] - str2[i]);
+	return (0);
 }

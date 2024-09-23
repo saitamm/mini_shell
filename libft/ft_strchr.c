@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char	*s, int c)
 {
 	char	find;
 	int		i;

@@ -1,43 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_file_2.c                                       :+:      :+:    :+:   */
+/*   help_expand.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/20 09:40:04 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/20 09:40:41 by sait-amm         ###   ########.fr       */
+/*   Created: 2024/08/28 15:39:51 by sait-amm          #+#    #+#             */
+/*   Updated: 2024/09/07 11:33:15 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_file	*ft_lstlast_file(t_file *lst)
-{
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
-void	ft_lstadd_file(t_file **lst, char *str, t_file *new)
-{
-	t_file *k;
-	char *src;
 
-	new->flag = 0;
-	src = ft_strdup(str);
-	src = help_file(str, &new, src);
-	new->file = src;
-	new->next = NULL;
-	k = *lst;
-	if (!lst)
-		return ;
-	if (!*lst)
+char	*ft_cpy_dolar(char *str)
+{
+	int	i;
+	char	*d;
+
+	i = 0;
+	if (str[i] == '$')
+		return (NULL);
+	while (str[i] != '$')
+		i++;
+	d = malloc((i + 1) * sizeof(char));
+	if (!d)
+		return (NULL);
+	i = 0;
+	while (str[i] != '$')
 	{
-		*lst = new;
-		return ;
+		d[i] = str[i];
+		i++;
 	}
-	k = ft_lstlast_file(*lst);
-	k->next = new;
+	d[i] = '\0';
+	return(d);
+}
+
+char	*help_expand(char *str)
+{
+	t_env	*env;
+
+	env = g_global->env;
+	while(env)
+	{
+		if (!ft_strncmp(str, env->key, ft_strlen(str)))
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
 }

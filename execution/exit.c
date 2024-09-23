@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/21 21:35:58 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:13:59 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,45 +69,19 @@ long ft_atoll(char *c)
 	// return (result);
 }
 
-// void ft_exit(char **cmd)
-// {
-// 	if (!cmd)
-// 		return;
-// 	if (cmd[1] && cmd[2] == NULL)
-// 	{
-// 		if (isanumvalue(cmd[1]))
-// 			exit(ft_atoll(cmd[1]));
-// 		else
-// 			printf("exit \nbash: exit: %s: numeric argument required\n", cmd[1]);
-// 		exit(2);
-// 	}
-// 	else
-// 		printf("exit \nbash: exit: too many arguments\n");
-// }
-
 void ft_exit(char **cmd)
 {
 	if (!cmd || !cmd[1])
-	{
-		printf("exit\n");
-		g_global->exit_status = 0;
-		free_minishell(&g_global->strct);
-		exit(g_global->exit_status);
-	}
+		exit (0);
 	if (isanumvalue(cmd[1]))
 	{
-		if (cmd[2])
-		{			
-		g_global->exit_status = 130;
-		printf("exit \nbash: exit: too many arguments\n");
-		return ;
-		}
+		if (cmd[1])
 			exit(ft_atoll(cmd[1]));
+		printf("exit \nbash: exit: too many arguments\n");
 	}
 	else
 	{
 		printf("exit \nbash: exit: %s: numeric argument required\n", cmd[1]);
-		g_global->exit_status = 2;
-		exit(g_global->exit_status);
+		exit(2);
 	}
 }

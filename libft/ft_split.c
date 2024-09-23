@@ -35,7 +35,7 @@ static int	ft_len(const char *s, char c)
 	return (len);
 }
 
-static int	sub_len(const char *s, char c)
+static int	sub_len(const	char	*s, char c)
 {
 	int	i;
 	int	len;
@@ -70,7 +70,7 @@ static char	*ft_cpy(const char *s, char c)
 	return (d);
 }
 
-void	ft_free(char **str, int i)
+void	ft_free(char	**str, int i)
 {
 	while (i > 0)
 		free(str[--i]);
