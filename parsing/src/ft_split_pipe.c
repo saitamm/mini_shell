@@ -6,16 +6,15 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 09:30:13 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/06 10:58:08 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:59:00 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-size_t  len_double_str(char **str)
+size_t	len_double_str(char **str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -25,7 +24,7 @@ size_t  len_double_str(char **str)
 
 char	*help_pipe_quote(char *str)
 {
-	int	i;
+	int		i;
 	t_flag	b;
 
 	i = 0;
@@ -36,7 +35,8 @@ char	*help_pipe_quote(char *str)
 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
 		if (str[i] == '|' && (b.s_quote || b.d_quote))
 			str[i] *= -1;
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (str);
 }
@@ -49,10 +49,7 @@ char	*help_pipe_quote_2(char *str)
 	while (str[i])
 	{
 		if (str[i] < 0)
-		{
-			printf("%d\n", str[i]);
 			str[i] *= -1;
-		}
 		i++;
 	}
 	return (str);
@@ -73,4 +70,3 @@ char	**ft_split_with_pipe(char *line)
 	}
 	return (str);
 }
-

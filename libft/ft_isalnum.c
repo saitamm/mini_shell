@@ -1,14 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   her_doc.c                                          :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/07 20:55:14 by sait-amm         ###   ########.fr       */
+/*   Created: 2024/09/10 11:04:40 by sait-amm          #+#    #+#             */
+/*   Updated: 2024/09/10 11:16:36 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
+int	ft_isalnum(unsigned char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else if (c >= '0' && c <= '9')
+		return (2);
+	else
+		return (0);
+}

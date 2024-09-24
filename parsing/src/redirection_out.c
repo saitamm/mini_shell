@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:01:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/07 19:02:34 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:53:35 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,20 @@
 
 int	check_red_out(char *str)
 {
-	int	i;
-	int	s_flag;
-	int	d_flag;
+	int		i;
+	t_flag	f;
 
 	i = 0;
-	s_flag = 0;
-	d_flag = 0;
+	f.s_quote = 0;
+	f.d_quote = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' && !d_flag)
-			s_flag = !s_flag;
-		if (str[i] == '\"' && !s_flag)
-			d_flag = !d_flag;
-		if (str[i] == '>' && (!str[i + 1] || ft_space_out(str + i) || ft_three_out(str + i)
-			|| ft_pipe_out(str+i)) && !s_flag && !d_flag)
+		update_quotes(&f.s_quote, &f.d_quote, str[i]);
+		if (str[i] == '>' && (!str[i + 1] || ft_space_out(str + i)
+				|| ft_three_out(str + i) || ft_pipe_out(str + i)) && !f.s_quote
+			&& !f.d_quote)
 			return (1);
+	
 		i++;
 	}
 	return (0);
@@ -46,11 +44,11 @@ int	ft_three_out(char *str)
 {
 	int	i;
 	int	k;
-	// int	flag;
+	int	flag;
 
 	k = 0;
 	i = 0;
-	// flag = 0;
+	flag = 0;
 	while (str[i])
 	{
 		if (str[i] == '>')
@@ -68,7 +66,7 @@ int	ft_space_out(char *str)
 {
 	int	i;
 	int	flag;
-	
+
 	i = 0;
 	flag = 0;
 	str++;

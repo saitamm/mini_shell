@@ -29,6 +29,5 @@ size_t	ft_strlcpy(char *str, const char *src, size_t size)
 		i++;
 	}
 	str[i] = '\0';
-	
 	return (j);
 }

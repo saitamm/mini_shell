@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/19 16:50:44 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/24 22:42:29 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int main(int ac, char **av, char **env)
         g_global->strct = parce(line);
         if (g_global->strct)
         {
-            // print(g_global->strct);
-            ft_execution();
+            print(g_global->strct);
+            ft_execution(g_global->strct);
             dup2(g_global->save_fd_int, STDIN_FILENO);
             g_global->i_pip_herdoc = 0;
             add_history(line);

@@ -6,24 +6,28 @@
 #    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/09/19 16:39:43 by lai-elho         ###   ########.fr        #
+#    Updated: 2024/09/24 21:32:20 by lai-elho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC =  minishell.c \
-		parting/src/parce_error.c \
-		parting/src/print_error.c \
-		parting/src/redirection_in.c \
-		parting/src/redirection_out.c \
-		parting/src/ft_split_pipe.c \
-		parting/src/init_struct.c \
-		parting/src/add_fun.c \
-		parting/src/fun_file.c \
-		parting/src/help_quote.c \
-		parting/src/expand.c \
-		parting/src/ft_split_whitespace.c \
-		parting/src/help_expand.c \
-		parting/src/to_final_struct.c \
+		parsing/src/parce_error.c \
+		parsing/src/print_error.c \
+		parsing/src/redirection_in.c \
+		parsing/src/redirection_out.c \
+		parsing/src/ft_split_pipe.c \
+		parsing/src/add_cmd.c \
+		parsing/src/add_file.c \
+		parsing/src/add_file_2.c \
+		parsing/src/add_data.c \
+		parsing/src/free_function.c \
+		parsing/src/fun_file.c \
+		parsing/src/help_quote.c \
+		parsing/src/expand.c \
+		parsing/src/ft_split_whitespace.c \
+		parsing/src/help_expand.c \
+		parsing/src/to_final_struct.c \
+		parsing/src/her_doc.c\
 		execution/echo.c \
 		execution/env.c \
 		execution/builtins.c \
@@ -36,9 +40,8 @@ SRC =  minishell.c \
 		execution/export.c \
 		execution/exit.c \
 		execution/export2.c \
-		execution/get_next_line.c\
-		execution/get_next_line_utils.c \
-		execution/pipe_file.c
+		execution/pipe_file.c \
+		execution/get_path.c
 
 
 OBJF = $(SRC:.c=.o)
