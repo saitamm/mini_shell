@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/24 22:51:00 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:23:15 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,55 +82,55 @@ int	need_expand_her_doc(char *str, int *pos, int flag)
 	}
 	return (0);
 }
-// char	*create_file_herdoc(char *lim, enum e_token flag_quote)
-// {
-// 	char	*name_file;
-// 	char	*d;
-// 	char	*line;
-// 	char	*line_exp;
-// 	bool	flag;
-// 	int		i;
-// 				int k;
-// 	int		fd;
+char	*create_file_herdoc(char *lim, enum e_token flag_quote)
+{
+	char	*name_file;
+	char	*d;
+	char	*line;
+	char	*line_exp;
+	bool	flag;
+	int		i;
+				int k;
+	int		fd;
 
-// 	i = 0;
-// 	d = NULL;
-// 	flag = false;
-// 	name_file = generate_filename();
-// 	while (1)
-// 	{
-// 		line = readline(">");
-// 		if (!ft_strncmp(line, lim, ft_strlen(line)))
-// 			break ;
-// 		if (!flag)
-// 		{
-// 			line_exp = ft_strdup(line);
-// 			if (flag_quote != Q_HER)
-// 			{
-// 				// while ((k = need_expand_her_doc(line_exp, &i)))
-// 				// 	line_exp = expand_str(line_exp, i);
-// 			}
-// 			flag = !flag;
-// 		}
-// 		else
-// 		{
-// 			d = ft_strjoin(d, "\n");
-// 			line_exp = ft_strdup(line);
-// 			if (flag_quote != Q_HER)
-// 			{
-// 				// while (need_expand_her_doc(line_exp, &i))
-// 				// 	line_exp = expand_str(line_exp, i);
-// 			}
-// 		}
-// 		d = ft_strjoin(d, line_exp);
-// 	}
-// 	fd = open(name_file, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, 0400);
-// 	if (fd < 0)
-// 		return (write(2, "failed to open file\n", 21), NULL);
-// 	if (!d)
-// 		return (close(fd), name_file);
-// 	write(fd, d, ft_strlen(d));
-// 	close(fd);
-// 	free(d);
-// 	return (name_file);
-// }
+	i = 0;
+	d = NULL;
+	flag = false;
+	name_file = generate_filename();
+	while (1)
+	{
+		line = readline(">");
+		if (!ft_strncmp(line, lim, ft_strlen(line)))
+			break ;
+		if (!flag)
+		{
+			line_exp = ft_strdup(line);
+			if (flag_quote != Q_HER)
+			{
+				while ((k = need_expand_her_doc(line_exp, &i,0)))
+					line_exp = expand_str(line_exp, i);
+			}
+			flag = !flag;
+		}
+		else
+		{
+			d = ft_strjoin(d, "\n");
+			line_exp = ft_strdup(line);
+			if (flag_quote != Q_HER)
+			{
+				while (need_expand_her_doc(line_exp, &i,0))
+					line_exp = expand_str(line_exp, i);
+			}
+		}
+		d = ft_strjoin(d, line_exp);
+	}
+	fd = open(name_file, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, 0400);
+	if (fd < 0)
+		return (write(2, "failed to open file\n", 21), NULL);
+	if (!d)
+		return (close(fd), name_file);
+	write(fd, d, ft_strlen(d));
+	close(fd);
+	free(d);
+	return (name_file);
+}

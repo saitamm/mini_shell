@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/24 22:46:04 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:22:16 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ char	*help_file(char *str, t_file **s, char *src)
 	{
 		if (f == 1)
 			(*s)->flag = 2;
-		// src = create_file_herdoc(spl_str[0], (*s)->flag);
-		// return (src);
+		src = create_file_herdoc(spl_str[0], (*s)->flag);
+		return (src);
 	}
 	return (spl_str[0]);
 }
