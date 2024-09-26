@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/25 22:22:16 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:50:45 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*help_file(char *str, t_file **s, char *src)
 	if ((len_double_str(spl_str) > 1 && (*s)->file_type != HER_DOC)
 		|| !spl_str[0])
 	{
-		src = str;
+		src = ft_strdup(str);
 		(*s)->flag = AMB;
 		return (src);
 	}

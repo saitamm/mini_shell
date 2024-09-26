@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/25 23:03:15 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:03:07 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,11 +245,12 @@ int redirection(t_minishell *strct)
     t_minishell *head = strct;
     if (head->files == NULL && head->next && head)
     {
+        printf("------------->\n");
         if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1)
         {
-            perror("");
+            printf("in red \n");
+            // perror("");
         }
-        
         return (0);
     }
     // if (head && head->next != NULL)
@@ -257,13 +258,13 @@ int redirection(t_minishell *strct)
     //     dup2(g_global->fd_pipe[1], STDOUT_FILENO);
     //     return 0;
     // }
-    // else
-    // {
-    //     write(2, "+++++++++++++++++++++++\n", 24);
+
     dup2(g_global->save_fd_out, STDOUT_FILENO);
-    // }
+
     while (head && head->files)
     {
+        printf("---------------->\n");
+        print(g_global->strct);
         if (head->files->file_type == IN || head->files->file_type == HER_DOC)
             ft_infile(head);
         else if (head->files->file_type == 1)
@@ -277,7 +278,6 @@ int redirection(t_minishell *strct)
 
 void ft_builtins(t_minishell *strct)
 {
-    printf("==55555555555======%s=====> \n", strct->cmd[0]);
     if (!strct || !strct->cmd || !strct->cmd[0])
         return;
     else if (ft_strcmp(strct->cmd[0], "pwd") == 0)
@@ -296,43 +296,88 @@ void ft_builtins(t_minishell *strct)
         ft_exit(strct->cmd);
     else
     {
-        printf("teeest \n");
-        execve(get_path(help_expand("PATH"), g_global->strct->cmd[0]), strct->cmd, env_to_array(g_global->env));
-
+        dprintf(2, "=================> %s \n", strct->cmd[0]);
+        
+        execve(get_path(help_expand("PATH"), strct->cmd[0]), strct->cmd, env_to_array(g_global->env));
     }
 }
 
 void ft_exec_child(t_minishell *strct)
 {
-    printf("************->%s\n", strct->cmd[0]); // we need to setuo herdoc redirection
+    // printf("-------teeeest------>\n");
     redirection(strct);
-    printf("************->%s\n", strct->cmd[0]); // we need to setuo herdoc redirection
-    ft_builtins(strct);        // we need to add exit to kill the child proccess before reching the execve
-    // ft_ckeck_cmd(); cmd not founc : perm denied
-    // creat a dublle table from the env struct to pass it to the execve
-    close(g_global->fd_pipe[0]);
-    close(g_global->fd_pipe[1]);
+    ft_builtins(strct);
+    //////////////////// we need to add exit to kill the child proccess before reching the execve
+    //////////////////// ft_ckeck_cmd(); cmd not founc : perm denied
+    // close(g_global->fd_pipe[0]);
+    // close(g_global->fd_pipe[1]);
 }
 
 void execute_cmd(t_minishell *strct)
 {
     while (strct)
     {
-        pipe(g_global->fd_pipe); // check the all pipes
+
+        if (pipe(g_global->fd_pipe) == -1)
+        {
+            perror("pipe error");
+            exit(1);
+        }
         g_global->pid = fork();
         if (g_global->pid == 0)
         {
-            printf("==iiiiiiiiiiiiiiin===========> \n");
             ft_exec_child(strct);
-            printf("ouuuuuuuut============> \n");
         }
         close(g_global->fd_pipe[1]);
         dup2(g_global->fd_pipe[0], STDIN_FILENO);
-        close(g_global->fd_pipe[0]);
+        //   close(g_global->fd_pipe[0]);
         strct = strct->next;
     }
-    while (wait(NULL) != -1);
+    while (wait(NULL) != -1)
+        ;
 }
+
+// void execute_cmd(t_minishell *strct)
+// {
+//     while (strct)
+//     {
+//         if (pipe(g_global->fd_pipe) == -1)
+//         {
+//             perror("pipe error");
+//             exit(1);
+//         }
+
+//         g_global->pid = fork();
+//         if (g_global->pid == 0)  // Child process
+//         {
+//             if (strct->next != NULL) // If there is a next command
+//             {
+//                 if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1) // Redirect stdout to pipe
+//                 {
+//                     perror("dup2 error");
+//                     exit(1);
+//                 }
+//             }
+
+//             close(g_global->fd_pipe[0]); // Close read end in the child process
+//             close(g_global->fd_pipe[1]); // Close write end after duplication
+//             ft_exec_child(strct); // Execute the command
+//         }
+
+//         // Parent process: only handles input redirection for the next command
+//         close(g_global->fd_pipe[1]);  // Close write end in the parent process
+//         if (dup2(g_global->fd_pipe[0], STDIN_FILENO) == -1)  // Redirect stdin for the next command
+//         {
+//             perror("dup2 error");
+//             exit(1);
+//         }
+//         close(g_global->fd_pipe[0]);  // Close read end after duplication
+
+//         strct = strct->next;  // Move to the next command in the pipe chain
+//     }
+
+//     while (wait(NULL) != -1);  // Wait for all child processes to finish
+// }
 
 void ft_execution()
 {

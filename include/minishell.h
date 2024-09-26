@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/24 22:47:46 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:41:22 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,4 +247,5 @@ void ft_write_in_pipe(t_file *files_head);
 char	*get_path(char *envp, char *cmd);
 char	**env_to_array(t_env *env);
 int	need_expand_her_doc(char *str, int *pos, int flag);
+void print(t_minishell *strct);
 #endif
