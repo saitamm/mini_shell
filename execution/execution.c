@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/26 13:05:50 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:00:09 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int ft_infile(t_minishell *strct)
     {
         write(2, "Minishell:", 11);
         write(2, strct->files->file, ft_strlen(strct->files->file));
-        write(2, ": ambiguous redirect", 21);
+        write(2, ": ambiguous redirect\n", 22);
         g_global->exit_status = 1;
         exit(g_global->exit_status);
     }
@@ -31,14 +31,14 @@ int ft_infile(t_minishell *strct)
         {
             write(2, "Minishell:", 11);
             perror(strct->files->file);
-            g_global->exit_status = 127;
+            g_global->exit_status = 1;
             exit(g_global->exit_status);
         }
         else if (access(strct->files->file, R_OK) != 0)
         {
             write(2, "Minishell:", 11);
             perror(strct->files->file);
-            g_global->exit_status = 126;
+            g_global->exit_status = 1;
             close(infile_fd);
             exit(g_global->exit_status);
         }
@@ -68,7 +68,7 @@ int ft_outfile(t_minishell *strct)
     {
         write(2, "Minishell:", 11);
         write(2, strct->files->file, ft_strlen(strct->files->file));
-        write(2, ": ambiguous redirect", 21);
+        write(2, ": ambiguous redirect\n", 22);
         g_global->exit_status = 1;
         return 1;
     }
@@ -211,7 +211,7 @@ int ft_append(t_minishell *strct)
     {
         write(2, "Minishell:", 11);
         write(2, strct->files->file, ft_strlen(strct->files->file));
-        write(2, ": ambiguous redirect", 21);
+        write(2, ": ambiguous redirect \n", 22);
         g_global->exit_status = 1;
         return 1;
     }
@@ -296,9 +296,19 @@ void ft_builtins(t_minishell *strct)
         ft_exit(strct->cmd);
     else
     {
-        dprintf(2, "=================> %s \n", strct->cmd[0]);
+        // dprintf(2, "=================> %s \n", strct->cmd[0]);
+        char *path = get_path(help_expand("PATH"), strct->cmd[0]);
+        if (!path)
+            {
+                write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
+                write(2, ": command not found\n", 21);
+                g_global->exit_status = 127;
+                exit(g_global->exit_status);
+            }
+        // dprintf(2, "%s\n", path);
+        char    **env_exc = env_to_array(g_global->env);
         
-        execve(get_path(help_expand("PATH"), strct->cmd[0]), strct->cmd, env_to_array(g_global->env));
+        execve(path, strct->cmd, env_exc);
     }
 }
 
@@ -315,6 +325,8 @@ void ft_exec_child(t_minishell *strct)
 
 void execute_cmd(t_minishell *strct)
 {
+    int		status;
+	int		st;
     while (strct)
     {
 
@@ -325,16 +337,17 @@ void execute_cmd(t_minishell *strct)
         }
         g_global->pid = fork();
         if (g_global->pid == 0)
-        {
             ft_exec_child(strct);
-        }
         close(g_global->fd_pipe[1]);
         dup2(g_global->fd_pipe[0], STDIN_FILENO);
         close(g_global->fd_pipe[0]);
         strct = strct->next;
     }
-    while (wait(NULL) != -1)
-        ;
+    while (waitpid(g_global->pid, &status, 0) == g_global->pid)
+	    {
+            st = status >> 8;
+	        g_global->exit_status = st;
+        }
 }
 
 // void execute_cmd(t_minishell *strct)
