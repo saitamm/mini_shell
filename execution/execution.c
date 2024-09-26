@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/26 13:03:07 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:05:50 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,8 +309,8 @@ void ft_exec_child(t_minishell *strct)
     ft_builtins(strct);
     //////////////////// we need to add exit to kill the child proccess before reching the execve
     //////////////////// ft_ckeck_cmd(); cmd not founc : perm denied
-    // close(g_global->fd_pipe[0]);
-    // close(g_global->fd_pipe[1]);
+    close(g_global->fd_pipe[0]);
+    close(g_global->fd_pipe[1]);
 }
 
 void execute_cmd(t_minishell *strct)
@@ -330,7 +330,7 @@ void execute_cmd(t_minishell *strct)
         }
         close(g_global->fd_pipe[1]);
         dup2(g_global->fd_pipe[0], STDIN_FILENO);
-        //   close(g_global->fd_pipe[0]);
+        close(g_global->fd_pipe[0]);
         strct = strct->next;
     }
     while (wait(NULL) != -1)
