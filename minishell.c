@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/26 14:29:00 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:50:23 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int main(int ac, char **av, char **env)
         g_global->strct = parce(line);
         if (g_global->strct)
         {
-            // print(g_global->strct);
+            print(g_global->strct);
             ft_execution(g_global->strct);
             dup2(g_global->save_fd_int, STDIN_FILENO);
             g_global->i_pip_herdoc = 0;

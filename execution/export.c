@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/19 20:52:48 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:22:46 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,22 @@ void	print_export()
 	}
 }
 
-// void	ft_export(t_minishell *strct)
-// {
-// 	int	i;
+void	error_export(char *str, char *error, int flag)
+{
+	int	i;
+	char	*key;
 
-// 	i = 1;
-// 	if (!strct->cmd[i] || (strct->cmd[i][0] == '\0' && strct->cmd[i + 1] == NULL)) {
-// 		print_export();
-// 	} else {
-// 		while (strct->cmd[i]) {
-// 			ft_check_key(strct->cmd[i]);
-// 			i++;
-// 	 	}
-// 	}
-// }
-
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	key = ft_substr(str, 0, i);
+	write(2, "Minishell : ", 13);
+	write(2, key, ft_strlen(key));
+	free(key);
+	write(2, " : ", 4);
+	write(2, error, ft_strlen(error));
+	g_global->exit_status = flag;
+}
 
 int		check_error_export(char *str)
 {
@@ -88,25 +89,15 @@ int		check_error_export(char *str)
 
 	i = 0;
 	if (str[0] == '-')
-		{
-			write(1, "not a valid option\n", 20);
-			return (1);
-		}
+			return (error_export(str, "not a valid option \n", 2), 1);
 	if (!ft_isalpha(str[i]) && str[0] != '_')
-		{
-			
-			write(1, "not a valid identifier\n", 24);
-			return (1);
-		}
+			return(error_export(str, "not a valid identifier\n", 1), 1);
 	while (str[i] && str[i] != '=')
 	{
 		if (str[i] == '+' && str[i + 1] == '=')
 			break;
 		if (!ft_isalnum(str[i]) && str[i] != '_')
-		{
-			write(2, "not a valid identifier\n", 24);
-			return (1);
-		}
+			return (error_export(str, "not a valid identifier\n", 1), 1);
 		i++;
 	}
 	return (0);
@@ -128,9 +119,7 @@ void	add_to_env(char *str, char *key)
 	{
 		value = ft_substr(str + ft_strlen(key) + 2, 0, ft_strlen(str) - ft_strlen(key) - 2);
 		if (find_key(g_global->env, key) == 0)
-		{
 			add_to_list(&g_global->env, key, value);
-		}
 		else
 		{
 			char *tmp = ft_strjoin(help_expand(key), value);

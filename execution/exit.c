@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/14 15:13:59 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:34:18 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,20 @@ void ft_exit(char **cmd)
 		exit (0);
 	if (isanumvalue(cmd[1]))
 	{
-		if (cmd[1])
+		if (!cmd[2])
+		{
+			g_global->exit_status = ft_atoll(cmd[1]);
 			exit(ft_atoll(cmd[1]));
-		printf("exit \nbash: exit: too many arguments\n");
+		}
+		write(2, "exit \nMinishell : exit: too many arguments\n", 44);
+		g_global->exit_status = 1;
 	}
 	else
 	{
-		printf("exit \nbash: exit: %s: numeric argument required\n", cmd[1]);
-		exit(2);
+		write(2, "exit \nbash: exit: ", 19);
+		write(2, cmd[1], ft_strlen(cmd[1]));
+		write(2, ": numeric argument required\n", 29);
+		g_global->exit_status = 2;
+		exit(g_global->exit_status);
 	}
 }
