@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/27 22:33:35 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 00:18:58 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,18 +190,18 @@ int ft_outfile(t_minishell *strct)
 //     return 0;
 // }
 
-void ft_close_herdoc_pipe()
-{
-    int i;
+// void ft_close_herdoc_pipe()
+// {
+//     int i;
 
-    i = 0;
-    while (i < g_global->nbr_herdoc)
-    {
-        close(g_global->pipe_fd[i][0]);
-        close(g_global->pipe_fd[i][1]);
-        i++;
-    }
-}
+//     i = 0;
+//     while (i < g_global->nbr_herdoc)
+//     {
+//         close(g_global->pipe_fd[i][0]);
+//         close(g_global->pipe_fd[i][1]);
+//         i++;
+//     }
+// }
 
 int ft_append(t_minishell *strct)
 {
@@ -226,7 +226,6 @@ int ft_append(t_minishell *strct)
     }
     if (ft_strcmp(strct->files->file, "/dev/stdout"))
     {
-
         if (dup2(fd, STDOUT_FILENO) == -1)
         {
             printf("Error with dup2\n");
@@ -245,7 +244,6 @@ int redirection(t_minishell *strct)
     t_minishell *head = strct;
     if (head->files == NULL && head->next && head)
     {
-        //     printf("------------->\n");
         if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1)
         {
             perror("");
@@ -362,6 +360,18 @@ int ft_lstsize_minishell(t_minishell *lst)
     }
     return (i);
 }
+
+void ft_underscore(t_minishell *strct)
+{
+    char **cmd = strct->cmd;
+    int i = 0;
+    while(cmd[i])
+    {
+        g_global->underscore = cmd[i];
+        i++;
+    }
+}
+
 void execute_cmd(t_minishell *strct)
 {
     int status;
@@ -375,6 +385,7 @@ void execute_cmd(t_minishell *strct)
     {
         redirection(strct);
         ft_builtins(strct);
+        ft_underscore(strct);
         dup2(g_global->save_fd_out, STDOUT_FILENO);
         dup2(g_global->save_fd_int, STDIN_FILENO);
     }
@@ -382,7 +393,6 @@ void execute_cmd(t_minishell *strct)
     {
         while (strct)
         {
-
             if (pipe(g_global->fd_pipe) == -1)
             {
                 perror("pipe error");
@@ -391,11 +401,9 @@ void execute_cmd(t_minishell *strct)
 
             else
             {
-                // g_global->pid = fork();
                 pid[i] = fork();
                 if (pid[i] == 0)
                     ft_exec_child(strct);
-
             }
             close(g_global->fd_pipe[1]);
             dup2(g_global->fd_pipe[0], STDIN_FILENO);

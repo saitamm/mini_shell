@@ -31,6 +31,8 @@ void ft_echo(char **str) {
         newline = 0;
         j++;
     }
+    if(str[j] && str[j][0] == '$' && str[j][1] == '_')
+        printf("%s",g_global->underscore);
     // Loop through arguments and print them
     while (str[j]) {
         int i = 0;
