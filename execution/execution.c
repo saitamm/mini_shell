@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/27 14:10:43 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/27 22:33:35 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,22 +245,15 @@ int redirection(t_minishell *strct)
     t_minishell *head = strct;
     if (head->files == NULL && head->next && head)
     {
-    //     printf("------------->\n");
-    if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1)
-    {
-        printf("in red \n");
-        perror("");
-    }
+        //     printf("------------->\n");
+        if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1)
+        {
+            perror("");
+        }
+        dprintf(2, "in red \n");
         return (0);
     }
-    // if (head && head->next != NULL)
-    // {
-    //     dup2(g_global->fd_pipe[1], STDOUT_FILENO);
-    //     return 0;
-    // }
-
     dup2(g_global->save_fd_out, STDOUT_FILENO);
-
     while (head && head->files)
     {
         printf("---------------->\n");
@@ -296,9 +289,9 @@ void ft_builtins(t_minishell *strct)
         ft_exit(strct->cmd);
 }
 
-void    execute_child(t_minishell *strct)
+void execute_child(t_minishell *strct)
 {
-      if (!strct || !strct->cmd || !strct->cmd[0])
+    if (!strct || !strct->cmd || !strct->cmd[0])
         return;
     else if (ft_strcmp(strct->cmd[0], "pwd") == 0)
         ft_pwd();
@@ -316,19 +309,21 @@ void    execute_child(t_minishell *strct)
         ft_exit(strct->cmd);
     else
     {
-    char *path = get_path(help_expand("PATH"), strct->cmd[0]);
-    if (!path)
-    {
-        write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
-        write(2, ": command not found\n", 21);
-        g_global->exit_status = 127;
-        exit(g_global->exit_status);
-    }
-    // dprintf(2, "%s\n", path);
-    char **env_exc = env_to_array(g_global->env);
+        char *path = get_path(help_expand("PATH"), strct->cmd[0]);
+        if (!path)
+        {
+            write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
+            write(2, ": command not found\n", 21);
+            g_global->exit_status = 127;
+            exit(g_global->exit_status);
+        }
+        // dprintf(2, "%s\n", path);
+        char **env_exc = env_to_array(g_global->env);
 
-    execve(path, strct->cmd, env_exc);
+        dprintf(2, "::::::::::::::::::-> %s\n", strct->cmd[0]);
+        execve(path, strct->cmd, env_exc);
     }
+    exit(0);
 }
 void ft_exec_child(t_minishell *strct)
 {
@@ -349,103 +344,78 @@ int is_built(char *str)
         return (1);
     if (!ft_strcmp(str, "pwd") || !ft_strcmp(str, "unset") || !ft_strcmp(str, "echo"))
         return (1);
+    if (!ft_strcmp(str, "env"))
+        return 1;
     return (0);
 }
 int ft_lstsize_minishell(t_minishell *lst)
 {
-    int	i;
+    int i;
 
-	i = 0;
-	if (!lst)
-		return (0);
-	while (lst != NULL)
-	{
-		i++;
-		lst = lst->next;
-	}
-	return (i);
+    i = 0;
+    if (!lst)
+        return (0);
+    while (lst != NULL)
+    {
+        i++;
+        lst = lst->next;
+    }
+    return (i);
 }
 void execute_cmd(t_minishell *strct)
 {
     int status;
     int st;
-    if (ft_lstsize_minishell(strct) == 1 && is_built(strct->cmd[0]))
-        {
-            redirection(strct);
-            ft_builtins(strct);
-        }
-    else{
-    while (strct)
-    {
+    int size = ft_lstsize_minishell(strct);
+    int *pid;
+    int i = 0;
 
-        if (pipe(g_global->fd_pipe) == -1)
-        {
-            perror("pipe error");
-            exit(1);
-        }
-        
-        else
-        {
-            g_global->pid = fork();
-            if (g_global->pid == 0)
-                ft_exec_child(strct);
-        }
-        close(g_global->fd_pipe[1]);
-        dup2(g_global->fd_pipe[0], STDIN_FILENO);
-        close(g_global->fd_pipe[0]);
-    while ( wait(NULL) != -1)
+    pid = malloc(size * sizeof(int));
+    if (size == 1 && is_built(strct->cmd[0]))
     {
-        waitpid(g_global->pid, &status, 0);
-        st = status >> 8;
-        g_global->exit_status = st;
+        redirection(strct);
+        ft_builtins(strct);
+        dup2(g_global->save_fd_out, STDOUT_FILENO);
+        dup2(g_global->save_fd_int, STDIN_FILENO);
     }
-        strct = strct->next;
-    }
+    else
+    {
+        while (strct)
+        {
+
+            if (pipe(g_global->fd_pipe) == -1)
+            {
+                perror("pipe error");
+                exit(1);
+            }
+
+            else
+            {
+                // g_global->pid = fork();
+                pid[i] = fork();
+                if (pid[i] == 0)
+                    ft_exec_child(strct);
+
+            }
+            close(g_global->fd_pipe[1]);
+            dup2(g_global->fd_pipe[0], STDIN_FILENO);
+            close(g_global->fd_pipe[0]);
+            dup2(g_global->save_fd_out, STDOUT_FILENO);
+            // dup2(g_global->save_fd_int, STDIN_FILENO);
+            strct = strct->next;
+            i++;
+        }
+        i = 0;
+            while (i < size)
+            {
+                waitpid(pid[i], &status, 0);
+                st = status >> 8;
+                g_global->exit_status = st;
+                i++;
+            }
     }
     // close(g_global->fd_pipe[0]);
 }
-
-// void execute_cmd(t_minishell *strct)
-// {
-//     while (strct)
-//     {
-//         if (pipe(g_global->fd_pipe) == -1)
-//         {
-//             perror("pipe error");
-//             exit(1);
-//         }
-
-//         g_global->pid = fork();
-//         if (g_global->pid == 0)  // Child process
-//         {
-//             if (strct->next != NULL) // If there is a next command
-//             {
-//                 if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1) // Redirect stdout to pipe
-//                 {
-//                     perror("dup2 error");
-//                     exit(1);
-//                 }
-//             }
-
-//             close(g_global->fd_pipe[0]); // Close read end in the child process
-//             close(g_global->fd_pipe[1]); // Close write end after duplication
-//             ft_exec_child(strct); // Execute the command
-//         }
-
-//         // Parent process: only handles input redirection for the next command
-//         close(g_global->fd_pipe[1]);  // Close write end in the parent process
-//         if (dup2(g_global->fd_pipe[0], STDIN_FILENO) == -1)  // Redirect stdin for the next command
-//         {
-//             perror("dup2 error");
-//             exit(1);
-//         }
-//         close(g_global->fd_pipe[0]);  // Close read end after duplication
-
-//         strct = strct->next;  // Move to the next command in the pipe chain
-//     }
-
-//     while (wait(NULL) != -1);  // Wait for all child processes to finish
-// }
 
 void ft_execution()
 {
