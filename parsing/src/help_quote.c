@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:13:57 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/19 20:47:31 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 15:54:41 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	nomber_quote_dollar(char *str)
 	{
 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
 		if ((!b.s_quote && !b.d_quote) && (str[i] == '\'' || str[i] == '\"')
-				&& str[i + 1])
+			&& str[i + 1])
 			count++;
 		if (str[i])
 			i++;
@@ -68,6 +68,7 @@ int	help_remove_quote(char *str, t_flag b)
 		return (1);
 	return (0);
 }
+
 char	*remove_quote(char *str)
 {
 	int		i;
@@ -86,18 +87,12 @@ char	*remove_quote(char *str)
 	while (str[i])
 	{
 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
-		if (help_remove_quote(str + i, b))
-		{
-			if (str[i])
-				i++;
-		}
-		else
+		if (!help_remove_quote(str + i, b))
 		{
 			file[j] = str[i];
-			if (str[i])
-				i++;
 			j++;
 		}
+		i++;
 	}
 	file[j] = '\0';
 	return (file);

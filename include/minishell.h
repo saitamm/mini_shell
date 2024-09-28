@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 13:20:33 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 15:57:26 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ int							append_her_doc(char a, char b);
 void						add_infile(int *i, t_data **s, char *str);
 void						add_outfile(int *i, t_data **s, char *str);
 void						add_file(int *i, char *str, t_data **s);
+t_cmd	*new_node_cmd(char *str);
 // expand
 int							need_expand(char *str, int *pos);
 char						*help_expand(char *str);
@@ -182,6 +183,7 @@ t_minishell					*parce(char *line);
 char						*generate_filename(void);
 char						*create_file_herdoc(char *lim,
 								enum e_token flag_quote);
+								char	*help_herdoc(char *line, enum e_token flag_quote, int *flag, char *d);
 
 // help function
 
@@ -189,6 +191,8 @@ int							no_red_af(char *str);
 char						*skip_red(char *str);
 int							ft_skip(char *str);
 int	ft_lstsize_3(t_env*lst);
+int	have_to_split(char *str);
+char	*help_space(char *str);
 //***********************************EXECUTION**********************************
 
 typedef struct s_execution

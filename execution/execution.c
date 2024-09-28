@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 14:39:26 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:30:09 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int ft_outfile(t_minishell *strct)
         if (dup2(outfile_fd, STDOUT_FILENO) == -1)
         {
             write(2, "Error with dup2\n", 17);
+            // printf("Error with dup2\n");
             g_global->exit_status = 1;
             close(outfile_fd);
             return 1;
@@ -123,6 +124,7 @@ int ft_append(t_minishell *strct)
         if (dup2(fd, STDOUT_FILENO) == -1)
         {
             write(2, "Error with dup2\n", 17);
+            // printf("Error with dup2\n");
             g_global->exit_status = 1;
             close(fd);
             return 1;
@@ -192,6 +194,7 @@ void ft_builtins(t_minishell *strct)
 
 void execute_child(t_minishell *strct)
 {
+        // dprintf(2, "-------------> :%s:\n", strct->cmd[0]);
     if (!strct || !strct->cmd || !strct->cmd[0])
     {
         return;
@@ -234,8 +237,10 @@ void execute_child(t_minishell *strct)
             g_global->exit_status = 127;
             exit(g_global->exit_status);
         }
+        // dprintf(2, "%s\n", path);
         char **env_exc = env_to_array(g_global->env);
 
+        // dprintf(2, "::::::::::::::::::-> %s\n", strct->cmd[0]);
         execve(path, strct->cmd, env_exc);
     }
     exit(0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_struct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 14:41:12 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:05:54 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,17 @@ char *get_key(char *s)
     return key;
 }
 
+// void    ft_set_underscor_value()
+// {
+//     while(g_global->env)
+//     {
+//         if(ft_strcmp(g_global->env->key, "_") == 0)
+//         {
+//             g_global->env->value = 
+//         }
+//     }
+// }
+
 void    ft_set_underscor_value()
 {
     while(g_global->env)
@@ -109,8 +120,6 @@ void    ft_set_underscor_value()
         g_global->env = g_global->env->next;
     }
 }
-
-
 void parse_env_var(char **env_var)
 {
     int i = 0;
@@ -127,13 +136,17 @@ void parse_env_var(char **env_var)
 
             if (!key || !value)
             {
+                // free(key);
+                // free(value);
                 return;
             }
             add_to_list(&g_global->env, key, value);
             free(key);
+            // free(value);
         }
         i++;
-    } 
+    }
+    
     ft_set_underscor_value();
 }
 

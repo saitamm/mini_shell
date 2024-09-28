@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:37:58 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/20 09:39:37 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 15:55:37 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	add_infile(int *i, t_data **s, char *str)
 	(*i) = (*i) + ft_skip(str + (*i)) + ft_strlen(file_cmd);
 	free(file_cmd);
 }
+
 void	add_outfile(int *i, t_data **s, char *str)
 {
 	char	*file_cmd;

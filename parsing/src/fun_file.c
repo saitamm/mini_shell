@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/26 14:33:56 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 15:34:41 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ char	*help_file(char *str, t_file **s, char *src)
 	f = 0;
 	pos = 0;
 	while (need_expand(src, &pos) && (*s)->file_type != HER_DOC)
-	{
 		src = expand_str(src, pos);
-	}
 	spl_str = split_str(src, &f);
 	if ((len_double_str(spl_str) > 1 && (*s)->file_type != HER_DOC)
 		|| !spl_str[0] || src[0] == '\0')
@@ -68,6 +66,7 @@ char	*help_file(char *str, t_file **s, char *src)
 	}
 	return (spl_str[0]);
 }
+
 int	no_red_af(char *str)
 {
 	int	i;

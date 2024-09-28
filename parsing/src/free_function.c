@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:49:41 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/20 09:50:46 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 15:32:16 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ void	ft_free_file(t_file **lst)
 	}
 	*lst = NULL;
 }
+
 void	free_minishell(t_minishell **m_shell)
 {
-	t_minishell *k;
+	t_minishell	*k;
 
 	if (!m_shell)
 		return ;
