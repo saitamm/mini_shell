@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/11 17:09:02 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:21:11 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,17 @@ char *get_key(char *s)
     return key;
 }
 
+// void    ft_set_underscor_value()
+// {
+//     while(g_global->env)
+//     {
+//         if(ft_strcmp(g_global->env->key, "_") == 0)
+//         {
+//             g_global->env->value = 
+//         }
+//     }
+// }
+
 
 void parse_env_var(char **env_var)
 {
@@ -124,6 +135,8 @@ void parse_env_var(char **env_var)
         }
         i++;
     }
+    
+    // ft_set_underscor_value();
 }
 
 // Function to free the linked list

@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:22:58 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/24 21:38:46 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:30:21 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,38 +52,41 @@ char	**env_to_array(t_env *env)
 	cmd[i] = NULL;
 	return (cmd);
 }
-void	ft_double_free(char **str, char **cmd_1, char *w_path)
+void	ft_double_free(char **str, char *cmd_1, char *w_path)
 {
 	ft_free(str, len_double_str(str));
-	ft_free(cmd_1, len_double_str(cmd_1));
+	// ft_free(cmd_1, len_double_str(cmd_1));
+	free(cmd_1);
 	free(w_path);
 }
-char	*cmd_is_path(char **str, char **cmd_1, int flag)
+char	*cmd_is_path(char **str, char *cmd_1, int flag)
 {
 	char	*path;
 
 	path = NULL;
 	if (flag == 0)
 	{
-		path = ft_strdup(cmd_1[0]);
+		path = ft_strdup(cmd_1);
 		if (str)
 			ft_free(str, len_double_str(str));
-		ft_free(cmd_1, len_double_str(cmd_1));
+		// ft_free(cmd_1, len_double_str(cmd_1));
+		free(cmd_1);
 	}
 	else
 	{
-		perror(cmd_1[0]);
+		perror(cmd_1);
 		ft_free(str, len_double_str(str));
-		ft_free(cmd_1, len_double_str(cmd_1));
+		// ft_free(cmd_1, len_double_str(cmd_1));
+		free(cmd_1);
 		exit(127);
 	}
 	return (path);
 }
 
-void	ft_fun_norm(char **cmd_1, char *cmd, char **str)
+void	ft_fun_norm(char *cmd, char **str)
 {
-	if (cmd_1[0][0] == 92 || cmd_1[0][0] == 47)
-		cmd_is_path(str, cmd_1, 1);
+	if (cmd[0] == 92 || cmd[0] == 47)
+		cmd_is_path(str, cmd, 1);
 	if ((!str && access(cmd, X_OK) == -1))
 		error_fun(cmd, 127);
 }
@@ -91,7 +94,7 @@ void	ft_fun_norm(char **cmd_1, char *cmd, char **str)
 char	*get_path(char *envp, char *cmd)
 {
 	char	**str;
-	char	**cmd_1;
+	// char	**cmd_1;
 	int		i;
 	char	*path;
 	char	*w_path;
@@ -100,13 +103,13 @@ char	*get_path(char *envp, char *cmd)
 	while (envp && envp[i] != '/')
 		envp++;
 	str = ft_split(envp, ':');
-	cmd_1 = ft_split(cmd, ' ');
-	if (access(cmd_1[0], X_OK) == 0 && (cmd_1[0][0] == '.'
-		|| cmd_1[0][0] == '/' || !str))
-		return (cmd_is_path(str, cmd_1, 0));
+	// cmd_1 = ft_split(cmd, ' ');
+	if (access(cmd, X_OK) == 0 && (cmd[0] == '.'
+		|| cmd[0] == '/' || !str))
+		return (cmd_is_path(str, cmd, 0));
 	else
-		ft_fun_norm(cmd_1, cmd, str);
-	w_path = ft_strjoin("/", cmd_1[0]);
+		ft_fun_norm(cmd, str);
+	w_path = ft_strjoin("/", cmd);
 	while (str && str[i])
 	{
 		path = ft_strjoin(str[i++], w_path);
@@ -114,5 +117,5 @@ char	*get_path(char *envp, char *cmd)
 			return (path);
 		free(path);
 	}
-	return (ft_double_free(str, cmd_1, w_path), NULL);
+	return (NULL);
 }
