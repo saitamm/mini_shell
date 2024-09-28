@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 14:21:11 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:41:12 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,18 @@ char *get_key(char *s)
     return key;
 }
 
-// void    ft_set_underscor_value()
-// {
-//     while(g_global->env)
-//     {
-//         if(ft_strcmp(g_global->env->key, "_") == 0)
-//         {
-//             g_global->env->value = 
-//         }
-//     }
-// }
+void    ft_set_underscor_value()
+{
+    while(g_global->env)
+    {
+        if(ft_strcmp(g_global->env->key, "_") == 0)
+        {
+            g_global->env->value = "/usr/bin/env";
+            return;
+        }
+        g_global->env = g_global->env->next;
+    }
+}
 
 
 void parse_env_var(char **env_var)
@@ -125,18 +127,14 @@ void parse_env_var(char **env_var)
 
             if (!key || !value)
             {
-                // free(key);
-                // free(value);
                 return;
             }
             add_to_list(&g_global->env, key, value);
             free(key);
-            // free(value);
         }
         i++;
-    }
-    
-    // ft_set_underscor_value();
+    } 
+    ft_set_underscor_value();
 }
 
 // Function to free the linked list

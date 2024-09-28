@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:22:58 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 14:30:21 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:38:56 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ char	**env_to_array(t_env *env)
 void	ft_double_free(char **str, char *cmd_1, char *w_path)
 {
 	ft_free(str, len_double_str(str));
-	// ft_free(cmd_1, len_double_str(cmd_1));
 	free(cmd_1);
 	free(w_path);
 }
@@ -69,14 +68,12 @@ char	*cmd_is_path(char **str, char *cmd_1, int flag)
 		path = ft_strdup(cmd_1);
 		if (str)
 			ft_free(str, len_double_str(str));
-		// ft_free(cmd_1, len_double_str(cmd_1));
 		free(cmd_1);
 	}
 	else
 	{
 		perror(cmd_1);
 		ft_free(str, len_double_str(str));
-		// ft_free(cmd_1, len_double_str(cmd_1));
 		free(cmd_1);
 		exit(127);
 	}
