@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/27 13:53:17 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:20:33 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,8 @@ typedef struct s_global
     int     flag;
     int     exit_status;
     int     separator; // 0 if = and 1 if +=
-    char *current_path;
-    char *old_path;
-    int nbr_herdoc;
-    int **pipe_fd;
-    int i_pip_herdoc;
     int save_fd_out;
     int save_fd_int;
-    int pid;
     int fd_pipe[2];
 	char	*pwd;
 	char	*oldpwd;

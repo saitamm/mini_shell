@@ -3,12 +3,12 @@
 void ft_find_in_env(char *search_key) {
     while (g_global->env != NULL) {
         if (strcmp(g_global->env->key, search_key) == 0) {
-            printf("%s\n", g_global->env->value);
+            // printf("%s\n", g_global->env->value);
             return;
         }
         g_global->env = g_global->env->next;
     }
-    printf("Key not found: %s\n", search_key);
+    // printf("Key not found: %s\n", search_key);
 }
 
 
@@ -31,19 +31,12 @@ void ft_echo(char **str) {
         newline = 0;
         j++;
     }
-    if(str[j] && str[j][0] == '$' && str[j][1] == '_')
-        printf("%s",g_global->underscore);
     // Loop through arguments and print them
     while (str[j]) {
         int i = 0;
-        while (str[j][i]) {
-            if (str[j][i] == '$' && str[j][i + 1] != '\0') {
-                // Handle environment variable
-                ft_find_in_env(str[j] + i);
-                break;
-            } else {
-                write(1, &str[j][i], 1);
-            }
+        while (str[j][i])
+        {    
+            write(1, &str[j][i], 1);
             i++;
         }
         if (str[j + 1]) {

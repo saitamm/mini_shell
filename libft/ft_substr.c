@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:02:39 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/05 11:57:08 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 10:35:24 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (NULL);
 	i = ft_strlen(s);
+	if (!len )
+		return (NULL);
 	if (start >= i)
 		return (ft_strdup(""));
 	if (len > i - start)

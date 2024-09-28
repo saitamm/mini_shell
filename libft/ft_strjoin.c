@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:09:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/14 11:49:23 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 10:50:39 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*d;
 
-	if (!s1 && !s2)
+	if ((!s1 || !s1[0]) && (!s2 || !s2[0]))
 		return (NULL);
 	if (!s1)
 		return (ft_strdup(s2));

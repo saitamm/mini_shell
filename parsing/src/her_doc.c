@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   her_doc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/25 22:23:15 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/28 10:49:16 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ char	*create_file_herdoc(char *lim, enum e_token flag_quote)
 	if (!d)
 		return (close(fd), name_file);
 	write(fd, d, ft_strlen(d));
+	write(fd, "\n", 1);
 	close(fd);
 	free(d);
 	return (name_file);

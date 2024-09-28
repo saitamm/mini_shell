@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/16 18:28:47 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:19:04 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char    *find_home_path()
     }
     g_global->env = head;
     if(g_global->env->next)
-        printf("bash: cd: HOME not set\n");
+        write(2, "MInishell : cd : HOME not set\n", 31);
     return NULL;
 }
 
@@ -41,7 +41,7 @@ char    *find_home_path()
 //     {
 //         if(ft_strcmp (g_global->env->key, "PWD") == 0)
 //         {
-//             g_global->current_path = g_global->env->value;
+//             g_global->pwd = g_global->env->value;
 //             return(g_global->env->value);   
 //         }
 //         else 
@@ -87,7 +87,7 @@ void    ft_find_current_pwd(void)
     {
         if (ft_strcmp(g_global->env->key, "PWD") == 0)
         {
-            g_global->current_path = g_global->env->value;
+            g_global->pwd = g_global->env->value;
             break;
         }
         else
@@ -104,7 +104,7 @@ void ft_change_curr_and_old_path(char *new_path)
         if (ft_strcmp(g_global->env->key, "OLDPWD") == 0)
         {
             free(g_global->env->value);
-            g_global->env->value = ft_strdup(g_global->current_path);
+            g_global->env->value = ft_strdup(g_global->pwd);
             break;
         }
         else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 00:19:16 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:32:23 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ void print(t_minishell *strct)
     }
 }
 
+char    *find_value(char *key)
+{
+    t_env *head = g_global->env;      
+
+    while(head)
+    {
+        if(ft_strcmp(head->key, key) == 0 )
+            return (head->value);
+        else
+            head = head->next;
+    }
+    return NULL;
+}
 void initialise_struct(char **env)
 {
     g_global = malloc(sizeof(t_global));
@@ -45,6 +58,8 @@ void initialise_struct(char **env)
     parse_env_var(env);
     g_global->save_fd_int = dup(STDIN_FILENO);
     g_global->save_fd_out = dup(STDOUT_FILENO);
+    g_global->pwd = ft_strdup(find_value("PWD"));
+    g_global->oldpwd = ft_strdup(find_value("OLDPWD"));
 }
 
 int main(int ac, char **av, char **env)
@@ -64,7 +79,6 @@ int main(int ac, char **av, char **env)
             // print(g_global->strct);
             ft_execution(g_global->strct);
             dup2(g_global->save_fd_int, STDIN_FILENO);
-            g_global->i_pip_herdoc = 0;
             add_history(line);
         }
         if (line)

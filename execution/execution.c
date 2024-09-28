@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 00:18:58 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:28:52 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ int ft_outfile(t_minishell *strct)
 
         if (dup2(outfile_fd, STDOUT_FILENO) == -1)
         {
-            printf("Error with dup2\n");
+            write(2, "Error with dup2\n", 17);
+            // printf("Error with dup2\n");
             g_global->exit_status = 1;
             close(outfile_fd);
             return 1;
@@ -96,113 +97,6 @@ int ft_outfile(t_minishell *strct)
     }
     return 0;
 }
-
-// void ft_nbr_herdoc(t_minishell *strct)
-// {
-//     t_minishell *head = strct;
-//     t_file *files_head;
-//     while (head)
-//     {
-//         files_head = head->files;
-//         while (files_head)
-//         {
-//             if (files_head->file_type == 2)
-//                 g_global->nbr_herdoc++;
-//             files_head = files_head->next;
-//         }
-//         head = head->next;
-//     }
-// }
-
-// void ft_create_herdoc_pipe()
-// {
-//     int i = 0;
-//     ft_nbr_herdoc(g_global->strct);
-//     g_global->pipe_fd = malloc(sizeof(int *) * (g_global->nbr_herdoc + 1));
-//     // if(!g_global->pipe_fd)
-//     // {
-//     //     return 0; //ft free all
-//     // }
-
-//     g_global->pipe_fd[g_global->nbr_herdoc] = NULL;
-//     while (i < g_global->nbr_herdoc)
-//     {
-//         g_global->pipe_fd[i] = malloc(sizeof(int) * 2);
-//         // if(!g_global->pipe_fd[i])
-//         // {
-//         //     return 0; //ft free all
-//         // }
-//         if (pipe(g_global->pipe_fd[i]) != 0)
-//         {
-//             return; // free
-//         }
-//         i++;
-//     }
-// }
-
-// void ft_write_in_pipe(t_file *files_head)
-// {
-//     int i;
-
-//     i = 0;
-//     char *line = readline(">> ");
-//     while (line && ft_strcmp(files_head->file, line) != 0)
-//     {
-//         while ((need_expand_her_doc(line, &i, files_head->flag)))
-//             line = expand_str(line, i);
-//         write(g_global->pipe_fd[g_global->i_pip_herdoc][1], line, ft_strlen(line));
-//         write(g_global->pipe_fd[g_global->i_pip_herdoc][1], "\n", 1);
-//         free(line);
-//         line = readline(">> ");
-//     }
-//     if (line)
-//         free(line);
-//     g_global->i_pip_herdoc++;
-// }
-
-// void ft_herdoc()
-// {
-//     t_minishell *head = g_global->strct;
-//     t_file *files_head;
-//     ft_create_herdoc_pipe();
-//     while (head)
-//     {
-//         files_head = head->files;
-//         while (files_head)
-//         {
-//             if (files_head->file_type == 2)
-//                 ft_write_in_pipe(files_head);
-//             files_head = files_head->next;
-//         }
-//         head = head->next;
-//     }
-//     g_global->i_pip_herdoc = 0;
-// }
-
-// int ft_read_herdoc()
-// {
-//     if (dup2(g_global->pipe_fd[g_global->i_pip_herdoc++][0], STDIN_FILENO) == -1)
-//     {
-//         perror("Error in dup2\n");
-//         g_global->exit_status = 1;
-//         return 1;
-//     }
-//     return 0;
-// }
-
-// void ft_close_herdoc_pipe()
-// {
-//     int i;
-
-//     i = 0;
-//     while (i < g_global->nbr_herdoc)
-//     {
-//         close(g_global->pipe_fd[i][0]);
-//         close(g_global->pipe_fd[i][1]);
-//         i++;
-//     }
-// }
-
 int ft_append(t_minishell *strct)
 {
     int fd;
@@ -226,9 +120,11 @@ int ft_append(t_minishell *strct)
     }
     if (ft_strcmp(strct->files->file, "/dev/stdout"))
     {
+
         if (dup2(fd, STDOUT_FILENO) == -1)
         {
-            printf("Error with dup2\n");
+            write(2, "Error with dup2\n", 17);
+            // printf("Error with dup2\n");
             g_global->exit_status = 1;
             close(fd);
             return 1;
@@ -242,28 +138,37 @@ int ft_append(t_minishell *strct)
 int redirection(t_minishell *strct)
 {
     t_minishell *head = strct;
+   
     if (head->files == NULL && head->next && head)
     {
         if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1)
         {
             perror("");
         }
-        dprintf(2, "in red \n");
         return (0);
     }
     dup2(g_global->save_fd_out, STDOUT_FILENO);
+    int flag;
+    flag = 0;
     while (head && head->files)
     {
-        printf("---------------->\n");
-        print(g_global->strct);
         if (head->files->file_type == IN || head->files->file_type == HER_DOC)
             ft_infile(head);
         else if (head->files->file_type == 1)
-            ft_outfile(head);
+            {
+                flag = 1;
+                ft_outfile(head);
+            }
         else if (head->files->file_type == 3)
+        {
+            flag = 1;
             ft_append(head);
+        }
         head->files = head->files->next;
     }
+    if (flag == 0 && strct->next)
+        dup2(g_global->fd_pipe[1], STDOUT_FILENO);
+        
     return 0;
 }
 
@@ -289,8 +194,11 @@ void ft_builtins(t_minishell *strct)
 
 void execute_child(t_minishell *strct)
 {
+        // dprintf(2, "-------------> :%s:\n", strct->cmd[0]);
     if (!strct || !strct->cmd || !strct->cmd[0])
+    {
         return;
+    }
     else if (ft_strcmp(strct->cmd[0], "pwd") == 0)
         ft_pwd();
     else if (ft_strcmp(strct->cmd[0], "env") == 0)
@@ -307,7 +215,21 @@ void execute_child(t_minishell *strct)
         ft_exit(strct->cmd);
     else
     {
-        char *path = get_path(help_expand("PATH"), strct->cmd[0]);
+      
+        if (!ft_split(strct->cmd[0], ' ')[0] || strct->cmd[0][0] == '\0')
+        {
+            write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
+            write(2, ": command not found\n", 21);
+            g_global->exit_status = 127;
+            exit(g_global->exit_status);
+        }
+    if (access(strct->cmd[0], X_OK) == -1 && strct->cmd[0][0] == '.' && strct->cmd[0][1] == '/')
+	{
+		perror(strct->cmd[0]);
+        g_global->exit_status = 126;
+		exit(g_global->exit_status);
+	}
+    char *path = get_path(help_expand("PATH"), strct->cmd[0]);
         if (!path)
         {
             write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
@@ -318,19 +240,15 @@ void execute_child(t_minishell *strct)
         // dprintf(2, "%s\n", path);
         char **env_exc = env_to_array(g_global->env);
 
-        dprintf(2, "::::::::::::::::::-> %s\n", strct->cmd[0]);
+        // dprintf(2, "::::::::::::::::::-> %s\n", strct->cmd[0]);
         execve(path, strct->cmd, env_exc);
     }
     exit(0);
 }
 void ft_exec_child(t_minishell *strct)
 {
-    // printf("-------teeeest------>\n");
     redirection(strct);
     execute_child(strct);
-    // dprintf(2, "=================> %s \n", strct->cmd[0]);
-    //////////////////// we need to add exit to kill the child proccess before reching the execve
-    //////////////////// ft_ckeck_cmd(); cmd not founc : perm denied
     close(g_global->fd_pipe[0]);
     close(g_global->fd_pipe[1]);
 }
@@ -360,7 +278,6 @@ int ft_lstsize_minishell(t_minishell *lst)
     }
     return (i);
 }
-
 void ft_underscore(t_minishell *strct)
 {
     char **cmd = strct->cmd;
@@ -371,7 +288,6 @@ void ft_underscore(t_minishell *strct)
         i++;
     }
 }
-
 void execute_cmd(t_minishell *strct)
 {
     int status;
@@ -393,6 +309,7 @@ void execute_cmd(t_minishell *strct)
     {
         while (strct)
         {
+
             if (pipe(g_global->fd_pipe) == -1)
             {
                 perror("pipe error");
@@ -404,12 +321,13 @@ void execute_cmd(t_minishell *strct)
                 pid[i] = fork();
                 if (pid[i] == 0)
                     ft_exec_child(strct);
+
             }
             close(g_global->fd_pipe[1]);
             dup2(g_global->fd_pipe[0], STDIN_FILENO);
             close(g_global->fd_pipe[0]);
-            dup2(g_global->save_fd_out, STDOUT_FILENO);
-            // dup2(g_global->save_fd_int, STDIN_FILENO);
+            g_global->underscore = ft_strdup(strct->cmd[0]);
+            ft_underscore(strct);
             strct = strct->next;
             i++;
         }
@@ -422,7 +340,6 @@ void execute_cmd(t_minishell *strct)
                 i++;
             }
     }
-    // close(g_global->fd_pipe[0]);
 }
 
 void ft_execution()
