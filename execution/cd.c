@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 13:19:04 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:32:54 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,17 @@
 char    *find_home_path()
 {
     t_env *head = g_global->env;  
-    // char * HOME_path = NULL;     
 
-    while(g_global->env)
+    while(head)
     {
-        if(ft_strcmp(g_global->env->key, "HOME") == 0 )
+        if(ft_strcmp(head->key, "HOME") == 0 )
         {
-            // printf("home foundn\n\n\n");
-            // HOME_path = g_global->env->value;
-            return (g_global->env->value);
+            return (head->value);
         }
         else
-            g_global->env = g_global->env->next;
+            head = head->next;
     }
-    g_global->env = head;
-    if(g_global->env->next)
+    if(head->next)
         write(2, "MInishell : cd : HOME not set\n", 31);
     return NULL;
 }
