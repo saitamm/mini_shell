@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/27 13:34:18 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 09:24:40 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ long ft_atoll(char *c)
 	i = 0;
 	signe = 1;
 	result = 0;
-	// while ((c[i] <= 13 && c[i] >= 9) || c[i] == 32)
 	while (c[i] == ' ' || c[i] == '	')
 		i++;
 	if (c[i] == '+' || c[i] == '-')
@@ -66,7 +65,6 @@ long ft_atoll(char *c)
 		i++;
 	}
 	return (result * signe);
-	// return (result);
 }
 
 void ft_exit(char **cmd)

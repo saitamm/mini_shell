@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 09:17:28 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 09:38:25 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 #include <sys/stat.h>
+
+
 # define ERROR "syntax error near unexpected token"
 
 typedef struct s_env
@@ -224,9 +226,7 @@ char						*ft_putkey(char *env_var);
 int							ft_find_key_len(char *env_var);
 void						add_to_list(t_env **head, char *key, char *value);
 t_env						*create_node(char *key, char *value);
-//void						ft_execution(t_minishell *strct);
 void						ft_export(t_minishell *strct);
-// int process_env_variable(char *str) ;
 int							ft_check_export_unset_args(char *str);
 void						ft_check_key(char *str);
 char						*ft_strcat(char *dest, const char *src);
@@ -246,4 +246,13 @@ char	*get_path(char *envp, char *cmd);
 char	**env_to_array(t_env *env);
 int	need_expand_her_doc(char *str, int *pos, int flag);
 void print(t_minishell *strct);
+int is_built(char *str);
+void ft_builtins(t_minishell *strct);
+int ft_infile(t_minishell *strct);
+int ft_outfile(t_minishell *strct);
+int ft_append(t_minishell *strct);
+int redirection(t_minishell *strct);
+void ft_bashlvl(t_minishell *strct);
+void ft_underscore(t_minishell *strct);
+
 #endif

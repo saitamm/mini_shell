@@ -3,14 +3,11 @@
 void ft_find_in_env(char *search_key) {
     while (g_global->env != NULL) {
         if (strcmp(g_global->env->key, search_key) == 0) {
-            // printf("%s\n", g_global->env->value);
             return;
         }
         g_global->env = g_global->env->next;
     }
-    // printf("Key not found: %s\n", search_key);
 }
-
 
 int check_n(const char *s) {
     int i = 1; 
@@ -31,7 +28,6 @@ void ft_echo(char **str) {
         newline = 0;
         j++;
     }
-    // Loop through arguments and print them
     while (str[j]) {
         int i = 0;
         while (str[j][i])

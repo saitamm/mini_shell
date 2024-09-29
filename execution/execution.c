@@ -3,238 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 09:30:42 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 09:39:58 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int ft_infile(t_minishell *strct)
+int is_directory(const char *path)
 {
-    int infile_fd;
-
-    if (strct->files->flag == AMB)
-    {
-        write(2, "Minishell:", 11);
-        write(2, strct->files->file, ft_strlen(strct->files->file));
-        write(2, ": ambiguous redirect\n", 22);
-        g_global->exit_status = 1;
-        exit(g_global->exit_status);
-    }
-    infile_fd = open(strct->files->file, O_RDONLY);
-    if (infile_fd == -1)
-    {
-        if (access(strct->files->file, F_OK) != 0)
-        {
-            write(2, "Minishell:", 11);
-            perror(strct->files->file);
-            g_global->exit_status = 1;
-            exit(g_global->exit_status);
-        }
-        else if (access(strct->files->file, R_OK) != 0)
-        {
-            write(2, "Minishell:", 11);
-            perror(strct->files->file);
-            g_global->exit_status = 1;
-            close(infile_fd);
-            exit(g_global->exit_status);
-        }
-        perror("Error opening file\n");
-        g_global->exit_status = 1;
-        exit(g_global->exit_status);
-    }
-    if (ft_strcmp(strct->files->file, "/dev/stdin"))
-    {
-        if (dup2(infile_fd, STDIN_FILENO) == -1)
-        {
-            perror("Error in dup2\n");
-            g_global->exit_status = 1;
-            close(infile_fd);
-            exit(g_global->exit_status);
-        }
-    }
-    close(infile_fd);
-    return 0;
-}
-
-void ft_bashlvl(t_minishell *strct)
-{
-    t_env *env = g_global->env;
-    if (ft_strcmp(strct->cmd[0], "./minishell") == 0)
-    {
-        while (env)
-        {
-            if (ft_strcmp(env->key, "SHLVL") == 0)
-            {
-                int shlvl = ft_atoi(env->value);
-                shlvl++;
-                if (shlvl == 1000)
-                    shlvl = 1;
-                char *new_value = malloc(12); // Enough space for an int (max 10 digits + sign + null terminator)
-                if (!new_value)
-                    return;
-                free(env->value);
-                env->value = ft_itoa(shlvl);
-                return;
-            }
-            env = env->next;
-        }
-    }
-}
-int ft_outfile(t_minishell *strct)
-{
-    int outfile_fd;
-
-    if (strct->files->flag == AMB)
-    {
-        write(2, "Minishell:", 11);
-        write(2, strct->files->file, ft_strlen(strct->files->file));
-        write(2, ": ambiguous redirect\n", 22);
-        g_global->exit_status = 1;
-        return 1;
-    }
-    outfile_fd = open(strct->files->file, O_CREAT | O_TRUNC | O_WRONLY, 0640);
-    if (outfile_fd == -1)
-    {
-        write(2, "Minishell:", 11);
-        perror(strct->files->file);
-        g_global->exit_status = 1;
-        close(outfile_fd);
-        exit(g_global->exit_status);
-    }
-    if (ft_strcmp(strct->files->file, "/dev/stdout"))
-    {
-
-        if (dup2(outfile_fd, STDOUT_FILENO) == -1)
-        {
-            write(2, "Error with dup2\n", 17);
-            g_global->exit_status = 1;
-            close(outfile_fd);
-            return 1;
-        }
-        close(outfile_fd);
-        return 0;
-    }
-    return 0;
-}
-int ft_append(t_minishell *strct)
-{
-    int fd;
-
-    if (strct->files->flag == AMB)
-    {
-        write(2, "Minishell:", 11);
-        write(2, strct->files->file, ft_strlen(strct->files->file));
-        write(2, ": ambiguous redirect \n", 22);
-        g_global->exit_status = 1;
-        return 1;
-    }
-    fd = open(strct->files->file, O_CREAT | O_WRONLY | O_APPEND, 0640);
-    if (fd == -1)
-    {
-        write(2, "Minishell:", 11);
-        perror(strct->files->file);
-        g_global->exit_status = 1;
-        close(fd);
-        exit(g_global->exit_status);
-    }
-    if (ft_strcmp(strct->files->file, "/dev/stdout"))
-    {
-
-        if (dup2(fd, STDOUT_FILENO) == -1)
-        {
-            write(2, "Error with dup2\n", 17);
-            g_global->exit_status = 1;
-            close(fd);
-            return 1;
-        }
-        close(fd);
-        return 0;
-    }
-    return 0;
-}
-
-int redirection(t_minishell *strct)
-{
-    t_minishell *head = strct;
-    int flag;
-    if (head->files == NULL && head->next && head)
-    {
-        if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1)
-        {
-            perror("");
-        }
-        return (0);
-    }
-    dup2(g_global->save_fd_out, STDOUT_FILENO);
-
-    flag = 0;
-    while (head && head->files)
-    {
-        if (head->files->file_type == IN || head->files->file_type == HER_DOC)
-        {
-            ft_infile(head);
-        }
-        else if (head->files->file_type == 1)
-        {
-            flag = 1;
-            ft_outfile(head);
-        }
-        else if (head->files->file_type == 3)
-        {
-            flag = 1;
-            ft_append(head);
-        }
-        head->files = head->files->next;
-    }
-    if (flag == 0 && strct->next)
-        dup2(g_global->fd_pipe[1], STDOUT_FILENO);
-
-    return 0;
-}
-
-void ft_builtins(t_minishell *strct)
-{
-    if (!strct || !strct->cmd || !strct->cmd[0])
-        return;
-    else if (ft_strcmp(strct->cmd[0], "pwd") == 0)
-        ft_pwd();
-    else if (ft_strcmp(strct->cmd[0], "env") == 0)
-        print_env(g_global->env);
-    else if (ft_strcmp(strct->cmd[0], "echo") == 0)
-        ft_echo(strct->cmd);
-    else if (ft_strcmp(strct->cmd[0], "cd") == 0)
-        ft_cd(strct->cmd[1]);
-    else if (ft_strcmp(strct->cmd[0], "unset") == 0)
-        unset(strct->cmd);
-    else if (ft_strcmp(strct->cmd[0], "export") == 0)
-        ft_export(strct);
-    else if (ft_strcmp(strct->cmd[0], "exit") == 0)
-        ft_exit(strct->cmd);
-}
-
-    int is_directory(const char *path) {
     struct stat path_stat;
 
-    if (access(path , F_OK) != 0) {
+    if (access(path, F_OK) != 0)
+    {
         perror("access");
-        return 0;  // Path doesn't exist or is inaccessible
+        return 0; // Path doesn't exist or is inaccessible
     }
 
-    if (stat(path, &path_stat) != 0) {
+    if (stat(path, &path_stat) != 0)
+    {
         perror("stat");
         return 0;
     }
 
-    if (S_ISDIR(path_stat.st_mode)) {
-        return 1;  // It's a directory
+    if (S_ISDIR(path_stat.st_mode))
+    {
+        return 1; // It's a directory
     }
 
-    return 0; 
+    return 0;
 }
+
 void execute_child(t_minishell *strct)
 {
     if (!strct || !strct->cmd || !strct->cmd[0])
@@ -269,16 +70,16 @@ void execute_child(t_minishell *strct)
         {
             if (access(strct->cmd[0], X_OK) == -1)
             {
-            perror(strct->cmd[0]);
-            g_global->exit_status = 126;
-            exit(g_global->exit_status);
+                perror(strct->cmd[0]);
+                g_global->exit_status = 126;
+                exit(g_global->exit_status);
             }
             if (is_directory(strct->cmd[0]))
             {
                 write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
                 write(2, ": is a directory\n", 18);
-            g_global->exit_status = 126;
-            exit(g_global->exit_status);
+                g_global->exit_status = 126;
+                exit(g_global->exit_status);
             }
         }
         char *path = get_path(help_expand("PATH"), strct->cmd[0]);
@@ -304,19 +105,6 @@ void ft_exec_child(t_minishell *strct)
     close(g_global->fd_pipe[1]);
 }
 
-int is_built(char *str)
-{
-    if (!str || !str || !str)
-        return 0;
-    if (!ft_strcmp(str, "exit") || !ft_strcmp(str, "export") || !ft_strcmp(str, "cd"))
-        return (1);
-    if (!ft_strcmp(str, "pwd") || !ft_strcmp(str, "unset") || !ft_strcmp(str, "echo"))
-        return (1);
-    if (!ft_strcmp(str, "env"))
-        return 1;
-    return (0);
-}
-
 int ft_lstsize_minishell(t_minishell *lst)
 {
     int i;
@@ -331,18 +119,8 @@ int ft_lstsize_minishell(t_minishell *lst)
     }
     return (i);
 }
-void ft_underscore(t_minishell *strct)
-{
-    char **cmd = strct->cmd;
-    int i = 0;
-    while (cmd[i])
-    {
-        g_global->underscore = cmd[i];
-        i++;
-    }
-}
 
-void execute_cmd(t_minishell *strct)
+void ft_execution(t_minishell *strct)
 {
     int status;
     int st;
@@ -394,9 +172,4 @@ void execute_cmd(t_minishell *strct)
             i++;
         }
     }
-}
-
-void ft_execution()
-{
-    execute_cmd(g_global->strct);
 }

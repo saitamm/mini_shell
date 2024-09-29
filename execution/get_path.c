@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:22:58 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 18:18:18 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 09:25:40 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,11 @@ char	*cmd_is_path(char **str, char *cmd_1, int flag)
 		path = ft_strdup(cmd_1);
 		if (str)
 			ft_free(str, len_double_str(str));
-		// free(cmd_1);
 	}
 	else
 	{
 		perror(cmd_1);
 		ft_free(str, len_double_str(str));
-		// free(cmd_1);
 		exit(127);
 	}
 	return (path);
@@ -93,7 +91,6 @@ void	ft_fun_norm(char *cmd, char **str)
 char	*get_path(char *envp, char *cmd)
 {
 	char	**str;
-	// char	**cmd_1;
 	int		i;
 	char	*path;
 	char	*w_path;
@@ -102,7 +99,6 @@ char	*get_path(char *envp, char *cmd)
 	while (envp && envp[i] != '/')
 		envp++;
 	str = ft_split(envp, ':');
-	// cmd_1 = ft_split(cmd, ' ');
 	if (access(cmd, X_OK) == 0 && (cmd[0] == '.'
 		|| cmd[0] == '/' || !str))
 		return (cmd_is_path(str, cmd, 0));

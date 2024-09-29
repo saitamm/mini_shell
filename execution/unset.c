@@ -6,14 +6,11 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:11:54 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/08 11:11:41 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 09:32:09 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-#include <stdlib.h>
-#include <string.h>
 
 void    ft_lstremove( char *key)
 {
@@ -27,7 +24,7 @@ void    ft_lstremove( char *key)
 
     while (current)
     {
-        if (strcmp(current->key, key) == 0)
+        if (ft_strcmp(current->key, key) == 0)
         {
             if (prev)
                 prev->next = current->next;
