@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 09:13:29 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 11:27:46 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void initialise_struct(char **env)
 {
     g_global = malloc(sizeof(t_global));
     memset(g_global, 0, sizeof(t_global));
+    g_global->flag_env = 1;
     parse_env_var(env);
     g_global->save_fd_int = dup(STDIN_FILENO);
     g_global->save_fd_out = dup(STDOUT_FILENO);

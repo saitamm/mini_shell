@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_struct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 17:57:03 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 11:41:36 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,25 @@ void    ft_set_underscor_value()
 }
 
 
+void    env_manuel()
+{
+    char    cwd[1024];
+    add_to_list(&g_global->env, "PWD" , getcwd(cwd, sizeof(cwd)));
+    add_to_list(&g_global->env, "SHLVL", "1");
+    add_to_list(&g_global->env, "_", "/usr/bin/env");
+    add_to_list(&g_global->env, "PATH", "/nfs/homes/sait-amm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
+    g_global->flag_env = 0;
+
+}
 void parse_env_var(char **env_var)
 {
     int i = 0;
 
-    if (env_var == NULL)
+    if (!env_var[0])
+    {
+        env_manuel();
         return;
+    }
     while (env_var[i])
     {
         char *equal_sign = ft_strchr(env_var[i], '=');

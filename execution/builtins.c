@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 09:50:54 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 11:58:01 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 void ft_bashlvl(t_minishell *strct)
 {
     t_env *env = g_global->env;
-    if (ft_strcmp(strct->cmd[0], "./minishell") == 0)
+    if(ft_strcmp(strct->cmd[0], "./minishell") == 0)
     {
         while (env)
         {
-            if (ft_strcmp(env->key, "SHLVL") == 0)
+            if(ft_strcmp(env->key, "SHLVL") == 0)
             {
                 int shlvl = ft_atoi(env->value);
                 shlvl++;
-                if (shlvl == 1000)
+                if(shlvl == 1000)  
                     shlvl = 1;
                 char *new_value = malloc(12); // Enough space for an int (max 10 digits + sign + null terminator)
                 if (!new_value)
                     return;
+                printf("new_value %d", shlvl);
                 free(env->value);
                 env->value = ft_itoa(shlvl);
                 return;
@@ -41,7 +42,7 @@ void ft_underscore(t_minishell *strct)
 {
     char **cmd = strct->cmd;
     int i = 0;
-    while (cmd[i])
+    while(cmd[i])
     {
         g_global->underscore = cmd[i];
         i++;
@@ -68,7 +69,7 @@ void ft_builtins(t_minishell *strct)
     else if (ft_strcmp(strct->cmd[0], "pwd") == 0)
         ft_pwd();
     else if (ft_strcmp(strct->cmd[0], "env") == 0)
-        print_env(g_global->env);
+        print_env(g_global->env, strct->cmd);
     else if (ft_strcmp(strct->cmd[0], "echo") == 0)
         ft_echo(strct->cmd);
     else if (ft_strcmp(strct->cmd[0], "cd") == 0)

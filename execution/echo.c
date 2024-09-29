@@ -35,9 +35,8 @@ void ft_echo(char **str) {
             write(1, &str[j][i], 1);
             i++;
         }
-        if (str[j + 1]) {
+        if (str[j + 1])
             write(1, " ", 1);
-        }
         j++;
     }
 

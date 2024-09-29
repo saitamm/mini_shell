@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:11:54 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 09:32:09 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 11:13:20 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ void	unset(char **cmd)
         if(ft_check_export_unset_args(cmd[i]) == 0)
 			return ;
 	    ft_lstremove(cmd[i]);
+        if(!ft_strcmp(cmd[i],"PWD"))
+        {
+            g_global->pwd = ft_strdup(NULL);
+        }
 		i++;
 	}
 }

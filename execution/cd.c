@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 10:49:24 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 11:44:05 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
 
 char *find_home_path()
 {
@@ -56,6 +57,8 @@ void ft_change_curr_and_old_path(char *new_path)
         {
             free(g_global->env->value);
             g_global->env->value = ft_strdup(g_global->pwd);
+                        free(g_global->pwd);
+            g_global->pwd = ft_strdup(new_path);
             break;
         }
         else
@@ -68,6 +71,8 @@ void ft_change_curr_and_old_path(char *new_path)
         {
             free(g_global->env->value);
             g_global->env->value = ft_strdup(new_path);
+            free(g_global->pwd);
+            g_global->pwd = ft_strdup(new_path);
             break;
         }
         else
@@ -84,8 +89,8 @@ void ft_cd(char **Path)
     if (!Path || !Path[1])
     {
         Path[1] = find_home_path();
-        // ft_find_current_pwd();
-        // ft_change_curr_and_old_path(Path[1]);
+        ft_find_current_pwd();
+        ft_change_curr_and_old_path(Path[1]);
         if (chdir(Path[1]) == 0)
         {
             if (getcwd(cwd, sizeof(cwd)) != NULL)
@@ -110,7 +115,9 @@ void ft_cd(char **Path)
     {
         if(Path[2])
         {
-            write(2,"bash: cd: too many arguments\n",30);
+            write(2,"Minishell: cd: too many arguments\n",35);
+            g_global->exit_status = 1;
+            return ;
         }
         if (ft_strcmp(Path[1], "~") == 0 || ft_strcmp(Path[1], "--") == 0)
         {

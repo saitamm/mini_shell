@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 10:46:22 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 11:36:00 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,11 @@ void	error_export(char *str, char *error, int flag)
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
+	(void)error;
 	key = ft_substr(str, 0, i);
-	write(2, "Minishell : ", 13);
-	write(2, key, ft_strlen(key));
-	free(key);
-	write(2, " : ", 4);
-	write(2, error, ft_strlen(error));
+	write(2, "Minishell: export: `", 20);
+    write(2, str, ft_strlen(str));
+    write(2, "': not a valid identifier\n", 26);
 	g_global->exit_status = flag;
 }
 
@@ -144,7 +143,11 @@ void	add_key_export(char *str)
 		i++;
 	}
 	key = ft_substr(str, 0, i);
+	{
+		if (!ft_strcmp(key, "PATH"))
+			g_global->flag_env = 1;
 		add_to_env(str, key);
+	}
 	// print_export();
 }
 void	ft_export(t_minishell *strct)
