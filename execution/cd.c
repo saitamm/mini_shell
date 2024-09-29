@@ -6,34 +6,34 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 09:09:49 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:49:24 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char    *find_home_path()
+char *find_home_path()
 {
-    t_env *head = g_global->env;  
+    t_env *head = g_global->env;
 
-    while(head)
+    while (head)
     {
-        if(ft_strcmp(head->key, "HOME") == 0 )
+        if (ft_strcmp(head->key, "HOME") == 0)
         {
             return (head->value);
         }
         else
             head = head->next;
     }
-    if(head->next)
+    if (head->next)
         write(2, "MInishell : cd : HOME not set\n", 31);
     return NULL;
 }
 
-void    ft_find_current_pwd(void)
+void ft_find_current_pwd(void)
 {
     t_env *head = g_global->env;
-    
+
     while (g_global->env)
     {
         if (ft_strcmp(g_global->env->key, "PWD") == 0)
@@ -61,13 +61,13 @@ void ft_change_curr_and_old_path(char *new_path)
         else
             g_global->env = g_global->env->next;
     }
-    
+
     while (g_global->env)
     {
         if (ft_strcmp(g_global->env->key, "PWD") == 0)
         {
             free(g_global->env->value);
-            g_global->env->value = ft_strdup(new_path);  
+            g_global->env->value = ft_strdup(new_path);
             break;
         }
         else
@@ -76,27 +76,64 @@ void ft_change_curr_and_old_path(char *new_path)
     g_global->env = head;
 }
 
-// problem in cd bohadha the pwd makaitbdlech
-void ft_cd(char *Path)
+
+void ft_cd(char **Path)
 {
     char cwd[1024];
 
-    if (!Path || ft_strcmp(Path, "~") == 0 || ft_strcmp(Path, "--") == 0)
+    if (!Path || !Path[1])
     {
-        Path = find_home_path();
+        Path[1] = find_home_path();
         // ft_find_current_pwd();
-        // ft_change_curr_and_old_path(Path);
+        // ft_change_curr_and_old_path(Path[1]);
+        if (chdir(Path[1]) == 0)
+        {
+            if (getcwd(cwd, sizeof(cwd)) != NULL)
+            {
+                ft_find_current_pwd();
+                ft_change_curr_and_old_path(cwd);
+            }
+            else
+            {
+                perror("getcwd error");
+                g_global->exit_status = 1;
+            }
+        }
+        else
+        {
+            perror(Path[0]);
+            g_global->exit_status = 1;
+        }
+        return;
     }
-    
-    if (chdir(Path) == 0)
+    if(Path != NULL )
     {
-        getcwd(cwd, sizeof(cwd));
-        ft_find_current_pwd();
-        ft_change_curr_and_old_path(cwd);
-    }
-    else 
-    {
-        perror(Path);
-        g_global->exit_status = 1;
+        if(Path[2])
+        {
+            write(2,"bash: cd: too many arguments\n",30);
+        }
+        if (ft_strcmp(Path[1], "~") == 0 || ft_strcmp(Path[1], "--") == 0)
+        {
+            Path[0] = find_home_path();
+        }
+
+        if (chdir(Path[1]) == 0)
+        {
+            if (getcwd(cwd, sizeof(cwd)) != NULL)
+            {
+                ft_find_current_pwd();
+                ft_change_curr_and_old_path(cwd);
+            }
+            else
+            {
+                perror("getcwd error");
+                g_global->exit_status = 1;
+            }
+        }
+        else
+        {
+            perror(Path[0]);
+            g_global->exit_status = 1;
+        }
     }
 }

@@ -6,36 +6,32 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 09:39:58 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:06:46 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int is_directory(const char *path)
-{
+
+    int is_directory(const char *path) {
     struct stat path_stat;
 
-    if (access(path, F_OK) != 0)
-    {
+    if (access(path , F_OK) != 0) {
         perror("access");
-        return 0; // Path doesn't exist or is inaccessible
+        return 0;  // Path doesn't exist or is inaccessible
     }
 
-    if (stat(path, &path_stat) != 0)
-    {
+    if (stat(path, &path_stat) != 0) {
         perror("stat");
         return 0;
     }
 
-    if (S_ISDIR(path_stat.st_mode))
-    {
-        return 1; // It's a directory
+    if (S_ISDIR(path_stat.st_mode)) {
+        return 1;  // It's a directory
     }
 
-    return 0;
+    return 0; 
 }
-
 void execute_child(t_minishell *strct)
 {
     if (!strct || !strct->cmd || !strct->cmd[0])
@@ -49,7 +45,7 @@ void execute_child(t_minishell *strct)
     else if (ft_strcmp(strct->cmd[0], "echo") == 0)
         ft_echo(strct->cmd);
     else if (ft_strcmp(strct->cmd[0], "cd") == 0)
-        ft_cd(strct->cmd[1]);
+        ft_cd(strct->cmd);
     else if (ft_strcmp(strct->cmd[0], "unset") == 0)
         unset(strct->cmd);
     else if (ft_strcmp(strct->cmd[0], "export") == 0)
@@ -70,16 +66,16 @@ void execute_child(t_minishell *strct)
         {
             if (access(strct->cmd[0], X_OK) == -1)
             {
-                perror(strct->cmd[0]);
-                g_global->exit_status = 126;
-                exit(g_global->exit_status);
+            perror(strct->cmd[0]);
+            g_global->exit_status = 126;
+            exit(g_global->exit_status);
             }
             if (is_directory(strct->cmd[0]))
             {
                 write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
                 write(2, ": is a directory\n", 18);
-                g_global->exit_status = 126;
-                exit(g_global->exit_status);
+            g_global->exit_status = 126;
+            exit(g_global->exit_status);
             }
         }
         char *path = get_path(help_expand("PATH"), strct->cmd[0]);
@@ -105,6 +101,7 @@ void ft_exec_child(t_minishell *strct)
     close(g_global->fd_pipe[1]);
 }
 
+
 int ft_lstsize_minishell(t_minishell *lst)
 {
     int i;
@@ -119,6 +116,7 @@ int ft_lstsize_minishell(t_minishell *lst)
     }
     return (i);
 }
+
 
 void ft_execution(t_minishell *strct)
 {
