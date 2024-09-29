@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 11:50:36 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:02:48 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void execute_child(t_minishell *strct)
     else if (ft_strcmp(strct->cmd[0], "pwd") == 0)
         ft_pwd();
     else if (ft_strcmp(strct->cmd[0], "env") == 0)
-        print_env(g_global->env);
+        print_env(g_global->env, strct->cmd);
     else if (ft_strcmp(strct->cmd[0], "echo") == 0)
         ft_echo(strct->cmd);
     else if (ft_strcmp(strct->cmd[0], "cd") == 0)
@@ -103,6 +103,7 @@ void execute_child(t_minishell *strct)
         char **env_exc = env_to_array(g_global->env);
         execve(path, strct->cmd, env_exc);
     }
+    g_global->exit_status = 0;
     exit(0);
 }
 
@@ -215,6 +216,8 @@ void ft_execution(t_minishell *strct)
             return;
         ft_builtins(strct);
         ft_underscore(strct);
+            g_global->exit_status = 0;
+
         dup2(g_global->save_fd_out, STDOUT_FILENO);
         dup2(g_global->save_fd_int, STDIN_FILENO);
     }
@@ -240,6 +243,7 @@ void ft_execution(t_minishell *strct)
             close(g_global->fd_pipe[0]);
             g_global->underscore = ft_strdup(strct->cmd[0]);
             ft_underscore(strct);
+            g_global->exit_status = 0;
             strct = strct->next;
             i++;
         }

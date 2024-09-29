@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 11:58:01 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:00:05 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,5 @@ void ft_builtins(t_minishell *strct)
         ft_export(strct);
     else if (ft_strcmp(strct->cmd[0], "exit") == 0)
         ft_exit(strct->cmd);
+    // g_global->exit_status = 0;
 }
