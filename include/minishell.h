@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 15:57:26 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 09:17:28 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
+#include <sys/stat.h>
 # define ERROR "syntax error near unexpected token"
 
 typedef struct s_env

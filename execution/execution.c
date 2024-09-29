@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/28 18:29:43 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 09:30:42 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,19 @@ int ft_infile(t_minishell *strct)
 void ft_bashlvl(t_minishell *strct)
 {
     t_env *env = g_global->env;
-    if(ft_strcmp(strct->cmd[0], "./minishell") == 0)
+    if (ft_strcmp(strct->cmd[0], "./minishell") == 0)
     {
         while (env)
         {
-            if(ft_strcmp(env->key, "SHLVL") == 0)
+            if (ft_strcmp(env->key, "SHLVL") == 0)
             {
                 int shlvl = ft_atoi(env->value);
                 shlvl++;
-                if(shlvl == 1000)  
+                if (shlvl == 1000)
                     shlvl = 1;
                 char *new_value = malloc(12); // Enough space for an int (max 10 digits + sign + null terminator)
                 if (!new_value)
                     return;
-                printf("new_value %d", shlvl);
                 free(env->value);
                 env->value = ft_itoa(shlvl);
                 return;
@@ -161,7 +160,7 @@ int ft_append(t_minishell *strct)
 int redirection(t_minishell *strct)
 {
     t_minishell *head = strct;
-   
+    int flag;
     if (head->files == NULL && head->next && head)
     {
         if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1)
@@ -171,17 +170,19 @@ int redirection(t_minishell *strct)
         return (0);
     }
     dup2(g_global->save_fd_out, STDOUT_FILENO);
-    int flag;
+
     flag = 0;
     while (head && head->files)
     {
         if (head->files->file_type == IN || head->files->file_type == HER_DOC)
+        {
             ft_infile(head);
+        }
         else if (head->files->file_type == 1)
-            {
-                flag = 1;
-                ft_outfile(head);
-            }
+        {
+            flag = 1;
+            ft_outfile(head);
+        }
         else if (head->files->file_type == 3)
         {
             flag = 1;
@@ -191,7 +192,7 @@ int redirection(t_minishell *strct)
     }
     if (flag == 0 && strct->next)
         dup2(g_global->fd_pipe[1], STDOUT_FILENO);
-        
+
     return 0;
 }
 
@@ -215,6 +216,25 @@ void ft_builtins(t_minishell *strct)
         ft_exit(strct->cmd);
 }
 
+    int is_directory(const char *path) {
+    struct stat path_stat;
+
+    if (access(path , F_OK) != 0) {
+        perror("access");
+        return 0;  // Path doesn't exist or is inaccessible
+    }
+
+    if (stat(path, &path_stat) != 0) {
+        perror("stat");
+        return 0;
+    }
+
+    if (S_ISDIR(path_stat.st_mode)) {
+        return 1;  // It's a directory
+    }
+
+    return 0; 
+}
 void execute_child(t_minishell *strct)
 {
     if (!strct || !strct->cmd || !strct->cmd[0])
@@ -237,7 +257,7 @@ void execute_child(t_minishell *strct)
         ft_exit(strct->cmd);
     else
     {
-      
+
         if (!ft_split(strct->cmd[0], ' ')[0] || strct->cmd[0][0] == '\0')
         {
             write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
@@ -245,13 +265,23 @@ void execute_child(t_minishell *strct)
             g_global->exit_status = 127;
             exit(g_global->exit_status);
         }
-    if (access(strct->cmd[0], X_OK) == -1 && strct->cmd[0][0] == '.' && strct->cmd[0][1] == '/')
-	{
-		perror(strct->cmd[0]);
-        g_global->exit_status = 126;
-		exit(g_global->exit_status);
-	}
-    char *path = get_path(help_expand("PATH"), strct->cmd[0]);
+        if (ft_strchr(strct->cmd[0], '/'))
+        {
+            if (access(strct->cmd[0], X_OK) == -1)
+            {
+            perror(strct->cmd[0]);
+            g_global->exit_status = 126;
+            exit(g_global->exit_status);
+            }
+            if (is_directory(strct->cmd[0]))
+            {
+                write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
+                write(2, ": is a directory\n", 18);
+            g_global->exit_status = 126;
+            exit(g_global->exit_status);
+            }
+        }
+        char *path = get_path(help_expand("PATH"), strct->cmd[0]);
         if (!path)
         {
             write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
@@ -259,9 +289,7 @@ void execute_child(t_minishell *strct)
             g_global->exit_status = 127;
             exit(g_global->exit_status);
         }
-        dprintf(2, "===> %s\n", strct->cmd[0]);
-            ft_bashlvl(strct);
-        
+        ft_bashlvl(strct);
         char **env_exc = env_to_array(g_global->env);
         execve(path, strct->cmd, env_exc);
     }
@@ -307,14 +335,12 @@ void ft_underscore(t_minishell *strct)
 {
     char **cmd = strct->cmd;
     int i = 0;
-    while(cmd[i])
+    while (cmd[i])
     {
         g_global->underscore = cmd[i];
         i++;
     }
 }
-
-
 
 void execute_cmd(t_minishell *strct)
 {
@@ -323,13 +349,12 @@ void execute_cmd(t_minishell *strct)
     int size = ft_lstsize_minishell(strct);
     int *pid;
     int i = 0;
-    
 
     pid = malloc(size * sizeof(int));
     if (size == 1 && is_built(strct->cmd[0]))
     {
         redirection(strct);
-        
+
         ft_builtins(strct);
         ft_underscore(strct);
         dup2(g_global->save_fd_out, STDOUT_FILENO);
@@ -351,7 +376,6 @@ void execute_cmd(t_minishell *strct)
                 pid[i] = fork();
                 if (pid[i] == 0)
                     ft_exec_child(strct);
-
             }
             close(g_global->fd_pipe[1]);
             dup2(g_global->fd_pipe[0], STDIN_FILENO);
@@ -362,13 +386,13 @@ void execute_cmd(t_minishell *strct)
             i++;
         }
         i = 0;
-            while (i < size)
-            {
-                waitpid(pid[i], &status, 0);
-                st = status >> 8;
-                g_global->exit_status = st;
-                i++;
-            }
+        while (i < size)
+        {
+            waitpid(pid[i], &status, 0);
+            st = status >> 8;
+            g_global->exit_status = st;
+            i++;
+        }
     }
 }
 
