@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 17:20:35 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:57:53 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_infile(t_minishell *strct)
+int ft_infile(t_minishell *strct)
 {
-	int	infile_fd;
+	int infile_fd;
 
 	if (strct->files->flag == AMB)
 	{
@@ -22,7 +22,9 @@ int	ft_infile(t_minishell *strct)
 		write(2, strct->files->file, ft_strlen(strct->files->file));
 		write(2, ": ambiguous redirect\n", 22);
 		g_global->exit_status = 1;
+		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 		ft_free_global();
+		free_minishell(&g_global->strct);
 		exit(g_global->exit_status);
 	}
 	infile_fd = open(strct->files->file, O_RDONLY);
@@ -33,7 +35,8 @@ int	ft_infile(t_minishell *strct)
 			write(2, "Minishell:", 11);
 			perror(strct->files->file);
 			g_global->exit_status = 1;
-			ft_free_global();
+			// ft_free_global();
+			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 			exit(g_global->exit_status);
 		}
 		else if (access(strct->files->file, R_OK) != 0)
@@ -42,12 +45,14 @@ int	ft_infile(t_minishell *strct)
 			perror(strct->files->file);
 			g_global->exit_status = 1;
 			close(infile_fd);
-			ft_free_global();
+			// ft_free_global();
+			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 			exit(g_global->exit_status);
 		}
 		perror("Error opening file\n");
 		g_global->exit_status = 1;
-		ft_free_global();
+		// ft_free_global();
+		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 		exit(g_global->exit_status);
 	}
 	if (ft_strcmp(strct->files->file, "/dev/stdin"))
@@ -57,6 +62,7 @@ int	ft_infile(t_minishell *strct)
 			perror("Error in dup2\n");
 			g_global->exit_status = 1;
 			close(infile_fd);
+			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 			exit(g_global->exit_status);
 		}
 	}
@@ -64,9 +70,9 @@ int	ft_infile(t_minishell *strct)
 	return (0);
 }
 
-int	ft_outfile(t_minishell *strct)
+int ft_outfile(t_minishell *strct)
 {
-	int	outfile_fd;
+	int outfile_fd;
 
 	if (strct->files->flag == AMB)
 	{
@@ -100,9 +106,9 @@ int	ft_outfile(t_minishell *strct)
 	}
 	return (0);
 }
-int	ft_append(t_minishell *strct)
+int ft_append(t_minishell *strct)
 {
-	int	fd;
+	int fd;
 
 	if (strct->files->flag == AMB)
 	{
@@ -137,7 +143,7 @@ int	ft_append(t_minishell *strct)
 	return (0);
 }
 
-int	redirection(t_minishell *strct)
+int redirection(t_minishell *strct)
 {
 	t_minishell *head = strct;
 

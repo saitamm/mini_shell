@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 17:19:16 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:58:48 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,12 @@ void	execute_child(t_minishell *strct)
 		}
 		ft_bashlvl(strct);
 		env_exc = env_to_array(g_global->env);
-		execve(path, strct->cmd, env_exc);
+		if (execve(path, strct->cmd, env_exc) == -1)
+		{
+			ft_free(strct->cmd,len_double_str(strct->cmd));
+			free(path);
+			ft_free(env_exc, len_double_str(env_exc));
+		}
 	}
 	g_global->exit_status = 0;
 	ft_free_global();
@@ -178,7 +183,6 @@ int	ft_infile_built(t_minishell *strct)
 			write(2, "Minishell:", 11);
 			perror(strct->files->file);
 			g_global->exit_status = 1;
-			close(infile_fd);
 			return (1);
 		}
 		perror("Error opening file\n");
@@ -230,12 +234,11 @@ void	ft_execution(t_minishell *strct)
 	int	status;
 	int	st;
 	int	size;
-	int	*pid;
 	int	i;
 
 	size = ft_lstsize_minishell(strct);
 	i = 0;
-	pid = malloc(size * sizeof(int));
+	g_global->pid = malloc(size * sizeof(int));
 	if (size == 1 && is_built(strct->cmd[0]))
 	{
 		if (redirection_buils(strct))
@@ -257,8 +260,8 @@ void	ft_execution(t_minishell *strct)
 			}
 			else
 			{
-				pid[i] = fork();
-				if (pid[i] == 0)
+				g_global->pid[i] = fork();
+				if (g_global->pid[i] == 0)
 					ft_exec_child(strct);
 			}
 			close(g_global->fd_pipe[1]);
@@ -272,11 +275,11 @@ void	ft_execution(t_minishell *strct)
 		i = 0;
 		while (i < size)
 		{
-			waitpid(pid[i], &status, 0);
+			waitpid(g_global->pid[i], &status, 0);
 			st = status >> 8;
 			g_global->exit_status = st;
 			i++;
 		}
 	}
-	free(pid);
+	free(g_global->pid);
 }

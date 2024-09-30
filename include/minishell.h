@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 12:45:20 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:57:13 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_global
     int save_fd_int;
     int fd_pipe[2];
 	char	*pwd;
+	pid_t	*pid;
 	char	*oldpwd;
 	char	*underscore;
     t_minishell *strct;

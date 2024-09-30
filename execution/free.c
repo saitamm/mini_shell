@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:21:18 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 17:12:18 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:59:59 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	ft_free_global(void)
 		free(g_global->oldpwd);
 	if (g_global->underscore)
 		free(g_global->underscore);
-	// free_minishell(&g_global->strct);
+	// if (g_global->pid)
+	// 	free(g_global->pid);
+
 	// free(g_global);
 }

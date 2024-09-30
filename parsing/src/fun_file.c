@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/29 15:05:39 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:02:20 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char *help_file(char *str, t_file **s, char *src)
 	pos = 0;
 	src = help_norm_expand(src, *s);
 	spl_str = split_str(src, &pos);
-	if ((len_double_str(spl_str) > 1 && (*s)->file_type != HER_DOC) || !spl_str[0] || src[0] == '\0')
+	if ((len_double_str(spl_str) > 1 && (*s)->file_type != HER_DOC) || !src)
 	{
 		free(src);
 		src = ft_strdup(str);

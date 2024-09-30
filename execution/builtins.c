@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 18:39:01 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:07:55 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ void	ft_underscore(t_minishell *strct)
 	i = 0;
 	while (cmd[i])
 	{
+	dprintf(2, "4444444> %s\n", cmd[i]);
 		if (g_global->underscore)
 			free(g_global->underscore);
 		g_global->underscore = ft_strdup(cmd[i]);
-		i++;
+		if (cmd[i])
+			i++;
 	}
 }
 

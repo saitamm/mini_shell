@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 18:34:51 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:26:43 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*find_home_path(void)
 	{
 		if (ft_strcmp(head->key, "HOME") == 0)
 		{
-			return (head->value);
+			return (ft_strdup(head->value));
 		}
 		else
 			head = head->next;
@@ -40,7 +40,8 @@ void	ft_find_current_pwd(void)
 	{
 		if (ft_strcmp(g_global->env->key, "PWD") == 0)
 		{
-			g_global->pwd = g_global->env->value;
+			free(g_global->pwd);
+			g_global->pwd = ft_strdup(g_global->env->value);
 			break ;
 		}
 		else
@@ -67,11 +68,12 @@ void	ft_change_curr_and_old_path(char *new_path)
 		else
 			g_global->env = g_global->env->next;
 	}
+	
 	while (g_global->env)
 	{
 		if (ft_strcmp(g_global->env->key, "PWD") == 0)
 		{
-			//free(g_global->env->value);
+			free(g_global->env->value);
 			g_global->env->value = ft_strdup(new_path);
 			free(g_global->pwd);
 			g_global->pwd = ft_strdup(new_path);
@@ -86,13 +88,14 @@ void	ft_change_curr_and_old_path(char *new_path)
 void	ft_cd(char **Path)
 {
 	char	cwd[1024];
+	char	*home_path = NULL;
 
 	if (!Path || !Path[1])
 	{
-		Path[1] = find_home_path();
+		home_path = find_home_path();
 		ft_find_current_pwd();
-		ft_change_curr_and_old_path(Path[1]);
-		if (chdir(Path[1]) == 0)
+		ft_change_curr_and_old_path(home_path);
+		if (chdir(home_path) == 0)
 		{
 			if (getcwd(cwd, sizeof(cwd)) != NULL)
 			{
@@ -110,6 +113,7 @@ void	ft_cd(char **Path)
 			perror(Path[0]);
 			g_global->exit_status = 1;
 		}
+		free(home_path);
 		return ;
 	}
 	if (Path != NULL)
@@ -122,9 +126,9 @@ void	ft_cd(char **Path)
 		}
 		if (ft_strcmp(Path[1], "~") == 0 || ft_strcmp(Path[1], "--") == 0)
 		{
-			Path[0] = find_home_path();
+			home_path = find_home_path();
 		}
-		if (chdir(Path[1]) == 0)
+		if (chdir(home_path) == 0)
 		{
 			if (getcwd(cwd, sizeof(cwd)) != NULL)
 			{
@@ -142,5 +146,6 @@ void	ft_cd(char **Path)
 			perror(Path[0]);
 			g_global->exit_status = 1;
 		}
+		free(home_path);
 	}
 }

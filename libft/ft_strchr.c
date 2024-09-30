@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 11:03:33 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:25:25 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:58:01 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strchr(const char *s, int c)
 	char	find;
 	int		i;
 
+	if (!s)
+		return (NULL);
 	find = (unsigned char)c;
 	i = 0;
 	while (s[i] != '\0')
