@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 14:00:05 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:50:22 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void ft_underscore(t_minishell *strct)
     int i = 0;
     while(cmd[i])
     {
-        g_global->underscore = cmd[i];
+        if (g_global->underscore)
+            free(g_global->underscore);
+        g_global->underscore = ft_strdup(cmd[i]);
         i++;
     }
 }

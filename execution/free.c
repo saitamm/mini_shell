@@ -3,15 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:21:18 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 12:07:46 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:39:32 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+// Function to free the linked env_list
+//  void free_list(t_env *head)
+//  {
+//      t_env *tmp;
+
+//     while (head)
+//     {
+//         tmp = head;
+//         if(tmp->key)
+//             free(tmp->key);
+//         if(tmp->value)
+//             free(tmp->value);
+//         free(tmp);
+//         head = head->next;
+//     }
+// }
 void free_list(t_env **m_shell)
 {
     t_env *k;
@@ -37,26 +53,6 @@ void free_list(t_env **m_shell)
     }
     *m_shell = NULL;
 }
-
-// void free_list(t_env **m_shell)
-// {
-//     t_env *tmp;
-
-//     if (!m_shell)
-//         return;
-
-//     while (*m_shell)
-//     {
-//         tmp = *m_shell;
-//         free(tmp->key);
-//         free(tmp->value);
-//         *m_shell = (*m_shell)->next;
-//         free(tmp);
-//     }
-//     *m_shell = NULL;
-// }
-
-
 void ft_free_global()
 {
     if (g_global->env)
@@ -67,6 +63,6 @@ void ft_free_global()
         free(g_global->oldpwd);
     if (g_global->underscore)
         free(g_global->underscore);
-    free_minishell(&g_global->strct);
+    //free_minishell(&g_global->strct);
     // free(g_global);
 }

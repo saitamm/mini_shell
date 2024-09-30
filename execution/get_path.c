@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:22:58 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 14:48:02 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:49:23 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char *get_path(char *envp, char *cmd)
 	str = ft_split(envp, ':');
 	if (access(cmd, X_OK) == 0 && (cmd[0] == '.' || cmd[0] == '/' || !str))
 		return (cmd_is_path(str, cmd, 0));
-	else
+	else if (cmd[0] == '.')
 		ft_fun_norm(cmd, str);
 	w_path = ft_strjoin("/", cmd);
 	while (str && str[i])

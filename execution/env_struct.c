@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_struct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 12:08:56 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:26:06 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,16 @@ t_env *create_node(char *key, char *value)
     t_env *new_node = (t_env *)malloc(sizeof(t_env));
     if (!new_node)
         return NULL;
-    
-    // Check if key is NULL
-    if (!key)
+    if(key == NULL)
     {
         free(new_node);
         return NULL;
     }
-
     new_node->key = ft_strdup(key);
-    if (!new_node->key)
-    {
-        free(new_node);
-        return NULL;
-    }
-
     new_node->value = ft_strdup(value);
-    if (!new_node->value)
-    {
-        free(new_node->key); // Free the key before returning
-        free(new_node);
-        return NULL;
-    }
-    
     new_node->next = NULL;
     return new_node;
 }
-
 
 void add_to_list(t_env **head, char *key, char *value)
 {
@@ -124,6 +107,7 @@ void ft_set_underscor_value()
     {
         if (ft_strcmp(tmp->key, "_") == 0)
         {
+            free(tmp->value);
             tmp->value =ft_strdup("/usr/bin/env");
             return;
         }
@@ -151,7 +135,6 @@ void parse_env_var(char **env_var)
     }
     if (!env_var)
         return;
-
     while (env_var[i])
     {
         char *equal_sign = ft_strchr(env_var[i], '=');
@@ -159,17 +142,9 @@ void parse_env_var(char **env_var)
         {
             char *key = get_key(env_var[i]);
             char *value = ft_substr(equal_sign + 1, 0, ft_strlen(equal_sign + 1));
-            
             if (!key || !value)
-            {
-                free(key);    // Avoid leak in case of failure
-                free(value);
                 return;
-            }
-
-            add_to_list(&g_global->env, key, value);  // `add_to_list` calls `create_node`, which uses `ft_strdup`
-            
-            // Free the original key and value since they are duplicated in the list
+            add_to_list(&g_global->env, key, value);
             free(key);
             free(value);
         }
@@ -177,4 +152,3 @@ void parse_env_var(char **env_var)
     }
     ft_set_underscor_value();
 }
-

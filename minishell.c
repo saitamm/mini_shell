@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 12:10:23 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:55:46 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void print(t_minishell *strct)
     }
 }
 
-char    *find_value(char *key)
+char *find_value(char *key)
 {
-    t_env *head = g_global->env;      
+    t_env *head = g_global->env;
 
-    while(head)
+    while (head)
     {
-        if(ft_strcmp(head->key, key) == 0 )
+        if (ft_strcmp(head->key, key) == 0)
             return (head->value);
         else
             head = head->next;
@@ -73,17 +73,28 @@ int main(int ac, char **av, char **env)
     {
         line = readline("Minishell$> ");
         if (!line)
-            return 0;
+        {
+            free_list(&g_global->env);
+            if (g_global->pwd)
+                free(g_global->pwd);
+            if (g_global->oldpwd)
+                free(g_global->oldpwd);
+            if (g_global->underscore)
+                free(g_global->underscore);
+            return (0);
+        }
         g_global->strct = parce(line);
         if (g_global->strct)
         {
-            // print(g_global->strct);
             ft_execution(g_global->strct);
             dup2(g_global->save_fd_int, STDIN_FILENO);
             add_history(line);
-            ft_free_global();
+            if (g_global->strct->cmd)
+                ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
+            free_minishell(&g_global->strct);
         }
         if (line)
             free(line);
     }
+    ft_free_global();
 }

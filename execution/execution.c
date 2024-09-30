@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 10:27:48 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:52:00 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,22 @@ int is_directory(const char *path)
     return 0;
 }
 
+char    **ft_execve_arg(char **str)
+{
+    char    **argv;
+    int     i = 0;
+
+    argv = malloc((len_double_str(str) + 1) * sizeof(char *));
+    if (!argv)
+        return (NULL);
+    while (str[i])
+    {
+        argv[i] = ft_strdup(str[i]);
+        i++;
+    }
+    argv[i] = NULL;
+    return(argv);
+}
 void execute_child(t_minishell *strct)
 {
     if (!strct || !strct->cmd || !strct->cmd[0])
@@ -222,7 +238,6 @@ void ft_execution(t_minishell *strct)
             return;
         ft_builtins(strct);
         ft_underscore(strct);
-        g_global->exit_status = 0;
 
         dup2(g_global->save_fd_out, STDOUT_FILENO);
         dup2(g_global->save_fd_int, STDIN_FILENO);
@@ -248,7 +263,7 @@ void ft_execution(t_minishell *strct)
             close(g_global->fd_pipe[1]);
             dup2(g_global->fd_pipe[0], STDIN_FILENO);
             close(g_global->fd_pipe[0]);
-            g_global->underscore = ft_strdup(strct->cmd[0]);
+            // g_global->underscore = ft_strdup(strct->cmd[0]);
             ft_underscore(strct);
             g_global->exit_status = 0;
             strct = strct->next;
