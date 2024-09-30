@@ -12,23 +12,23 @@
 
 #include "../include/minishell.h"
 
-void print_env(t_env *head, char **cmd)
+void	print_env(t_env *head, char **cmd)
 {
-    t_env *temp = head;
+	t_env	*temp;
 
-        if(cmd[1])
-            return;
-        while (temp)
-        {
-            if (!ft_strcmp(temp->key, "PATH") && !g_global->flag_env)
-                temp = temp->next;
-            else if (temp->key && temp->value)
-            {
-                printf("%s = %s\n", temp->key, temp->value);
-            temp = temp->next;
-                
-            }
-            else
-                temp = temp->next;
-        }
+	temp = head;
+	if (cmd[1])
+		return ;
+	while (temp)
+	{
+		if (!ft_strcmp(temp->key, "PATH") && !g_global->flag_env)
+			temp = temp->next;
+		else if (temp->key && temp->value)
+		{
+			printf("%s = %s\n", temp->key, temp->value);
+			temp = temp->next;
+		}
+		else
+			temp = temp->next;
+	}
 }

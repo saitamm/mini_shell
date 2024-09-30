@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 14:55:46 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:37:09 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void initialise_struct(char **env)
     g_global->save_fd_out = dup(STDOUT_FILENO);
     g_global->pwd = ft_strdup(find_value("PWD"));
     g_global->oldpwd = ft_strdup(find_value("OLDPWD"));
+    g_global->underscore = ft_strdup(NULL);
 }
 
 int main(int ac, char **av, char **env)

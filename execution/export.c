@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 14:46:57 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:19:31 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_list_sort(t_env **env)
 {
 	t_env	*tmp;
 	int		i;
-	
+
 	if (!env || !*env)
 		return ;
 	i = 1;
@@ -43,18 +43,17 @@ void	ft_list_sort(t_env **env)
 			{
 				ft_swaped(tmp, tmp->next);
 				i = 1;
-			}	
+			}
 			tmp = tmp->next;
 		}
 	}
 }
 
-void	print_export()
+void	print_export(void)
 {
 	t_env	*tmp;
 
 	tmp = g_global->env;
-	// int i = 0;
 	ft_list_sort(&tmp);
 	while (tmp)
 	{
@@ -68,7 +67,7 @@ void	print_export()
 
 void	error_export(char *str, char *error, int flag)
 {
-	int	i;
+	int		i;
 	char	*key;
 
 	i = 0;
@@ -77,24 +76,24 @@ void	error_export(char *str, char *error, int flag)
 	(void)error;
 	key = ft_substr(str, 0, i);
 	write(2, "Minishell: export: `", 20);
-    write(2, str, ft_strlen(str));
-    write(2, "': not a valid identifier\n", 26);
+	write(2, str, ft_strlen(str));
+	write(2, "': not a valid identifier\n", 26);
 	g_global->exit_status = flag;
 }
 
-int		check_error_export(char *str)
+int	check_error_export(char *str)
 {
 	int	i;
 
 	i = 0;
 	if (str[0] == '-')
-			return (error_export(str, "not a valid option \n", 2), 1);
+		return (error_export(str, "not a valid option \n", 2), 1);
 	if (!ft_isalpha(str[i]) && str[0] != '_')
-			return(error_export(str, "not a valid identifier\n", 1), 1);
+		return (error_export(str, "not a valid identifier\n", 1), 1);
 	while (str[i] && str[i] != '=')
 	{
 		if (str[i] == '+' && str[i + 1] == '=')
-			break;
+			break ;
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (error_export(str, "not a valid identifier\n", 1), 1);
 		i++;
@@ -104,11 +103,13 @@ int		check_error_export(char *str)
 
 void	add_to_env(char *str, char *key)
 {
-	char *value;
+	char	*value;
+	char	*tmp;
 
 	if (str[ft_strlen(key)] == '=')
 	{
-		value = ft_substr(str + ft_strlen(key) + 1, 0, ft_strlen(str) - ft_strlen(key) - 1);
+		value = ft_substr(str + ft_strlen(key) + 1, 0, ft_strlen(str)
+				- ft_strlen(key) - 1);
 		if (find_key(g_global->env, key) == 0)
 			add_to_list(&g_global->env, key, value);
 		else
@@ -116,30 +117,30 @@ void	add_to_env(char *str, char *key)
 	}
 	else if (str[ft_strlen(key)] == '+')
 	{
-		value = ft_substr(str + ft_strlen(key) + 2, 0, ft_strlen(str) - ft_strlen(key) - 2);
+		value = ft_substr(str + ft_strlen(key) + 2, 0, ft_strlen(str)
+				- ft_strlen(key) - 2);
 		if (find_key(g_global->env, key) == 0)
 			add_to_list(&g_global->env, key, value);
 		else
 		{
-			char *tmp = ft_strjoin(help_expand(key), value);
+			tmp = ft_strjoin(help_expand(key), value);
 			ft_lstremove(key);
 			add_to_list(&g_global->env, key, tmp);
 		}
 	}
-	else
-		if (find_key(g_global->env, key) == 0)
-			add_to_list(&g_global->env, key, NULL);
+	else if (find_key(g_global->env, key) == 0)
+		add_to_list(&g_global->env, key, NULL);
 }
 void	add_key_export(char *str)
 {
-	int	i;
+	int		i;
 	char	*key;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '=' || str[i] == '+')
-			break;
+			break ;
 		i++;
 	}
 	key = ft_substr(str, 0, i);
@@ -151,7 +152,7 @@ void	add_key_export(char *str)
 }
 void	ft_export(t_minishell *strct)
 {
-	int		i;
+	int	i;
 
 	i = 1;
 	if (strct->cmd[1] == NULL)
@@ -161,10 +162,10 @@ void	ft_export(t_minishell *strct)
 		while (strct->cmd[i])
 		{
 			if (check_error_export(strct->cmd[i]))
-				{
-					i++;
-					continue;
-				}
+			{
+				i++;
+				continue ;
+			}
 			add_key_export(strct->cmd[i]);
 			i++;
 		}

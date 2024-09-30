@@ -12,14 +12,14 @@
 
 #include "../include/minishell.h"
 
-void error_fun(char *str, int h)
+void	error_fun(char *str, int h)
 {
 	perror(str);
 	exit(h);
 }
-int ft_lstsize_3(t_env *lst)
+int	ft_lstsize_3(t_env *lst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!lst)
@@ -31,12 +31,12 @@ int ft_lstsize_3(t_env *lst)
 	}
 	return (i);
 }
-char **env_to_array(t_env *env)
+char	**env_to_array(t_env *env)
 {
-	int size;
-	char **cmd;
-	int i;
-	t_env *tmp;
+	int		size;
+	char	**cmd;
+	int		i;
+	t_env	*tmp;
 
 	size = ft_lstsize_3(env);
 	tmp = env;
@@ -54,15 +54,15 @@ char **env_to_array(t_env *env)
 	cmd[i] = NULL;
 	return (cmd);
 }
-void ft_double_free(char **str, char *cmd_1, char *w_path)
+void	ft_double_free(char **str, char *cmd_1, char *w_path)
 {
 	ft_free(str, len_double_str(str));
 	free(cmd_1);
 	free(w_path);
 }
-char *cmd_is_path(char **str, char *cmd_1, int flag)
+char	*cmd_is_path(char **str, char *cmd_1, int flag)
 {
-	char *path;
+	char	*path;
 
 	path = NULL;
 	if (flag == 0)
@@ -84,7 +84,7 @@ char *cmd_is_path(char **str, char *cmd_1, int flag)
 	return (path);
 }
 
-void ft_fun_norm(char *cmd, char **str)
+void	ft_fun_norm(char *cmd, char **str)
 {
 	if (cmd[0] == 92 || cmd[0] == 47)
 		cmd_is_path(str, cmd, 1);
@@ -92,7 +92,7 @@ void ft_fun_norm(char *cmd, char **str)
 		error_fun(cmd, 127);
 }
 
-char *get_path(char *envp, char *cmd)
+char	*get_path(char *envp, char *cmd)
 {
 	char **str;
 	int i;

@@ -20,22 +20,23 @@ int	ft_lstsize2(t_minishell *lst)
 	while (lst)
 	{
 		size++;
-		lst = lst -> next;
+		lst = lst->next;
 	}
 	return (size);
 }
 
-char *ft_strcpy(char *dest, const char *src)
+char	*ft_strcpy(char *dest, const char *src)
 {
-    size_t i = 0;
+	size_t	i;
 
-    while (src[i])
-    {
-        dest[i] = src[i];
-        i++;
-    }
-    dest[i] = '\0';
-    return dest;
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -54,22 +55,21 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-char *ft_strcat(char *dest, const char *src)
+char	*ft_strcat(char *dest, const char *src)
 {
-    int i = 0;
-    int j = 0;
+	int	i;
+	int	j;
 
-    while (dest[i] != '\0')
-        i++;
-
-    while (src[j] != '\0')
-    {
-        dest[i] = src[j];
-        i++;
-        j++;
-    }
-    dest[i] = '\0';
-
-    return dest;
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
-

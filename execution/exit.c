@@ -12,11 +12,11 @@
 
 #include "../include/minishell.h"
 
-int isanumvalue(char *str)
+int	isanumvalue(char *str)
 {
-	int count;
-	size_t number;
-	int negative;
+	int		count;
+	size_t	number;
+	int		negative;
 
 	negative = 0;
 	count = 0;
@@ -41,12 +41,11 @@ int isanumvalue(char *str)
 	return (1);
 }
 
-long ft_atoll(char *c)
+long	ft_atoll(char *c)
 {
-	int i;
-
-	int signe;
-	long result;
+	int		i;
+	int		signe;
+	long	result;
 
 	i = 0;
 	signe = 1;
@@ -67,7 +66,7 @@ long ft_atoll(char *c)
 	return (result * signe);
 }
 
-void ft_exit(char **cmd)
+void	ft_exit(char **cmd)
 {
 	if (!cmd || !cmd[1])
 	{

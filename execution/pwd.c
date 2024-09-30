@@ -12,12 +12,12 @@
 
 #include "../include/minishell.h"
 
-void    ft_pwd(void)
+void	ft_pwd(void)
 {
-    char cwd[1024];
+	char	cwd[1024];
 
-    if (getcwd(cwd, sizeof(cwd)) != NULL) 
-        printf("%s\n", cwd);
-    else
-        perror("error");
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("%s\n", cwd);
+	else
+		perror("error");
 }
