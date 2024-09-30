@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:13:57 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/28 15:54:41 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:17:00 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*help_quote_exp(char *str)
 	i = 0;
 	if (!str)
 		return (0);
+	dprintf(2, ":::::::%s\n", str);
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '\"')

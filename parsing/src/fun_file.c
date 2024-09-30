@@ -6,17 +6,17 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/28 15:34:41 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:05:39 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*ft_file(char *str)
+char *ft_file(char *str)
 {
-	char	*file;
-	t_flag	b;
-	int		i;
+	char *file;
+	t_flag b;
+	int i;
 
 	i = 0;
 	b.s_quote = 0;
@@ -27,11 +27,11 @@ char	*ft_file(char *str)
 	{
 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
 		if (!b.s_quote && !b.d_quote && ft_whitespace(str[i]))
-			break ;
+			break;
 		if (str[i] == '<' && !b.s_quote && !b.d_quote)
-			break ;
+			break;
 		if (str[i] == '>' && !b.s_quote && !b.d_quote)
-			break ;
+			break;
 		if (str[i])
 			i++;
 	}
@@ -39,37 +39,50 @@ char	*ft_file(char *str)
 	return (file);
 }
 
-char	*help_file(char *str, t_file **s, char *src)
+char *help_norm_expand(char *string, t_file *s)
 {
-	char	**spl_str;
-	int		f;
-	int		pos;
-
-	f = 0;
+	int pos;
+	char *new_src;
 	pos = 0;
-	while (need_expand(src, &pos) && (*s)->file_type != HER_DOC)
-		src = expand_str(src, pos);
-	spl_str = split_str(src, &f);
-	if ((len_double_str(spl_str) > 1 && (*s)->file_type != HER_DOC)
-		|| !spl_str[0] || src[0] == '\0')
+	// don't free str
+	while (need_expand(string, &pos) && s->file_type != HER_DOC)
 	{
+		new_src = expand_str(string, pos);
+		free(string);
+		string = ft_strdup(new_src);
+		free(new_src);
+	}
+	return (string);
+}
+char *help_file(char *str, t_file **s, char *src)
+{
+	char **spl_str;
+	int pos;
+
+	pos = 0;
+	src = help_norm_expand(src, *s);
+	spl_str = split_str(src, &pos);
+	if ((len_double_str(spl_str) > 1 && (*s)->file_type != HER_DOC) || !spl_str[0] || src[0] == '\0')
+	{
+		free(src);
 		src = ft_strdup(str);
 		(*s)->flag = AMB;
-		return (src);
+		return (ft_free(spl_str, len_double_str(spl_str)), src);
 	}
 	if ((*s)->file_type == HER_DOC)
 	{
-		if (f == 1)
+		free(src);
+		if (pos == 1)
 			(*s)->flag = 2;
 		src = create_file_herdoc(spl_str[0], (*s)->flag);
 		return (src);
 	}
-	return (spl_str[0]);
+	return (ft_free(spl_str, len_double_str(spl_str)), src);
 }
 
-int	no_red_af(char *str)
+int no_red_af(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (ft_whitespace(str[i]))
@@ -79,11 +92,11 @@ int	no_red_af(char *str)
 	return (0);
 }
 
-char	*skip_red(char *str)
+char *skip_red(char *str)
 {
-	int		i;
-	bool	s_flag;
-	bool	d_flag;
+	int i;
+	bool s_flag;
+	bool d_flag;
 
 	i = 0;
 	s_flag = false;
@@ -107,9 +120,9 @@ char	*skip_red(char *str)
 	return (NULL);
 }
 
-int	ft_skip(char *str)
+int ft_skip(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (ft_whitespace(str[i]) && str[i])

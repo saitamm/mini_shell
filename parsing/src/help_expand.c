@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:39:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/28 15:35:03 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:00:19 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ char	**split_str(char *str, int *f)
 		temp = help_pipe_quote_2(temp);
 		spl_str = malloc(2 * sizeof(char *));
 		if (!spl_str)
-			return (NULL);
+			return (free(temp),NULL);
 		spl_str[0] = ft_strdup(temp);
 		spl_str[1] = NULL;
-		return (spl_str);
+		return (free(temp),spl_str);
 	}
 	str = help_space(str);
 	str = remove_quote(str);

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:47:36 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/28 15:53:16 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:45:02 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,3 +113,44 @@ t_minishell	*parce(char *line)
 	ft_free_data(&data);
 	return (str);
 }
+// void	to_final_struct(t_data *data)
+// {
+// 	t_data		*d;
+// 	t_minishell	*s;
+// 	t_minishell	*k;
+
+// 	d = data;
+// 	while (d)
+// 	{
+// 		s = new_node_minishell(d->command, d->files);
+// 		k = g_global->strct;
+// 		if (!g_global->strct)
+// 			return ;
+// 		if (!g_global->strct)
+// 		{
+// 			g_global->strct = s;
+// 			d = d->next;
+// 			continue ;
+// 		}
+// 		k = lstlast_minishell(g_global->strct);
+// 		k->next = s;
+// 		d = d->next;
+// 	}
+// }
+
+// void	parce(char *line)
+// {
+// 	char		**splt_line;
+// 	t_data		*data;
+
+// 	data = NULL;
+// 	if (parce_error(line))
+// 		return ;
+// 	splt_line = ft_split_with_pipe(line);
+// 	init_data(&data, splt_line);
+// 	while ()
+// 	// print_data(data);
+// 	to_final_struct(data);
+// 	ft_free(splt_line, len_double_str(splt_line));
+// 	ft_free_data(&data);
+// }
