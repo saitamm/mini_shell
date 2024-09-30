@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
+#    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/09/29 09:53:29 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/09/29 15:05:51 by lai-elho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRC =  minishell.c \
 		execution/redirection.c \
 		execution/exit.c \
 		execution/export2.c \
-		execution/get_path.c
+		execution/get_path.c \
+		execution/free.c \
 
 
 OBJF = $(SRC:.c=.o)
@@ -53,7 +54,7 @@ INCLUDES = -I . -I include -I $(LIBFT_DIR)
 
 C = cc
 
-CFLAGS =  -Wall -Werror -Wextra #-g3 -fsanitize=address 
+CFLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address 
 
 all: $(NAME)
 

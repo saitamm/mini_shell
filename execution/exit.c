@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 09:24:40 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:46:25 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,16 @@ long ft_atoll(char *c)
 void ft_exit(char **cmd)
 {
 	if (!cmd || !cmd[1])
-		exit (0);
+	{
+		ft_free_global();
+		exit(0);
+	}
 	if (isanumvalue(cmd[1]))
 	{
 		if (!cmd[2])
 		{
 			g_global->exit_status = ft_atoll(cmd[1]);
+			ft_free_global();
 			exit(ft_atoll(cmd[1]));
 		}
 		write(2, "exit \nMinishell : exit: too many arguments\n", 44);
@@ -87,6 +91,7 @@ void ft_exit(char **cmd)
 		write(2, cmd[1], ft_strlen(cmd[1]));
 		write(2, ": numeric argument required\n", 29);
 		g_global->exit_status = 2;
+		ft_free_global();
 		exit(g_global->exit_status);
 	}
 }

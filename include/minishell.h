@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 13:56:42 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:03:23 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ char						*ft_strcat(char *dest, const char *src);
 int							find_key(t_env *env, const char *key);
 void						ft_change_key_value(char *key, char *value);
 void						ft_lstremove(char *key);
-void    ft_execution();
+void ft_execution(t_minishell *strct);
 void	ft_export(t_minishell *strct);
 int ft_check_export_unset_args(char *str);
 void    ft_check_key(char *str);
@@ -255,5 +255,5 @@ int ft_append(t_minishell *strct);
 int redirection(t_minishell *strct);
 void ft_bashlvl(t_minishell *strct);
 void ft_underscore(t_minishell *strct);
-
+void    ft_free_global();
 #endif

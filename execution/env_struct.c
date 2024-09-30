@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_struct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 11:41:36 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:21:50 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,18 +150,3 @@ void parse_env_var(char **env_var)
     } 
     ft_set_underscor_value();
 }
-
-// Function to free the linked list
-//  void free_list(t_env *head)
-//  {
-//      t_env *tmp;
-
-//     while (head)
-//     {
-//         tmp = head;
-//         head = head->next;
-//         free(tmp->key);
-//         free(tmp->value);
-//         free(tmp);
-//     }
-// }

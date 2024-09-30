@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 14:02:48 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:05:00 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void execute_child(t_minishell *strct)
             write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
             write(2, ": command not found\n", 21);
             g_global->exit_status = 127;
+            ft_free_global();
             exit(g_global->exit_status);
         }
         if (ft_strchr(strct->cmd[0], '/'))
@@ -74,20 +75,23 @@ void execute_child(t_minishell *strct)
                 {
                     perror(strct->cmd[0]);
                     g_global->exit_status = 127;
+                    ft_free_global();
                     exit(g_global->exit_status);
                 }
                 else
                 {
                     perror(strct->cmd[0]);
                     g_global->exit_status = 126;
+                    ft_free_global();
                     exit(g_global->exit_status);
-                }   
+                }
             }
             if (is_directory(strct->cmd[0]))
             {
                 write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
                 write(2, ": is a directory\n", 18);
                 g_global->exit_status = 126;
+                ft_free_global();
                 exit(g_global->exit_status);
             }
         }
@@ -97,6 +101,7 @@ void execute_child(t_minishell *strct)
             write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
             write(2, ": command not found\n", 21);
             g_global->exit_status = 127;
+            ft_free_global();
             exit(g_global->exit_status);
         }
         ft_bashlvl(strct);
@@ -104,6 +109,7 @@ void execute_child(t_minishell *strct)
         execve(path, strct->cmd, env_exc);
     }
     g_global->exit_status = 0;
+    ft_free_global();
     exit(0);
 }
 
@@ -216,7 +222,7 @@ void ft_execution(t_minishell *strct)
             return;
         ft_builtins(strct);
         ft_underscore(strct);
-            g_global->exit_status = 0;
+        g_global->exit_status = 0;
 
         dup2(g_global->save_fd_out, STDOUT_FILENO);
         dup2(g_global->save_fd_int, STDIN_FILENO);
@@ -229,6 +235,7 @@ void ft_execution(t_minishell *strct)
             if (pipe(g_global->fd_pipe) == -1)
             {
                 perror("pipe error");
+                ft_free_global();
                 exit(1);
             }
 

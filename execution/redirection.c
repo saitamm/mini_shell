@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 10:55:25 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:43:29 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int ft_infile(t_minishell *strct)
         write(2, strct->files->file, ft_strlen(strct->files->file));
         write(2, ": ambiguous redirect\n", 22);
         g_global->exit_status = 1;
+        ft_free_global();
         exit(g_global->exit_status);
     }
     infile_fd = open(strct->files->file, O_RDONLY);
@@ -32,6 +33,7 @@ int ft_infile(t_minishell *strct)
             write(2, "Minishell:", 11);
             perror(strct->files->file);
             g_global->exit_status = 1;
+            ft_free_global();
             exit(g_global->exit_status);
         }
         else if (access(strct->files->file, R_OK) != 0)
@@ -40,10 +42,12 @@ int ft_infile(t_minishell *strct)
             perror(strct->files->file);
             g_global->exit_status = 1;
             close(infile_fd);
+            ft_free_global();
             exit(g_global->exit_status);
         }
         perror("Error opening file\n");
         g_global->exit_status = 1;
+        ft_free_global();
         exit(g_global->exit_status);
     }
     if (ft_strcmp(strct->files->file, "/dev/stdin"))
@@ -79,6 +83,7 @@ int ft_outfile(t_minishell *strct)
         perror(strct->files->file);
         g_global->exit_status = 1;
         close(outfile_fd);
+        ft_free_global();
         exit(g_global->exit_status);
     }
     if (ft_strcmp(strct->files->file, "/dev/stdout"))
@@ -115,6 +120,7 @@ int ft_append(t_minishell *strct)
         perror(strct->files->file);
         g_global->exit_status = 1;
         close(fd);
+        ft_free_global();
         exit(g_global->exit_status);
     }
     if (ft_strcmp(strct->files->file, "/dev/stdout"))
@@ -136,7 +142,7 @@ int ft_append(t_minishell *strct)
 int redirection(t_minishell *strct)
 {
     t_minishell *head = strct;
-   
+
     if (head->files == NULL && head->next && head)
     {
         if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1)
@@ -153,10 +159,10 @@ int redirection(t_minishell *strct)
         if (head->files->file_type == IN || head->files->file_type == HER_DOC)
             ft_infile(head);
         else if (head->files->file_type == 1)
-            {
-                flag = 1;
-                ft_outfile(head);
-            }
+        {
+            flag = 1;
+            ft_outfile(head);
+        }
         else if (head->files->file_type == 3)
         {
             flag = 1;
@@ -166,6 +172,6 @@ int redirection(t_minishell *strct)
     }
     if (flag == 0 && strct->next)
         dup2(g_global->fd_pipe[1], STDOUT_FILENO);
-        
+
     return 0;
 }

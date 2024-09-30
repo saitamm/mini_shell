@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 11:36:00 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:46:57 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ void	add_key_export(char *str)
 			g_global->flag_env = 1;
 		add_to_env(str, key);
 	}
-	// print_export();
 }
 void	ft_export(t_minishell *strct)
 {
