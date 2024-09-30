@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 11:27:46 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:10:23 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int main(int ac, char **av, char **env)
             ft_execution(g_global->strct);
             dup2(g_global->save_fd_int, STDIN_FILENO);
             add_history(line);
+            ft_free_global();
         }
         if (line)
             free(line);
