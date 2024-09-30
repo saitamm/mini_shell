@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/29 14:21:50 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:30:13 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ t_env *create_node(char *key, char *value)
     t_env *new_node = (t_env *)malloc(sizeof(t_env));
     if (!new_node)
         return NULL;
-
+    if(key == NULL)
+    {
+        free(new_node);
+        return NULL;
+    }
     new_node->key = ft_strdup(key);
     new_node->value = ft_strdup(value);
     new_node->next = NULL;
-
     return new_node;
 }
 
@@ -39,7 +42,7 @@ int ft_find_key_len(char *env_var)
     int i = 0;
     while (env_var[i] != '=' && env_var)
         i++;
-    if(env_var[i - 1] == '+')
+    if (env_var[i - 1] == '+')
     {
         g_global->flag = 1;
         i--;
@@ -72,13 +75,13 @@ char *get_key(char *s)
         if (s[i] == '=')
         {
             separator_pos = i;
-            if (i > 0 && s[i-1] == '+')
+            if (i > 0 && s[i - 1] == '+')
             {
-                g_global->separator = 1; 
-                separator_pos--;   
+                g_global->separator = 1;
+                separator_pos--;
             }
             else
-                g_global->separator = 0;   
+                g_global->separator = 0;
             break;
         }
         i++;
@@ -88,7 +91,7 @@ char *get_key(char *s)
     char *key = malloc((sizeof(char) * separator_pos) + 1);
     if (!key)
         return NULL;
-    while( j < separator_pos)
+    while (j < separator_pos)
     {
         key[j] = s[j];
         j++;
@@ -97,30 +100,28 @@ char *get_key(char *s)
     return key;
 }
 
-void    ft_set_underscor_value()
+void ft_set_underscor_value()
 {
     t_env *tmp = g_global->env;
-    while(tmp)
+    while (tmp)
     {
-        if(ft_strcmp(tmp->key, "_") == 0)
+        if (ft_strcmp(tmp->key, "_") == 0)
         {
-            tmp->value = "/usr/bin/env";
+            tmp->value =ft_strdup("/usr/bin/env");
             return;
         }
         tmp = tmp->next;
     }
 }
 
-
-void    env_manuel()
+void env_manuel()
 {
-    char    cwd[1024];
-    add_to_list(&g_global->env, "PWD" , getcwd(cwd, sizeof(cwd)));
+    char cwd[1024];
+    add_to_list(&g_global->env, "PWD", getcwd(cwd, sizeof(cwd)));
     add_to_list(&g_global->env, "SHLVL", "1");
     add_to_list(&g_global->env, "_", "/usr/bin/env");
     add_to_list(&g_global->env, "PATH", "/nfs/homes/sait-amm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
     g_global->flag_env = 0;
-
 }
 void parse_env_var(char **env_var)
 {
@@ -131,22 +132,24 @@ void parse_env_var(char **env_var)
         env_manuel();
         return;
     }
+    if (!env_var)
+        return;
     while (env_var[i])
     {
         char *equal_sign = ft_strchr(env_var[i], '=');
         if (equal_sign)
         {
             char *key = get_key(env_var[i]);
-            char *value = equal_sign + 1;
-
+            char *value = ft_substr(equal_sign + 1, 0, ft_strlen(equal_sign + 1));
             if (!key || !value)
             {
                 return;
             }
-            add_to_list(&g_global->env, key, value);
             free(key);
+            add_to_list(&g_global->env, key, value);
+            free(value);
         }
         i++;
-    } 
+    }
     ft_set_underscor_value();
 }
