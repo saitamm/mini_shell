@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 21:58:48 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:58:06 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	execute_child(t_minishell *strct)
 		}
 		ft_bashlvl(strct);
 		env_exc = env_to_array(g_global->env);
+		g_global->exit_status = 0;
 		if (execve(path, strct->cmd, env_exc) == -1)
 		{
 			ft_free(strct->cmd,len_double_str(strct->cmd));
@@ -232,9 +233,9 @@ int	redirection_buils(t_minishell *strct)
 void	ft_execution(t_minishell *strct)
 {
 	int	status;
-	int	st;
 	int	size;
 	int	i;
+	int	last_pid;
 
 	size = ft_lstsize_minishell(strct);
 	i = 0;
@@ -245,6 +246,7 @@ void	ft_execution(t_minishell *strct)
 			return ;
 		ft_builtins(strct);
 		ft_underscore(strct);
+            g_global->exit_status = 0;
 		dup2(g_global->save_fd_out, STDOUT_FILENO);
 		dup2(g_global->save_fd_int, STDIN_FILENO);
 	}
@@ -263,12 +265,14 @@ void	ft_execution(t_minishell *strct)
 				g_global->pid[i] = fork();
 				if (g_global->pid[i] == 0)
 					ft_exec_child(strct);
+				last_pid = g_global->pid[i];
 			}
 			close(g_global->fd_pipe[1]);
 			dup2(g_global->fd_pipe[0], STDIN_FILENO);
 			close(g_global->fd_pipe[0]);
+            g_global->exit_status = 0;
+
 			ft_underscore(strct);
-			g_global->exit_status = 0;
 			strct = strct->next;
 			i++;
 		}
@@ -276,8 +280,8 @@ void	ft_execution(t_minishell *strct)
 		while (i < size)
 		{
 			waitpid(g_global->pid[i], &status, 0);
-			st = status >> 8;
-			g_global->exit_status = st;
+			if (g_global->pid[i] == last_pid)
+				g_global->exit_status = WEXITSTATUS(status); 
 			i++;
 		}
 	}

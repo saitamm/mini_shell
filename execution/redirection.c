@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 21:57:53 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:03:30 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int ft_infile(t_minishell *strct)
 		write(2, ": ambiguous redirect\n", 22);
 		g_global->exit_status = 1;
 		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
-		ft_free_global();
 		free_minishell(&g_global->strct);
+		if (g_global->strct->cmd)
+			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
+		ft_free_global();
 		exit(g_global->exit_status);
 	}
 	infile_fd = open(strct->files->file, O_RDONLY);

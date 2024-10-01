@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/30 21:02:20 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:00:17 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char *help_file(char *str, t_file **s, char *src)
 		src = create_file_herdoc(spl_str[0], (*s)->flag);
 		return (src);
 	}
+	free(src);
+	src = ft_strdup(spl_str[0]);
 	return (ft_free(spl_str, len_double_str(spl_str)), src);
 }
 

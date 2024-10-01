@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 18:37:09 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:32:05 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void initialise_struct(char **env)
     g_global = malloc(sizeof(t_global));
     memset(g_global, 0, sizeof(t_global));
     g_global->flag_env = 1;
+    g_global->exit_status = 0;
     parse_env_var(env);
     g_global->save_fd_int = dup(STDIN_FILENO);
     g_global->save_fd_out = dup(STDOUT_FILENO);
@@ -87,6 +88,7 @@ int main(int ac, char **av, char **env)
         g_global->strct = parce(line);
         if (g_global->strct)
         {
+            // print(g_global->strct);
             ft_execution(g_global->strct);
             dup2(g_global->save_fd_int, STDIN_FILENO);
             add_history(line);
