@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 10:03:30 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:01:20 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ int ft_infile(t_minishell *strct)
 		write(2, "Minishell:", 11);
 		write(2, strct->files->file, ft_strlen(strct->files->file));
 		write(2, ": ambiguous redirect\n", 22);
-		g_global->exit_status = 1;
 		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 		free_minishell(&g_global->strct);
-		if (g_global->strct->cmd)
-			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
+		free(g_global->pid);
 		ft_free_global();
-		exit(g_global->exit_status);
+		free(g_global);
+		exit(1);
 	}
 	infile_fd = open(strct->files->file, O_RDONLY);
 	if (infile_fd == -1)
@@ -36,10 +35,13 @@ int ft_infile(t_minishell *strct)
 		{
 			write(2, "Minishell:", 11);
 			perror(strct->files->file);
-			g_global->exit_status = 1;
-			// ft_free_global();
 			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
-			exit(g_global->exit_status);
+			free_minishell(&g_global->strct);
+			free(g_global->pid);
+			ft_free_global();
+			free(g_global);
+			// ft_free_global();
+			exit(1);
 		}
 		else if (access(strct->files->file, R_OK) != 0)
 		{
@@ -47,15 +49,21 @@ int ft_infile(t_minishell *strct)
 			perror(strct->files->file);
 			g_global->exit_status = 1;
 			close(infile_fd);
-			// ft_free_global();
 			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
-			exit(g_global->exit_status);
+			free_minishell(&g_global->strct);
+			free(g_global->pid);
+			ft_free_global();
+			free(g_global);
+			exit(1);
 		}
 		perror("Error opening file\n");
-		g_global->exit_status = 1;
 		// ft_free_global();
 		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
-		exit(g_global->exit_status);
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
+		exit(1);
 	}
 	if (ft_strcmp(strct->files->file, "/dev/stdin"))
 	{
@@ -65,7 +73,11 @@ int ft_infile(t_minishell *strct)
 			g_global->exit_status = 1;
 			close(infile_fd);
 			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
-			exit(g_global->exit_status);
+			free_minishell(&g_global->strct);
+			free(g_global->pid);
+			ft_free_global();
+			free(g_global);
+			exit(1);
 		}
 	}
 	close(infile_fd);
@@ -91,7 +103,6 @@ int ft_outfile(t_minishell *strct)
 		perror(strct->files->file);
 		g_global->exit_status = 1;
 		close(outfile_fd);
-		ft_free_global();
 		exit(g_global->exit_status);
 	}
 	if (ft_strcmp(strct->files->file, "/dev/stdout"))

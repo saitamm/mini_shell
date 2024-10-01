@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 21:57:13 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:43:21 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,12 +206,12 @@ typedef struct s_execution
 	char					**env;
 }							t_execution;
 
-void						ft_echo(char **str);
+int						ft_echo(char **str);
 void						parse_env_var(char **env_var);
 
-void						ft_pwd(void);
-void ft_cd(char **Path);
-void print_env(t_env *head, char **cmd);
+int						ft_pwd(void);
+int ft_cd(char **Path);
+int  print_env(t_env *head, char **cmd);
 char						*ft_strchr(const char *str, int c);
 int							ft_strcmp(const char *s1, const char *s2);
 int							ft_strncmp(const char *s1, const char *s2,
@@ -219,9 +219,8 @@ int							ft_strncmp(const char *s1, const char *s2,
 size_t						ft_strlen(const char *c);
 char						*ft_strcpy(char *dest, const char *src);
 char						*find_home_path(void);
-void						unset(char **av);
-void						unset(char **av);
-void						ft_exit(char **cmd);
+int						unset(char **av);
+int						ft_exit(char **cmd);
 void						add_to_list(t_env **head, char *key, char *value);
 char						*get_key(char *s);
 char						*ft_putkey(char *env_var);
@@ -236,7 +235,7 @@ int							find_key(t_env *env, const char *key);
 void						ft_change_key_value(char *key, char *value);
 void						ft_lstremove(char *key);
 void ft_execution(t_minishell *strct);
-void	ft_export(t_minishell *strct);
+// void	ft_export(t_minishell *strct);
 int ft_check_export_unset_args(char *str);
 void    ft_check_key(char *str);
 char *ft_strcat(char *dest, const char *src);
@@ -249,7 +248,7 @@ char	**env_to_array(t_env *env);
 int	need_expand_her_doc(char *str, int *pos, int flag);
 void print(t_minishell *strct);
 int is_built(char *str);
-void ft_builtins(t_minishell *strct);
+int ft_builtins(t_minishell *strct);
 int ft_infile(t_minishell *strct);
 int ft_outfile(t_minishell *strct);
 int ft_append(t_minishell *strct);

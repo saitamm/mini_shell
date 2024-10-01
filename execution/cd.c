@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 10:47:19 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:33:55 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char *find_home_path(void)
 		else
 			head = head->next;
 	}
-
 	return (NULL);
 }
 
@@ -84,7 +83,7 @@ void ft_change_curr_and_old_path(char *new_path)
 	g_global->env = head;
 }
 
-void ft_cd(char **Path)
+int ft_cd(char **Path)
 {
 	char cwd[1024];
 	char *home_path = NULL;
@@ -95,8 +94,7 @@ void ft_cd(char **Path)
 		if (!home_path)
 		{
 			write(2, "MInishell : cd : HOME not set\n", 31);
-			g_global->exit_status = 1;
-			return;
+			return 1;
 		}
 		ft_find_current_pwd();
 		ft_change_curr_and_old_path(home_path);
@@ -108,26 +106,21 @@ void ft_cd(char **Path)
 				ft_change_curr_and_old_path(cwd);
 			}
 			else
-			{
 				perror("getcwd error");
-				g_global->exit_status = 1;
-			}
 		}
 		else
 		{
 			perror(Path[0]);
-			g_global->exit_status = 1;
 		}
 		free(home_path);
-		return;
+		return 0;
 	}
 	if (Path != NULL)
 	{
 		if (Path[2])
 		{
 			write(2, "Minishell: cd: too many arguments\n", 35);
-			g_global->exit_status = 1;
-			return;
+			return 1;
 		}
 		if (ft_strcmp(Path[1], "~") == 0 || ft_strcmp(Path[1], "--") == 0)
 		{
@@ -141,16 +134,11 @@ void ft_cd(char **Path)
 				ft_change_curr_and_old_path(cwd);
 			}
 			else
-			{
 				perror("getcwd error");
-				g_global->exit_status = 1;
-			}
 		}
 		else
-		{
 			perror(Path[0]);
-			g_global->exit_status = 1;
-		}
 		free(home_path);
 	}
+	return 0;
 }

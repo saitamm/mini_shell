@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 10:23:59 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:25:56 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ long	ft_atoll(char *c)
 	return (result * signe);
 }
 
-void	ft_exit(char **cmd)
+int	ft_exit(char **cmd)
 {
 	if (!cmd || !cmd[1])
 	{
@@ -82,7 +82,7 @@ void	ft_exit(char **cmd)
 			exit(ft_atoll(cmd[1]));
 		}
 		write(2, "exit \nMinishell : exit: too many arguments\n", 44);
-		g_global->exit_status = 1;
+		return 1;
 	}
 	else
 	{
@@ -91,6 +91,7 @@ void	ft_exit(char **cmd)
 		write(2, ": numeric argument required\n", 29);
 		g_global->exit_status = 2;
 		ft_free_global();
-		exit(g_global->exit_status);
+		exit(2);
 	}
+	return 0;
 }

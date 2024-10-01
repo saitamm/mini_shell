@@ -23,7 +23,7 @@ int	check_n(const char *s)
 		return (0);
 }
 
-void	ft_echo(char **str)
+int	ft_echo(char **str)
 {
 	int j = 1;
 	int newline = 1;
@@ -48,4 +48,5 @@ void	ft_echo(char **str)
 
 	if (newline)
 		write(1, "\n", 1);
+	return (0);
 }

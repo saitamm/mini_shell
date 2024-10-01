@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:22:58 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 11:49:23 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:56:37 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,14 @@ char	*get_path(char *envp, char *cmd)
 	{
 		path = ft_strjoin(str[i++], w_path);
 		if (access(path, X_OK) == 0)
-			return (path);
+		{
+			ft_free(str, len_double_str(str));
+			free(w_path);
+			return ( path);
+		}
 		free(path);
 	}
+			free(w_path);
+	ft_free(str, len_double_str(str));
 	return (NULL);
 }

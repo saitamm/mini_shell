@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:11:54 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 17:20:50 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:35:01 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_lstremove(char *key)
 	}
 }
 
-void	unset(char **cmd)
+int	unset(char **cmd)
 {
 	int i;
 	i = 1;
@@ -47,10 +47,11 @@ void	unset(char **cmd)
 	while (cmd[i])
 	{
 		if (ft_check_export_unset_args(cmd[i]) == 0)
-			return ;
+			return 0;
 		ft_lstremove(cmd[i]);
 		if (!ft_strcmp(cmd[i], "PWD"))
 			g_global->pwd = ft_strdup(NULL);
 		i++;
 	}
+	return (0);
 }

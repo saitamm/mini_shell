@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 10:19:54 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:36:37 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,23 @@ int	is_built(char *str)
 	return (0);
 }
 
-void	ft_builtins(t_minishell *strct)
+int	ft_builtins(t_minishell *strct)
 {
 	if (!strct || !strct->cmd || !strct->cmd[0])
-		return ;
+		return 0;
 	else if (ft_strcmp(strct->cmd[0], "pwd") == 0)
-		ft_pwd();
+		return (g_global->exit_status= ft_pwd());
 	else if (ft_strcmp(strct->cmd[0], "env") == 0)
-		print_env(g_global->env, strct->cmd);
+		return (g_global->exit_status = print_env(g_global->env, strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "echo") == 0)
-		ft_echo(strct->cmd);
+		return(g_global->exit_status = ft_echo(strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "cd") == 0)
-		ft_cd(strct->cmd);
+		return (g_global->exit_status =  ft_cd(strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "unset") == 0)
-		unset(strct->cmd);
+		return (g_global->exit_status = unset(strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "export") == 0)
 		ft_export(strct);
 	else if (ft_strcmp(strct->cmd[0], "exit") == 0)
-		ft_exit(strct->cmd);
+		return (g_global->exit_status = ft_exit(strct->cmd));
+	return (-1);
 }
