@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/28 15:51:47 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:15:20 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*generate_filename(void)
 		if (access(name, F_OK))
 			break ;
 	}
+	free(buff);
 	return (close(fd_random), name);
 }
 

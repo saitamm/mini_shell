@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:49:41 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/30 14:44:31 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:36:47 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	free_minishell(t_minishell **m_shell)
 	while (*m_shell)
 	{
 		k = *m_shell;
-		//  ft_free(k->cmd, len_double_str((*m_shell)->cmd));
 		ft_free_file(&(*m_shell)->files);
 		*m_shell = (*m_shell)->next;
 		free(k);

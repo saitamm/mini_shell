@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 21:36:37 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:08:10 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ft_builtins(t_minishell *strct)
 	if (!strct || !strct->cmd || !strct->cmd[0])
 		return 0;
 	else if (ft_strcmp(strct->cmd[0], "pwd") == 0)
-		return (g_global->exit_status= ft_pwd());
+		return (g_global->exit_status = ft_pwd());
 	else if (ft_strcmp(strct->cmd[0], "env") == 0)
 		return (g_global->exit_status = print_env(g_global->env, strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "echo") == 0)

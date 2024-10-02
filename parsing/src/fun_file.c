@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/01 12:00:17 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:15:35 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char *help_norm_expand(char *string, t_file *s)
 	int pos;
 	char *new_src;
 	pos = 0;
-	// don't free str
+
 	while (need_expand(string, &pos) && s->file_type != HER_DOC)
 	{
 		new_src = expand_str(string, pos);
@@ -75,7 +75,7 @@ char *help_file(char *str, t_file **s, char *src)
 		if (pos == 1)
 			(*s)->flag = 2;
 		src = create_file_herdoc(spl_str[0], (*s)->flag);
-		return (src);
+		return (ft_free(spl_str, len_double_str(spl_str)), src);
 	}
 	free(src);
 	src = ft_strdup(spl_str[0]);

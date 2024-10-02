@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 21:58:56 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:48:27 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ int execute_child(t_minishell *strct)
 	char **env_exc;
 
 	if (ft_strcmp(strct->cmd[0], "pwd") == 0)
-		return (g_global->exit_status = ft_pwd());
+		exit(g_global->exit_status= ft_pwd());
 	else if (ft_strcmp(strct->cmd[0], "env") == 0)
-		return (g_global->exit_status = print_env(g_global->env, strct->cmd));
+		exit(g_global->exit_status= print_env(g_global->env, strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "echo") == 0)
-		return (g_global->exit_status = ft_echo(strct->cmd));
+		exit(g_global->exit_status= ft_echo(strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "cd") == 0)
-		return (g_global->exit_status = ft_cd(strct->cmd));
+		exit(g_global->exit_status= ft_cd(strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "unset") == 0)
-		return (g_global->exit_status = unset(strct->cmd));
+		exit(g_global->exit_status= unset(strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "export") == 0)
 		ft_export(strct);
 	else if (ft_strcmp(strct->cmd[0], "exit") == 0)
-		return (g_global->exit_status = ft_exit(strct->cmd));
+		exit(g_global->exit_status= ft_exit(strct->cmd));
 	else
 	{
 		char **spl = ft_split(strct->cmd[0], ' ');
@@ -143,7 +143,6 @@ int execute_child(t_minishell *strct)
 		}
 		ft_bashlvl(strct);
 		env_exc = env_to_array(g_global->env);
-		g_global->exit_status = 0;
 		ft_free(spl, len_double_str(spl));
 
 		if (execve(path, strct->cmd, env_exc) == -1)
@@ -267,7 +266,6 @@ void ft_execution(t_minishell *strct)
 		if (redirection_buils(strct))
 			return;
 		ft_builtins(strct);
-
 		ft_underscore(strct);
 		dup2(g_global->save_fd_out, STDOUT_FILENO);
 		dup2(g_global->save_fd_int, STDIN_FILENO);
@@ -293,7 +291,6 @@ void ft_execution(t_minishell *strct)
 			dup2(g_global->fd_pipe[0], STDIN_FILENO);
 			close(g_global->fd_pipe[0]);
 			g_global->exit_status = 0;
-
 			ft_underscore(strct);
 			strct = strct->next;
 			i++;
@@ -302,8 +299,11 @@ void ft_execution(t_minishell *strct)
 		while (i < size)
 		{
 			waitpid(g_global->pid[i], &status, 0);
-			if (g_global->pid[i] == last_pid)
-				g_global->exit_status = WEXITSTATUS(status);
+			// char st = (char)status;
+			if (i == size -1)
+			{
+				g_global->exit_status =  WEXITSTATUS(status);
+			}
 			i++;
 		}
 	}

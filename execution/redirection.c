@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 21:01:20 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:47:31 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,5 @@ int redirection(t_minishell *strct)
 	}
 	if (flag == 0 && strct->next)
 		dup2(g_global->fd_pipe[1], STDOUT_FILENO);
-
 	return (0);
 }

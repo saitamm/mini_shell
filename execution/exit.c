@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 21:25:56 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:51:13 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	isanumvalue(char *str)
+int isanumvalue(char *str)
 {
-	int		count;
-	size_t	number;
-	int		negative;
+	int count;
+	size_t number;
+	int negative;
 
 	negative = 0;
 	count = 0;
@@ -41,11 +41,11 @@ int	isanumvalue(char *str)
 	return (1);
 }
 
-long	ft_atoll(char *c)
+long ft_atoll(char *c)
 {
-	int		i;
-	int		signe;
-	long	result;
+	int i;
+	int signe;
+	long result;
 
 	i = 0;
 	signe = 1;
@@ -66,20 +66,28 @@ long	ft_atoll(char *c)
 	return (result * signe);
 }
 
-int	ft_exit(char **cmd)
+int ft_exit(char **cmd)
 {
 	if (!cmd || !cmd[1])
 	{
+		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
 		ft_free_global();
+		free(g_global);
 		exit(0);
 	}
 	if (isanumvalue(cmd[1]))
 	{
 		if (!cmd[2])
 		{
-			g_global->exit_status = ft_atoll(cmd[1]);
+			int ex = ft_atoll(cmd[1]);
+			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
+			free_minishell(&g_global->strct);
+			free(g_global->pid);
 			ft_free_global();
-			exit(ft_atoll(cmd[1]));
+			free(g_global);
+			exit(ex);
 		}
 		write(2, "exit \nMinishell : exit: too many arguments\n", 44);
 		return 1;
@@ -90,7 +98,11 @@ int	ft_exit(char **cmd)
 		write(2, cmd[1], ft_strlen(cmd[1]));
 		write(2, ": numeric argument required\n", 29);
 		g_global->exit_status = 2;
+		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
 		ft_free_global();
+		free(g_global);
 		exit(2);
 	}
 	return 0;

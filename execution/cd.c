@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 21:33:55 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:48:27 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,11 @@ int ft_cd(char **Path)
 				perror("getcwd error");
 		}
 		else
+		{
 			perror(Path[0]);
+			free(home_path);
+			return (1);
+		}
 		free(home_path);
 	}
 	return 0;

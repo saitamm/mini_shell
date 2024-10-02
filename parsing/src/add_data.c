@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/30 09:33:56 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:52:11 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	full_command(t_data **data, char *str)
 	i = 0;
 	flag.s_quote = false;
 	flag.d_quote = false;
-	//str makhas tfreea 
 	s = (t_data *)malloc(sizeof(t_data));
 	if (!s)
 		return ;

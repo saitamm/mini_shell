@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:39:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/01 13:07:55 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:52:20 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ char	*help_expand(char *str)
 	if (!ft_strncmp(str, "_", 1))
 		return (g_global->underscore);
 	else if (!ft_strncmp(str, "?", 1))
+	{
 		return (ft_itoa(g_global->exit_status));
+	}
 	while (env)
 	{
 		if (!ft_strncmp(str, env->key, ft_strlen(str)))

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:40:57 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/01 09:58:42 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:47:30 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char *help_norm_expand_cmd(char *string)
 	int pos;
 	char *new_src;
 	pos = 0;
-
 	while (need_expand(string, &pos))
 	{
 		new_src = expand_str(string, pos);

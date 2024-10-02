@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 21:36:13 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:49:07 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	print_export(void)
 	}
 }
 
-void	error_export(char *str, char *error, int flag)
+void	error_export(char *str, char *error)
 {
 	int		i;
 	char	*key;
@@ -78,7 +78,7 @@ void	error_export(char *str, char *error, int flag)
 	write(2, "Minishell: export: `", 20);
 	write(2, str, ft_strlen(str));
 	write(2, "': not a valid identifier\n", 26);
-	g_global->exit_status = flag;
+	g_global->exit_status = 1;
 }
 
 int	check_error_export(char *str)
@@ -86,16 +86,14 @@ int	check_error_export(char *str)
 	int	i;
 
 	i = 0;
-	if (str[0] == '-')
-		return (error_export(str, "not a valid option \n", 2), 1);
 	if (!ft_isalpha(str[i]) && str[0] != '_')
-		return (error_export(str, "not a valid identifier\n", 1), 1);
+		return (error_export(str, "not a valid identifier\n"), 1);
 	while (str[i] && str[i] != '=')
 	{
 		if (str[i] == '+' && str[i + 1] == '=')
 			break ;
 		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (error_export(str, "not a valid identifier\n", 1), 1);
+			return (error_export(str, "not a valid identifier\n"), 1);
 		i++;
 	}
 	return (0);

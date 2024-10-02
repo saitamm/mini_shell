@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:49:44 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 21:39:45 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:58:55 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	print_env(t_env *head, char **cmd)
 			temp = temp->next;
 		else if (temp->key && temp->value)
 		{
-			printf("%s = %s\n", temp->key, temp->value);
+			printf("%s=%s\n", temp->key, temp->value);
 			temp = temp->next;
 		}
 		else
