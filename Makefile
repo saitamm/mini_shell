@@ -6,7 +6,7 @@
 #    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/10/03 13:26:17 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/10/03 19:48:24 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ all: $(NAME)
 
 $(NAME): $(OBJF) $(LIBFT_LIB)
 	$(CC) $(CFLAGS) $(OBJF) -lreadline  $(LIBFT_LIB) -o $(NAME)
+	rm -rf $(OBJF)
 
 
 $(LIBFT_LIB):

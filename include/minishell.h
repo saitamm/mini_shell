@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 11:10:24 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:23:21 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int							ft_isalpha(int c);
 int							parce_error(char *line);
 int							check_quote(char *line);
 int							check_bracket(char *str);
-int							check_logical(char *str);
+char							check_logical(char *str);
 int							check_red_out(char *str);
 int							check_red_in(char *str);
 // help redirection
@@ -174,7 +174,7 @@ void						ft_free_cmd(t_cmd **lst);
 void						ft_free_data(t_data **data);
 void						ft_free_file(t_file **lst);
 // print function
-int							synt_error(char *str);
+int							synt_error(char *str, char c);
 // expand function
 char						**ft_split_whitesp(const char *s);
 char						*ft_cpy_dolar(char *str);
@@ -249,9 +249,9 @@ int	need_expand_her_doc(char *str, int *pos, int flag);
 void print(t_minishell *strct);
 int is_built(char *str);
 int ft_builtins(t_minishell *strct);
-int ft_infile(t_minishell *strct);
-int ft_outfile(t_minishell *strct);
-int ft_append(t_minishell *strct);
+int ft_infile(t_file *strct);
+int ft_outfile(t_file *strct);
+int ft_append(t_file *strct);
 int redirection(t_minishell *strct);
 void ft_bashlvl(t_minishell *strct);
 void ft_underscore(t_minishell *strct);

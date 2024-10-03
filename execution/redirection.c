@@ -6,20 +6,20 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 10:32:23 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:22:56 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int ft_infile(t_minishell *strct)
+int ft_infile(t_file *strct)
 {
 	int infile_fd;
 
-	if (strct->files->flag == AMB)
+	if (strct->flag == AMB)
 	{
 		write(2, "Minishell:", 11);
-		write(2, strct->files->file, ft_strlen(strct->files->file));
+		write(2, strct->file, ft_strlen(strct->file));
 		write(2, ": ambiguous redirect\n", 22);
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
@@ -27,13 +27,13 @@ int ft_infile(t_minishell *strct)
 		free(g_global);
 		exit(1);
 	}
-	infile_fd = open(strct->files->file, O_RDONLY);
+	infile_fd = open(strct->file, O_RDONLY);
 	if (infile_fd == -1)
 	{
-		if (access(strct->files->file, F_OK) != 0)
+		if (access(strct->file, F_OK) != 0)
 		{
 			write(2, "Minishell:", 11);
-			perror(strct->files->file);
+			perror(strct->file);
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
 			ft_free_global();
@@ -41,10 +41,10 @@ int ft_infile(t_minishell *strct)
 			// ft_free_global();
 			exit(1);
 		}
-		else if (access(strct->files->file, R_OK) != 0)
+		else if (access(strct->file, R_OK) != 0)
 		{
 			write(2, "Minishell:", 11);
-			perror(strct->files->file);
+			perror(strct->file);
 			g_global->exit_status = 1;
 			close(infile_fd);
 			free_minishell(&g_global->strct);
@@ -61,7 +61,7 @@ int ft_infile(t_minishell *strct)
 		free(g_global);
 		exit(1);
 	}
-	if (ft_strcmp(strct->files->file, "/dev/stdin"))
+	if (ft_strcmp(strct->file, "/dev/stdin"))
 	{
 		if (dup2(infile_fd, STDIN_FILENO) == -1)
 		{
@@ -79,28 +79,31 @@ int ft_infile(t_minishell *strct)
 	return (0);
 }
 
-int ft_outfile(t_minishell *strct)
+int ft_outfile(t_file *strct)
 {
 	int outfile_fd;
 
-	if (strct->files->flag == AMB)
+	if (strct->flag == AMB)
 	{
 		write(2, "Minishell:", 11);
-		write(2, strct->files->file, ft_strlen(strct->files->file));
+		write(2, strct->file, ft_strlen(strct->file));
 		write(2, ": ambiguous redirect\n", 22);
-		g_global->exit_status = 1;
-		return (1);
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
+		exit(1);
 	}
-	outfile_fd = open(strct->files->file, O_CREAT | O_TRUNC | O_WRONLY, 0640);
+	outfile_fd = open(strct->file, O_CREAT | O_TRUNC | O_WRONLY, 0640);
 	if (outfile_fd == -1)
 	{
 		write(2, "Minishell:", 11);
-		perror(strct->files->file);
+		perror(strct->file);
 		g_global->exit_status = 1;
 		close(outfile_fd);
 		exit(g_global->exit_status);
 	}
-	if (ft_strcmp(strct->files->file, "/dev/stdout"))
+	if (ft_strcmp(strct->file, "/dev/stdout"))
 	{
 		if (dup2(outfile_fd, STDOUT_FILENO) == -1)
 		{
@@ -114,29 +117,29 @@ int ft_outfile(t_minishell *strct)
 	}
 	return (0);
 }
-int ft_append(t_minishell *strct)
+int ft_append(t_file *strct)
 {
 	int fd;
 
-	if (strct->files->flag == AMB)
+	if (strct->flag == AMB)
 	{
 		write(2, "Minishell:", 11);
-		write(2, strct->files->file, ft_strlen(strct->files->file));
+		write(2, strct->file, ft_strlen(strct->file));
 		write(2, ": ambiguous redirect \n", 22);
 		g_global->exit_status = 1;
 		return (1);
 	}
-	fd = open(strct->files->file, O_CREAT | O_WRONLY | O_APPEND, 0640);
+	fd = open(strct->file, O_CREAT | O_WRONLY | O_APPEND, 0640);
 	if (fd == -1)
 	{
 		write(2, "Minishell:", 11);
-		perror(strct->files->file);
+		perror(strct->file);
 		g_global->exit_status = 1;
 		close(fd);
 		ft_free_global();
 		exit(g_global->exit_status);
 	}
-	if (ft_strcmp(strct->files->file, "/dev/stdout"))
+	if (ft_strcmp(strct->file, "/dev/stdout"))
 	{
 		if (dup2(fd, STDOUT_FILENO) == -1)
 		{
@@ -154,7 +157,7 @@ int ft_append(t_minishell *strct)
 int redirection(t_minishell *strct)
 {
 	t_minishell *head = strct;
-
+	t_file *current_file;
 	if (head->files == NULL && head->next && head)
 	{
 		if (dup2(g_global->fd_pipe[1], STDOUT_FILENO) == -1)
@@ -164,21 +167,23 @@ int redirection(t_minishell *strct)
 	dup2(g_global->save_fd_out, STDOUT_FILENO);
 	int flag;
 	flag = 0;
-	while (head && head->files)
+	current_file = head->files;
+	while (current_file)
 	{
-		if (head->files->file_type == IN || head->files->file_type == HER_DOC)
-			ft_infile(head);
-		else if (head->files->file_type == 1)
+
+		if (current_file->file_type == IN || current_file->file_type == HER_DOC)
+			ft_infile(current_file);
+		else if (current_file->file_type == 1)
 		{
 			flag = 1;
-			ft_outfile(head);
+			ft_outfile(current_file);
 		}
-		else if (head->files->file_type == 3)
+		else if (current_file->file_type == 3)
 		{
 			flag = 1;
-			ft_append(head);
+			ft_append(current_file);
 		}
-		head->files = head->files->next;
+		current_file = current_file->next;
 	}
 	if (flag == 0 && strct->next)
 		dup2(g_global->fd_pipe[1], STDOUT_FILENO);

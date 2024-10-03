@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 13:27:21 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:58:46 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int main(int ac, char **av, char **env)
             if (g_global->underscore)
                 free(g_global->underscore);
             // free_minishell(&g_global->strct);
+            close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
             free(g_global);
             return (0);
         }
@@ -93,7 +95,11 @@ int main(int ac, char **av, char **env)
             // print(g_global->strct);
             ft_execution(g_global->strct);
             dup2(g_global->save_fd_int, STDIN_FILENO);
+            // close(g_global->save_fd_int);
+            // close(g_global->save_fd_out);
             add_history(line);
+            // if (g_global->pid)
+            //     free(g_global->pid);
             // ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
             free_minishell(&g_global->strct);
             free(g_global->strct);

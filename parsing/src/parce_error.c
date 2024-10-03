@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:16:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/07 18:53:34 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:57:19 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,43 +58,62 @@ int	check_bracket(char *str)
 	return (0);
 }
 
-int	check_logical(char *str)
+char	check_logical(char *str)
 {
 	int	i;
-	int	s_flag;
-	int	d_flag;
+	bool	s_flag;
+	bool	d_flag;
 
 	i = 0;
 	s_flag = 0;
 	d_flag = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' && !d_flag)
-			s_flag = !s_flag;
-		if (str[i] == '\"' && !s_flag)
-			d_flag = !d_flag;
+		update_quotes(&s_flag, &d_flag, str[i]);
 		if ((str[i] == '|' && str[i + 1] == '|') && !s_flag && !d_flag)
-			return (1);
+			return (str[i]);
 		if ((str[i] == '&' && str[i + 1] == '&') && !s_flag && !d_flag)
-			return (1);
+			return (str[i]);
 		if ((str[i] == '|' && str[i + 1] == '\0') && !s_flag && !d_flag)
-			return (1);
+			return (str[i]);
 		i++;
 	}
 	return (0);
 }
+int		check_pipe(char *line)
+{
+	char *line_t;
+	int	i;
 
+	line_t = ft_strtrim(line, "\n\r\v\f\t ");
+	if (line_t[0] == '|')
+		return (1);
+	i = 0;
+	while (line[i])
+	{
+		if (line_t[i] == '|' && !line_t[i + 1])
+		{
+			free(line_t);
+			return (1);
+		}
+		i++;
+	}
+			free(line_t);
+	return (0);
+}
 int	parce_error(char *line)
 {
-	if (check_quote(line))
-		return (synt_error(ERROR));
-	if (check_bracket(line))
-		return (synt_error(ERROR));
 	if (check_logical(line))
-		return (synt_error(ERROR));
+		return (synt_error(ERROR, check_logical(line)));
+	if (check_pipe(line))
+		synt_error(ERROR, '|');
+	if (check_quote(line))
+		return (synt_error(ERROR, '"'));
+	if (check_bracket(line))
+		return (synt_error(ERROR, '('));
 	if (check_red_out(line))
-		return (synt_error(ERROR));
+		return (synt_error(ERROR, '>'));
 	if (check_red_in(line))
-		return (synt_error(ERROR));
+		return (synt_error(ERROR, '<'));
 	return (0);
 }

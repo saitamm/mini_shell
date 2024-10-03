@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:49:41 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/03 11:47:54 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:30:24 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	free_minishell(t_minishell **m_shell)
 		k = *m_shell;
 		if ((*m_shell)->cmd)
 		{
-			// dprintf(2, "%s\n", g_global->strct->cmd[0]);
 			ft_free((*m_shell)->cmd, len_double_str(g_global->strct->cmd));
 		}
+			// dprintf(2, "%s\n", g_global->strct->files->file);
 		ft_free_file(&(*m_shell)->files);
 		*m_shell = (*m_shell)->next;
 		free(k);

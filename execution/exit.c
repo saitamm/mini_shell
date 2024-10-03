@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 11:46:22 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:08:30 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int ft_exit(char **cmd)
 {
 	if (!cmd || !cmd[1])
 	{
+		int ex = g_global->exit_status;
 		// ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 		free_minishell(&g_global->strct);
 		free_list(&g_global->env);
@@ -84,7 +85,7 @@ int ft_exit(char **cmd)
 			free(g_global->pid);
 		// ft_free_global();
 		free(g_global);
-		exit(0);
+		exit(ex);
 	}
 	if (isanumvalue(cmd[1]))
 	{

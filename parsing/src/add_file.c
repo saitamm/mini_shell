@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:37:58 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/02 13:05:02 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:16:57 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	add_her_append(int *i, t_data **s, char *str)
 	t_file	*new;
 
 	*i = *i + 2;
-	//str makhas tfreea
 	new = (t_file *)malloc(sizeof(t_file));
 	if (!new)
 		return ;
@@ -75,7 +74,6 @@ void	add_outfile(int *i, t_data **s, char *str)
 
 void	add_file(int *i, char *str, t_data **s)
 {
-	//str makhas tfreea
 	if (append_her_doc(str[*i], str[(*i) + 1]))
 		add_her_append(i, s, str);
 	else if (str[*i] == '<')
