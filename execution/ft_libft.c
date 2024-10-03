@@ -3,27 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_libft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:44:00 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/17 15:30:57 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:00:59 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_lstsize2(t_minishell *lst)
-{
-	int	size;
 
-	size = 0;
-	while (lst)
-	{
-		size++;
-		lst = lst->next;
-	}
-	return (size);
-}
 
 char	*ft_strcpy(char *dest, const char *src)
 {

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/02 15:49:07 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:14:22 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	error_export(char *str, char *error)
 	write(2, str, ft_strlen(str));
 	write(2, "': not a valid identifier\n", 26);
 	g_global->exit_status = 1;
+	free(key);
 }
 
 int	check_error_export(char *str)
@@ -109,21 +110,32 @@ void	add_to_env(char *str, char *key)
 		value = ft_substr(str + ft_strlen(key) + 1, 0, ft_strlen(str)
 				- ft_strlen(key) - 1);
 		if (find_key(g_global->env, key) == 0)
+		{
 			add_to_list(&g_global->env, key, value);
+			free(value);
+		}
 		else
+		{
 			ft_change_key_value(key, value);
+			free(value);
+		}
 	}
 	else if (str[ft_strlen(key)] == '+')
 	{
 		value = ft_substr(str + ft_strlen(key) + 2, 0, ft_strlen(str)
 				- ft_strlen(key) - 2);
 		if (find_key(g_global->env, key) == 0)
+		{
 			add_to_list(&g_global->env, key, value);
+			free(value);
+		}
 		else
 		{
 			tmp = ft_strjoin(help_expand(key), value);
 			ft_lstremove(key);
 			add_to_list(&g_global->env, key, tmp);
+			free(value);
+			free(tmp);
 		}
 	}
 	else if (find_key(g_global->env, key) == 0)
@@ -147,6 +159,7 @@ void	add_key_export(char *str)
 			g_global->flag_env = 1;
 		add_to_env(str, key);
 	}
+	free(key);
 }
 void	ft_export(t_minishell *strct)
 {

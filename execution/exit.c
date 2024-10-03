@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/02 10:51:13 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:46:22 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,19 @@ int ft_exit(char **cmd)
 {
 	if (!cmd || !cmd[1])
 	{
-		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
+		// ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 		free_minishell(&g_global->strct);
-		free(g_global->pid);
-		ft_free_global();
+		free_list(&g_global->env);
+		if (g_global->pwd)
+			free(g_global->pwd);
+		if (g_global->oldpwd)
+			free(g_global->oldpwd);
+		if (g_global->underscore)
+			free(g_global->underscore);
+		// free_minishell(&g_global->strct);
+		if (g_global->pid)
+			free(g_global->pid);
+		// ft_free_global();
 		free(g_global);
 		exit(0);
 	}
@@ -82,10 +91,18 @@ int ft_exit(char **cmd)
 		if (!cmd[2])
 		{
 			int ex = ft_atoll(cmd[1]);
-			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 			free_minishell(&g_global->strct);
-			free(g_global->pid);
-			ft_free_global();
+			free_list(&g_global->env);
+			if (g_global->pwd)
+				free(g_global->pwd);
+			if (g_global->oldpwd)
+				free(g_global->oldpwd);
+			if (g_global->underscore)
+				free(g_global->underscore);
+			// free_minishell(&g_global->strct);
+			if (g_global->pid)
+				free(g_global->pid);
+			// ft_free_global();
 			free(g_global);
 			exit(ex);
 		}
@@ -97,11 +114,18 @@ int ft_exit(char **cmd)
 		write(2, "exit \nMinishell: exit: ", 24);
 		write(2, cmd[1], ft_strlen(cmd[1]));
 		write(2, ": numeric argument required\n", 29);
-		g_global->exit_status = 2;
-		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 		free_minishell(&g_global->strct);
-		free(g_global->pid);
-		ft_free_global();
+		free_list(&g_global->env);
+		if (g_global->pwd)
+			free(g_global->pwd);
+		if (g_global->oldpwd)
+			free(g_global->oldpwd);
+		if (g_global->underscore)
+			free(g_global->underscore);
+		// free_minishell(&g_global->strct);
+		if (g_global->pid)
+			free(g_global->pid);
+		// ft_free_global();
 		free(g_global);
 		exit(2);
 	}

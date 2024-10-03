@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/02 16:48:27 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:00:49 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,61 @@ int execute_child(t_minishell *strct)
 	char **env_exc;
 
 	if (ft_strcmp(strct->cmd[0], "pwd") == 0)
-		exit(g_global->exit_status= ft_pwd());
+	{
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
+		exit(ft_pwd());
+	}
 	else if (ft_strcmp(strct->cmd[0], "env") == 0)
-		exit(g_global->exit_status= print_env(g_global->env, strct->cmd));
+	{
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
+		exit(print_env(g_global->env, strct->cmd));
+	}
 	else if (ft_strcmp(strct->cmd[0], "echo") == 0)
-		exit(g_global->exit_status= ft_echo(strct->cmd));
+	{
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
+		exit(ft_echo(strct->cmd));
+	}
 	else if (ft_strcmp(strct->cmd[0], "cd") == 0)
-		exit(g_global->exit_status= ft_cd(strct->cmd));
+	{
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
+		exit(ft_cd(strct->cmd));
+	}
 	else if (ft_strcmp(strct->cmd[0], "unset") == 0)
-		exit(g_global->exit_status= unset(strct->cmd));
+	{
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
+		exit(unset(strct->cmd));
+	}
 	else if (ft_strcmp(strct->cmd[0], "export") == 0)
+	{
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
 		ft_export(strct);
+	}
 	else if (ft_strcmp(strct->cmd[0], "exit") == 0)
-		exit(g_global->exit_status= ft_exit(strct->cmd));
+	{
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
+		exit(ft_exit(strct->cmd));
+	}
 	else
 	{
 		char **spl = ft_split(strct->cmd[0], ' ');
@@ -76,7 +118,6 @@ int execute_child(t_minishell *strct)
 		{
 			write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
 			write(2, ": command not found\n", 21);
-			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
 			ft_free(spl, len_double_str(spl));
@@ -91,7 +132,6 @@ int execute_child(t_minishell *strct)
 				if (open(strct->cmd[0], X_OK) == -1)
 				{
 					perror(strct->cmd[0]);
-					ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 					free_minishell(&g_global->strct);
 					free(g_global->pid);
 					ft_free(spl, len_double_str(spl));
@@ -103,7 +143,6 @@ int execute_child(t_minishell *strct)
 				else
 				{
 					perror(strct->cmd[0]);
-					ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 					free_minishell(&g_global->strct);
 					free(g_global->pid);
 					ft_free(spl, len_double_str(spl));
@@ -117,7 +156,6 @@ int execute_child(t_minishell *strct)
 			{
 				write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
 				write(2, ": is a directory\n", 18);
-				ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 				free_minishell(&g_global->strct);
 				free(g_global->pid);
 				ft_free(spl, len_double_str(spl));
@@ -133,7 +171,6 @@ int execute_child(t_minishell *strct)
 			write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
 			write(2, ": command not found\n", 21);
 			free(path);
-			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
 			ft_free(spl, len_double_str(spl));
@@ -144,11 +181,16 @@ int execute_child(t_minishell *strct)
 		ft_bashlvl(strct);
 		env_exc = env_to_array(g_global->env);
 		ft_free(spl, len_double_str(spl));
-
 		if (execve(path, strct->cmd, env_exc) == -1)
 		{
-			ft_free(strct->cmd, len_double_str(strct->cmd));
+			write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
+			write(2, ": command not found\n", 21);
 			free(path);
+			free_minishell(&g_global->strct);
+			free(g_global->pid);
+			ft_free(spl, len_double_str(spl));
+			ft_free_global();
+			free(g_global);
 			ft_free(env_exc, len_double_str(env_exc));
 		}
 	}
@@ -164,20 +206,7 @@ void ft_exec_child(t_minishell *strct)
 	close(g_global->fd_pipe[1]);
 }
 
-int ft_lstsize_minishell(t_minishell *lst)
-{
-	int i;
 
-	i = 0;
-	if (!lst)
-		return (0);
-	while (lst != NULL)
-	{
-		i++;
-		lst = lst->next;
-	}
-	return (i);
-}
 int ft_infile_built(t_minishell *strct)
 {
 	int infile_fd;
@@ -228,25 +257,26 @@ int ft_infile_built(t_minishell *strct)
 int redirection_buils(t_minishell *strct)
 {
 	t_minishell *head;
-	int flag;
+	t_file *current_file;
 
 	head = strct;
-	flag = 0;
-	while (head && head->files)
+	while (head)
 	{
-		if (head->files->file_type == IN || head->files->file_type == HER_DOC)
+		current_file = head->files;
+		while (current_file)
 		{
-			if (ft_infile_built(head))
-				return (1);
+			if (current_file->file_type == IN || current_file->file_type == HER_DOC)
+			{
+				if (ft_infile_built(head))
+					return (1);
+			}
+			else if (current_file->file_type == 1)
+				ft_outfile(head);
+			else if (current_file->file_type == 3)
+				ft_append(head);
+			current_file = current_file->next;
 		}
-		else if (head->files->file_type == 1)
-			ft_outfile(head);
-		else if (head->files->file_type == 3)
-		{
-			flag = 1;
-			ft_append(head);
-		}
-		head->files = head->files->next;
+		head = head->next;
 	}
 	return (0);
 }
@@ -300,9 +330,9 @@ void ft_execution(t_minishell *strct)
 		{
 			waitpid(g_global->pid[i], &status, 0);
 			// char st = (char)status;
-			if (i == size -1)
+			if (i == size - 1)
 			{
-				g_global->exit_status =  WEXITSTATUS(status);
+				g_global->exit_status = WEXITSTATUS(status);
 			}
 			i++;
 		}

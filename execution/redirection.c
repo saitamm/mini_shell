@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/02 16:47:31 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 10:32:23 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int ft_infile(t_minishell *strct)
 		write(2, "Minishell:", 11);
 		write(2, strct->files->file, ft_strlen(strct->files->file));
 		write(2, ": ambiguous redirect\n", 22);
-		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
 		ft_free_global();
@@ -35,7 +34,6 @@ int ft_infile(t_minishell *strct)
 		{
 			write(2, "Minishell:", 11);
 			perror(strct->files->file);
-			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
 			ft_free_global();
@@ -49,7 +47,6 @@ int ft_infile(t_minishell *strct)
 			perror(strct->files->file);
 			g_global->exit_status = 1;
 			close(infile_fd);
-			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
 			ft_free_global();
@@ -58,7 +55,6 @@ int ft_infile(t_minishell *strct)
 		}
 		perror("Error opening file\n");
 		// ft_free_global();
-		ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
 		ft_free_global();
@@ -72,7 +68,6 @@ int ft_infile(t_minishell *strct)
 			perror("Error in dup2\n");
 			g_global->exit_status = 1;
 			close(infile_fd);
-			ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
 			ft_free_global();

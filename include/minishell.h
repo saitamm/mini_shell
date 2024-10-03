@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 21:43:21 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:10:24 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_global
     t_env   *env;
     int     flag;
     int     exit_status;
-    int     separator; // 0 if = and 1 if +=
+    int     separator;
     int save_fd_out; 
     int save_fd_int;
     int fd_pipe[2];
@@ -257,4 +257,7 @@ void ft_bashlvl(t_minishell *strct);
 void ft_underscore(t_minishell *strct);
 void    ft_free_global();
 void free_list(t_env **m_shell);
+int ft_lstsize_minishell(t_minishell *lst);
+int	ft_lstsize2(t_minishell *lst);
+int	ft_lstsize_3(t_env *lst);
 #endif

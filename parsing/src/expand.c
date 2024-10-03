@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/02 14:48:40 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:31:16 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	*expand_str(char *string, int pos)
 	sub_2 = ft_strjoin(sub_1, sub_exp);
 	final = ft_strjoin(sub_2, string + pos + ft_strlen(sub_3) + 1);
 	free(sub_1);
+	free(sub_exp);
     free(sub_3);
     free(sub_2);
 	return (final);

@@ -6,7 +6,7 @@
 #    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/10/02 16:25:26 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/10/03 13:26:17 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC =  minishell.c \
 		execution/export2.c \
 		execution/get_path.c \
 		execution/free.c \
+		execution/function_size.c
 
 
 OBJF = $(SRC:.c=.o)
@@ -54,7 +55,7 @@ INCLUDES = -I . -I include -I $(LIBFT_DIR)
 
 C = cc
 
-CFLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address 
+CFLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address 
 
 all: $(NAME)
 

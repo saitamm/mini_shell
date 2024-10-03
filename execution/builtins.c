@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/02 11:08:10 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:04:41 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_bashlvl(t_minishell *strct)
 				if (shlvl == 1000)
 					shlvl = 1;
 				new_value = malloc(12);
-					// Enough space for an int (max 10 digits+ sign+ null terminator)
 				if (!new_value)
 					return ;
 				printf("new_value %d", shlvl);
@@ -42,7 +41,6 @@ void	ft_bashlvl(t_minishell *strct)
 		}
 	}
 }
-
 
 void	ft_underscore(t_minishell *strct)
 {

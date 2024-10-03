@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:39:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/02 14:52:20 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:44:45 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,17 @@ char	*help_expand(char *str)
 	if (!str || str[0] == '\0')
 		return (NULL);
 	if (!ft_strncmp(str, "PWD", 3))
-		return (g_global->pwd);
+		return (ft_strdup(g_global->pwd));
 	if (!ft_strncmp(str, "OLDPWD", 6))
-		return (g_global->oldpwd);
+		return (ft_strdup(g_global->oldpwd));
 	if (!ft_strncmp(str, "_", 1))
-		return (g_global->underscore);
+		return (ft_strdup(g_global->underscore));
 	else if (!ft_strncmp(str, "?", 1))
-	{
 		return (ft_itoa(g_global->exit_status));
-	}
 	while (env)
 	{
 		if (!ft_strncmp(str, env->key, ft_strlen(str)))
-			return (env->value);
+			return (ft_strdup(env->value));
 		env = env->next;
 	}
 	return (NULL);

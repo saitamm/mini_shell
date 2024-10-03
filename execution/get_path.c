@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:22:58 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 21:56:37 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:01:12 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,7 @@ void	error_fun(char *str, int h)
 	perror(str);
 	exit(h);
 }
-int	ft_lstsize_3(t_env *lst)
-{
-	int	i;
 
-	i = 0;
-	if (!lst)
-		return (0);
-	while (lst != NULL)
-	{
-		i++;
-		lst = lst->next;
-	}
-	return (i);
-}
 char	**env_to_array(t_env *env)
 {
 	int		size;
