@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 20:03:34 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:12:31 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ int execute_child(t_minishell *strct)
 	{
 		ex = ft_pwd();
 		free_minishell(&g_global->strct);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 		free(g_global->pid);
 		ft_free_global();
 		free(g_global);
@@ -69,6 +73,10 @@ int execute_child(t_minishell *strct)
 	{
 		ex = print_env(g_global->env, strct->cmd);
 		free_minishell(&g_global->strct);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 		free(g_global->pid);
 		ft_free_global();
 		free(g_global);
@@ -79,6 +87,10 @@ int execute_child(t_minishell *strct)
 		ex = ft_echo(strct->cmd);
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 		ft_free_global();
 		free(g_global);
 		exit(ex);
@@ -88,6 +100,10 @@ int execute_child(t_minishell *strct)
 		ex = ft_cd(strct->cmd);
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 		ft_free_global();
 		free(g_global);
 		exit(ex);
@@ -97,6 +113,10 @@ int execute_child(t_minishell *strct)
 		ex = unset(strct->cmd);
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 		ft_free_global();
 		free(g_global);
 		exit(ex);
@@ -107,6 +127,10 @@ int execute_child(t_minishell *strct)
 		ex = g_global->exit_status;
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 		ft_free_global();
 		free(g_global);
 	}
@@ -115,6 +139,10 @@ int execute_child(t_minishell *strct)
 		ex = ft_exit(strct->cmd);
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 		ft_free_global();
 		free(g_global);
 		exit(ex);
@@ -128,6 +156,10 @@ int execute_child(t_minishell *strct)
 			write(2, ": command not found\n", 21);
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
+			close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 			ft_free(spl, len_double_str(spl));
 			ft_free_global();
 			free(g_global);
@@ -137,11 +169,16 @@ int execute_child(t_minishell *strct)
 		{
 			if (access(strct->cmd[0], X_OK) == -1)
 			{
-				if (open(strct->cmd[0], X_OK) == -1)
+				int l = open(strct->cmd[0], X_OK);
+				if (l == -1)
 				{
 					perror(strct->cmd[0]);
 					free_minishell(&g_global->strct);
 					free(g_global->pid);
+					close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 					ft_free(spl, len_double_str(spl));
 
 					ft_free_global();
@@ -153,12 +190,18 @@ int execute_child(t_minishell *strct)
 					perror(strct->cmd[0]);
 					free_minishell(&g_global->strct);
 					free(g_global->pid);
+					close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 					ft_free(spl, len_double_str(spl));
 
 					ft_free_global();
+					close(l);
 					free(g_global);
 					exit(126);
 				}
+				close(l);
 			}
 			if (is_directory(strct->cmd[0]))
 			{
@@ -166,6 +209,10 @@ int execute_child(t_minishell *strct)
 				write(2, ": is a directory\n", 18);
 				free_minishell(&g_global->strct);
 				free(g_global->pid);
+				close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 				ft_free(spl, len_double_str(spl));
 
 				ft_free_global();
@@ -199,16 +246,26 @@ int execute_child(t_minishell *strct)
 		if (execve(path, strct->cmd, env_exc) == -1)
 		{
 			write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
-			write(2, ": command not found\n", 21);
+			perror(strct->cmd[0]);
 			free(path);
+			close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
-			ft_free(spl, len_double_str(spl));
-			ft_free_global();
+			// ft_free(spl, len_double_str(spl));
+			// ft_free_global();
+			// free(h_ex);
 			free(g_global);
 			ft_free(env_exc, len_double_str(env_exc));
+			exit(2);
 		}
 	}
+	close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 	// ft_free_global();
 	exit(ex);
 }
@@ -349,7 +406,7 @@ void ft_execution(t_minishell *strct)
 			{
 				g_global->exit_status = WEXITSTATUS(status);
 			}
-	free(g_global->pid);
+	// free(g_global->pid);
 			i++;
 		}
 	}

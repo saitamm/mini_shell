@@ -1,0 +1,14 @@
+a
+execution
+include
+libft
+Makefile
+minishell
+minishell.c
+minishell_tester
+n
+parsing
+readline.supp
+soumaya
+test_files
+wafaa

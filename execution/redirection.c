@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 18:22:56 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:10:54 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ int ft_infile(t_file *strct)
 		write(2, "Minishell:", 11);
 		write(2, strct->file, ft_strlen(strct->file));
 		write(2, ": ambiguous redirect\n", 22);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
 		ft_free_global();
@@ -34,6 +38,10 @@ int ft_infile(t_file *strct)
 		{
 			write(2, "Minishell:", 11);
 			perror(strct->file);
+			close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
 			ft_free_global();
@@ -47,6 +55,10 @@ int ft_infile(t_file *strct)
 			perror(strct->file);
 			g_global->exit_status = 1;
 			close(infile_fd);
+			close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
 			ft_free_global();
@@ -57,6 +69,10 @@ int ft_infile(t_file *strct)
 		// ft_free_global();
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 		ft_free_global();
 		free(g_global);
 		exit(1);
@@ -68,6 +84,10 @@ int ft_infile(t_file *strct)
 			perror("Error in dup2\n");
 			g_global->exit_status = 1;
 			close(infile_fd);
+			close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 			free_minishell(&g_global->strct);
 			free(g_global->pid);
 			ft_free_global();
@@ -88,6 +108,10 @@ int ft_outfile(t_file *strct)
 		write(2, "Minishell:", 11);
 		write(2, strct->file, ft_strlen(strct->file));
 		write(2, ": ambiguous redirect\n", 22);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			close(g_global->fd_pipe[1]);
+			close(g_global->fd_pipe[0]);
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
 		ft_free_global();
