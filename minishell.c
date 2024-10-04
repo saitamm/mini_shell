@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/04 10:42:51 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:06:15 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int main(int ac, char **av, char **env)
     initialise_struct(env);
     while (1)
     {
+        ft_sig_handling();
         line = readline("Minishell$> ");
         if (!line)
             handler_ctrl_d();

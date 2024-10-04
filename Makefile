@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
+#    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/10/03 21:48:56 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/10/04 11:05:19 by lai-elho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,8 @@ SRC =  minishell.c \
 		execution/export2.c \
 		execution/get_path.c \
 		execution/free.c \
-		execution/function_size.c
-
+		execution/function_size.c \
+		execution/signals.c
 
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft
