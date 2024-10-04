@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/04 11:06:15 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/04 12:56:53 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,6 @@ void initialise_struct(char **env)
     g_global->underscore = ft_strdup(NULL);
 }
 
-void handler_ctrl_d()
-{
-    free_list(&g_global->env);
-    if (g_global->pwd)
-        free(g_global->pwd);
-    if (g_global->oldpwd)
-        free(g_global->oldpwd);
-    if (g_global->underscore)
-        free(g_global->underscore);
-    // free_minishell(&g_global->strct);
-    close(g_global->save_fd_int);
-    close(g_global->save_fd_out);
-    free(g_global);
-    exit(0);
-}
-
 int main(int ac, char **av, char **env)
 {
     (void)ac;
@@ -89,14 +73,27 @@ int main(int ac, char **av, char **env)
     initialise_struct(env);
     while (1)
     {
-        ft_sig_handling();
+                ft_sig_handling();
         line = readline("Minishell$> ");
         if (!line)
-            handler_ctrl_d();
+        {
+            free_list(&g_global->env);
+            if (g_global->pwd)
+                free(g_global->pwd);
+            if (g_global->oldpwd)
+                free(g_global->oldpwd);
+            if (g_global->underscore)
+                free(g_global->underscore);
+            // free_minishell(&g_global->strct);
+            close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+            free(g_global);
+            return (0);
+        }
         g_global->strct = parce(line);
         if (g_global->strct)
         {
-            // print(g_global->strct);
+            print(g_global->strct);
             ft_execution(g_global->strct);
             dup2(g_global->save_fd_int, STDIN_FILENO);
             // close(g_global->save_fd_int);
@@ -107,6 +104,7 @@ int main(int ac, char **av, char **env)
             // ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
             free_minishell(&g_global->strct);
             free(g_global->strct);
+            
         }
         if (line)
             free(line);

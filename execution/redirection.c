@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 22:10:54 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:01:52 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,16 @@ int ft_outfile(t_file *strct)
 	{
 		write(2, "Minishell:", 11);
 		perror(strct->file);
-		g_global->exit_status = 1;
+		free_minishell(&g_global->strct);
+		close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		close(g_global->fd_pipe[1]);
+		close(g_global->fd_pipe[0]);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
 		close(outfile_fd);
-		exit(g_global->exit_status);
+		exit(1);
 	}
 	if (ft_strcmp(strct->file, "/dev/stdout"))
 	{

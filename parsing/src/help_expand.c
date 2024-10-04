@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:39:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/03 18:48:55 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:13:23 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ char	**split_str(char *str, int *f)
 		return (NULL);
 	if (!have_to_split(str))
 	{
-		*f = 1;
+		if (ft_strchr(str, '"') || ft_strchr(str, '\''))
+			*f = 1;
 		temp = remove_quote(str);
 		temp = help_pipe_quote_2(temp);
 		spl_str = malloc(2 * sizeof(char *));

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 22:07:33 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 12:03:57 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,13 @@ int ft_exit(char **cmd)
 	if (!cmd || !cmd[1])
 	{
 		int ex = g_global->exit_status;
-		close(g_global->save_fd_int);
-            close(g_global->save_fd_out);
+		if (ft_lstsize_minishell(g_global->strct))
+		{
+			close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		close(g_global->fd_pipe[1]);
+		close(g_global->fd_pipe[0]);
+		}
 		free_minishell(&g_global->strct);
 		free_list(&g_global->env);
 		if (g_global->pwd)
@@ -114,6 +119,13 @@ int ft_exit(char **cmd)
 		write(2, "exit \nMinishell: exit: ", 24);
 		write(2, cmd[1], ft_strlen(cmd[1]));
 		write(2, ": numeric argument required\n", 29);
+		if (ft_lstsize_minishell(g_global->strct))
+		{
+			close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		close(g_global->fd_pipe[1]);
+		close(g_global->fd_pipe[0]);
+		}
 		free_minishell(&g_global->strct);
 		close(g_global->save_fd_int);
             close(g_global->save_fd_out);

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:16:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/03 16:57:19 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:17:47 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,28 +58,6 @@ int	check_bracket(char *str)
 	return (0);
 }
 
-char	check_logical(char *str)
-{
-	int	i;
-	bool	s_flag;
-	bool	d_flag;
-
-	i = 0;
-	s_flag = 0;
-	d_flag = 0;
-	while (str[i])
-	{
-		update_quotes(&s_flag, &d_flag, str[i]);
-		if ((str[i] == '|' && str[i + 1] == '|') && !s_flag && !d_flag)
-			return (str[i]);
-		if ((str[i] == '&' && str[i + 1] == '&') && !s_flag && !d_flag)
-			return (str[i]);
-		if ((str[i] == '|' && str[i + 1] == '\0') && !s_flag && !d_flag)
-			return (str[i]);
-		i++;
-	}
-	return (0);
-}
 int		check_pipe(char *line)
 {
 	char *line_t;
@@ -103,8 +81,6 @@ int		check_pipe(char *line)
 }
 int	parce_error(char *line)
 {
-	if (check_logical(line))
-		return (synt_error(ERROR, check_logical(line)));
 	if (check_pipe(line))
 		synt_error(ERROR, '|');
 	if (check_quote(line))

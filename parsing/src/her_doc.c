@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/02 16:15:20 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:16:05 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	need_expand_her_doc(char *str, int *pos, int flag)
 		return (0);
 	while (str[i])
 	{
+	dprintf(2, ">>>>>%d\n", flag);
+	dprintf(2, ">>>>>%c\n", str[i]);
 		if (str[i] == '$' && str[i + 1] && !flag)
 		{
 			*pos = i;
@@ -85,12 +87,18 @@ int	need_expand_her_doc(char *str, int *pos, int flag)
 char	*expand_herdoc(char *line, enum e_token flag_quote)
 {
 	char	*line_exp;
+	char	*exp;
 	int		pos;
 
 	line_exp = ft_strdup(line);
 	if (flag_quote != Q_HER)
 		while (need_expand_her_doc(line_exp, &pos, 0))
-			line_exp = expand_str(line_exp, pos);
+		{
+			exp = expand_str(line_exp, pos);
+			free(line_exp);
+			line_exp = ft_strdup(exp);
+			free(exp);
+		}
 	return (line_exp);
 }
 
