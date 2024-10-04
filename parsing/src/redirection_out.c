@@ -27,7 +27,6 @@ int	check_red_out(char *str)
 				|| ft_three_out(str + i) || ft_pipe_out(str + i)) && !f.s_quote
 			&& !f.d_quote)
 			return (1);
-	
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/20 09:46:46 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:52:11 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ void	init_data(t_data **data, char **line)
 	}
 	ft_free(str, p_nmbr);
 }
+
 t_data	**add_data(t_data **data, t_data *new)
 {
-	t_data *d;
+	t_data	*d;
 
 	if (!data)
 		return (NULL);

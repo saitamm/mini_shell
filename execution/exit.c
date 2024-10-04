@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/20 09:22:02 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 12:03:57 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,12 @@ int isanumvalue(char *str)
 long ft_atoll(char *c)
 {
 	int i;
-
 	int signe;
 	long result;
 
 	i = 0;
 	signe = 1;
 	result = 0;
-	// while ((c[i] <= 13 && c[i] >= 9) || c[i] == 32)
 	while (c[i] == ' ' || c[i] == '	')
 		i++;
 	if (c[i] == '+' || c[i] == '-')
@@ -66,48 +64,82 @@ long ft_atoll(char *c)
 		i++;
 	}
 	return (result * signe);
-	// return (result);
 }
 
-// void ft_exit(char **cmd)
-// {
-// 	if (!cmd)
-// 		return;
-// 	if (cmd[1] && cmd[2] == NULL)
-// 	{
-// 		if (isanumvalue(cmd[1]))
-// 			exit(ft_atoll(cmd[1]));
-// 		else
-// 			printf("exit \nbash: exit: %s: numeric argument required\n", cmd[1]);
-// 		exit(2);
-// 	}
-// 	else
-// 		printf("exit \nbash: exit: too many arguments\n");
-// }
-
-void ft_exit(char **cmd)
+int ft_exit(char **cmd)
 {
 	if (!cmd || !cmd[1])
 	{
-		printf("exit\n");
-		g_global->exit_status = 0;
-		free_minishell(&g_global->min_str);
-		exit(g_global->exit_status);
+		int ex = g_global->exit_status;
+		if (ft_lstsize_minishell(g_global->strct))
+		{
+			close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		close(g_global->fd_pipe[1]);
+		close(g_global->fd_pipe[0]);
+		}
+		free_minishell(&g_global->strct);
+		free_list(&g_global->env);
+		if (g_global->pwd)
+			free(g_global->pwd);
+		if (g_global->oldpwd)
+			free(g_global->oldpwd);
+		if (g_global->underscore)
+			free(g_global->underscore);
+		if (g_global->pid)
+			free(g_global->pid);
+		free(g_global);
+		exit(ex);
 	}
 	if (isanumvalue(cmd[1]))
 	{
-		if (cmd[2])
-		{			
-		g_global->exit_status = 130;
-		printf("exit \nbash: exit: too many arguments\n");
-		return ;
+		if (!cmd[2])
+		{
+			int ex = ft_atoll(cmd[1]);
+			free_minishell(&g_global->strct);
+			free_list(&g_global->env);
+			close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+			if (g_global->pwd)
+				free(g_global->pwd);
+			if (g_global->oldpwd)
+				free(g_global->oldpwd);
+			if (g_global->underscore)
+				free(g_global->underscore);
+			if (g_global->pid)
+				free(g_global->pid);
+			free(g_global);
+			exit(ex);
 		}
-			exit(ft_atoll(cmd[1]));
+		write(2, "exit \nMinishell : exit: too many arguments\n", 44);
+		return 1;
 	}
 	else
 	{
-		printf("exit \nbash: exit: %s: numeric argument required\n", cmd[1]);
-		g_global->exit_status = 2;
-		exit(g_global->exit_status);
+		write(2, "exit \nMinishell: exit: ", 24);
+		write(2, cmd[1], ft_strlen(cmd[1]));
+		write(2, ": numeric argument required\n", 29);
+		if (ft_lstsize_minishell(g_global->strct))
+		{
+			close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		close(g_global->fd_pipe[1]);
+		close(g_global->fd_pipe[0]);
+		}
+		free_minishell(&g_global->strct);
+		close(g_global->save_fd_int);
+            close(g_global->save_fd_out);
+		free_list(&g_global->env);
+		if (g_global->pwd)
+			free(g_global->pwd);
+		if (g_global->oldpwd)
+			free(g_global->oldpwd);
+		if (g_global->underscore)
+			free(g_global->underscore);
+		if (g_global->pid)
+			free(g_global->pid);
+		free(g_global);
+		exit(2);
 	}
+	return 0;
 }

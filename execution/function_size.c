@@ -1,35 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   function_size.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 16:02:39 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/28 10:35:24 by sait-amm         ###   ########.fr       */
+/*   Created: 2024/10/03 10:59:59 by sait-amm          #+#    #+#             */
+/*   Updated: 2024/10/03 11:01:15 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char *sub;
-	size_t i;
 
-	if (!s)
-		return (NULL);
-	i = ft_strlen(s);
-	if (!len )
-		return (NULL);
-	if (start >= i)
-		return (ft_strdup(""));
-	if (len > i - start)
-		len = i - start;
-	sub = (char *)malloc((len + 1) * sizeof(char));
-	if (!sub)
-		return (NULL);
-	ft_memcpy(sub, s + start, len);
-	sub[len] = '\0';
-	return (sub);
+int ft_lstsize_minishell(t_minishell *lst)
+{
+	int i;
+
+	i = 0;
+	if (!lst)
+		return (0);
+	while (lst != NULL)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
 }
+
+int	ft_lstsize2(t_minishell *lst)
+{
+	int	size;
+
+	size = 0;
+	while (lst)
+	{
+		size++;
+		lst = lst->next;
+	}
+	return (size);
+}
+
+int	ft_lstsize_3(t_env *lst)
+{
+	int	i;
+
+	i = 0;
+	if (!lst)
+		return (0);
+	while (lst != NULL)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
+}
+

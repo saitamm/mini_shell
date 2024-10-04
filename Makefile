@@ -6,7 +6,7 @@
 #    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/09/20 09:57:39 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/10/03 21:48:56 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ SRC =  minishell.c \
 		parsing/src/ft_split_whitespace.c \
 		parsing/src/help_expand.c \
 		parsing/src/to_final_struct.c \
+		parsing/src/her_doc.c\
+		parsing/src/help_herdoc.c \
 		execution/echo.c \
 		execution/env.c \
 		execution/builtins.c \
@@ -37,9 +39,13 @@ SRC =  minishell.c \
 		execution/execution.c \
 		execution/unset.c \
 		execution/export.c \
-		execution/export2.c \
+		execution/redirection.c \
 		execution/exit.c \
-		parsing/src/her_doc.c
+		execution/export2.c \
+		execution/get_path.c \
+		execution/free.c \
+		execution/function_size.c
+
 
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft
@@ -54,7 +60,8 @@ CFLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address
 all: $(NAME)
 
 $(NAME): $(OBJF) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) -lreadline $(OBJF) $(LIBFT_LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJF) -lreadline  $(LIBFT_LIB) -o $(NAME)
+	rm -rf $(OBJF)
 
 
 $(LIBFT_LIB):

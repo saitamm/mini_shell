@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:08:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/23 12:57:23 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/28 15:32:34 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,5 @@ char	**ft_split_whitesp(const char *s)
 		s = s + sub_len(s);
 	}
 	str[i] = NULL;
-	// free((char *	)s);
 	return (str);
 }

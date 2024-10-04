@@ -3,28 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_libft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:44:00 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/11 16:30:10 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:00:59 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char *ft_strcpy(char *dest, const char *src)
+
+
+char	*ft_strcpy(char *dest, const char *src)
 {
-    size_t i = 0;
+	size_t	i;
 
-    while (src[i])
-    {
-        dest[i] = src[i];
-        i++;
-    }
-    dest[i] = '\0';
-    return dest;
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
-
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -42,22 +44,21 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-char *ft_strcat(char *dest, const char *src)
+char	*ft_strcat(char *dest, const char *src)
 {
-    int i = 0;
-    int j = 0;
+	int	i;
+	int	j;
 
-    while (dest[i] != '\0')
-        i++;
-
-    while (src[j] != '\0')
-    {
-        dest[i] = src[j];
-        i++;
-        j++;
-    }
-    dest[i] = '\0';
-
-    return dest;
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
-

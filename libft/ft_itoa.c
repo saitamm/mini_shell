@@ -6,19 +6,20 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 09:32:40 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/23 09:34:19 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:55:59 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-#include <stdlib.h>
 
 static int ft_intlen(int n) {
     int len ;
 
     if (n < 0)
         len = 1;
+    if (!n)
+        return (1);
     else
         len = 0;
     while (n != 0) {

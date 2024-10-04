@@ -6,31 +6,17 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/23 13:03:37 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:31:16 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	update_dollar(char *str, int *i)
+int	help_help(char c, bool d_quote)
 {
-	int	count;
-
-	count = 0;
-	if (str[*i] == '$')
-	{
-		count++;
-		(*i)++;
-		while (str[*i] && str[*i] == '$')
-		{
-			(*i)++;
-			count++;
-		}
-	}
-	if (count % 2 == 1)
+	if ((ft_isalnum(c) || c == '_') || c == '$' || (c == '"' && !d_quote)
+		|| c == '?')
 		return (1);
-	if (str[*i])
-		(*i)++;
 	return (0);
 }
 
@@ -49,8 +35,7 @@ int	need_expand(char *str, int *pos)
 		update_quotes(&flag.s_quote, &flag.d_quote, str[i]);
 		if (str[i] == '$' && !flag.s_quote && str[i + 1])
 		{
-			if ((ft_isalnum(str[i + 1]) || str[i + 1] == '_') || str[i
-				+ 1] == '$' || (str[i + 1] == '"' && !flag.d_quote) || str[i + 1] == '?')
+			if (help_help(str[i + 1], flag.d_quote))
 			{
 				*pos = i;
 				return (1);
@@ -78,6 +63,7 @@ char	*find_str_exp(char *str)
 	}
 	return (ft_substr(str, 0, i));
 }
+
 char	*expand_str(char *string, int pos)
 {
 	char	*sub_1;
@@ -89,20 +75,20 @@ char	*expand_str(char *string, int pos)
 	sub_1 = ft_substr(string, 0, pos);
 	sub_3 = find_str_exp(string + pos + 1);
 	sub_exp = help_expand(sub_3);
-	sub_exp = help_quote_exp(sub_exp);
+	if (ft_strchr(sub_exp, '"') || ft_strchr(sub_exp, '\''))
+		sub_exp = help_quote_exp(sub_exp);
 	sub_2 = ft_strjoin(sub_1, sub_exp);
 	final = ft_strjoin(sub_2, string + pos + ft_strlen(sub_3) + 1);
-	// free(string);
-	// free(sub_1);
-	// free(sub_2);
-	// free(sub_3);
-	// free(sub_exp);
+	free(sub_1);
+	free(sub_exp);
+    free(sub_3);
+    free(sub_2);
 	return (final);
 }
 
 int	have_to_split(char *str)
 {
-	int	i;
+	int		i;
 	t_flag	b;
 
 	i = 0;
@@ -116,50 +102,4 @@ int	have_to_split(char *str)
 		i++;
 	}
 	return (0);
-}
-char	*help_space(char *str)
-{
-	int	i;
-	t_flag	d;
-
-	d.s_quote = 0;
-	d.d_quote = 0;
-	i = 0;
-	while (str[i])
-	{
-		update_quotes(&d.s_quote, &d.d_quote, str[i]);
-		if (ft_whitespace(str[i]) && (d.s_quote || d.d_quote))
-			str[i] = str[i] * (-1);
-		i++;
-	}
-	return (str);
-	
-}
-char	**split_str(char *str, int *f)
-{
-	char **spl_str;
-	char *temp;
-	if (!have_to_split(str))
-	{
-		*f = 1;
-		temp = ft_strdup(str);
-		temp = remove_quote(temp);
-		temp = help_pipe_quote_2(temp);
-		spl_str = malloc(2 * sizeof(char *));
-		if (!spl_str)
-			return (NULL);
-		spl_str[0] = ft_strdup(temp);
-		spl_str[1] = NULL;
-		return (spl_str);
-	}
-	str = help_space(str);
-	str = remove_quote(str);
-	spl_str = ft_split_whitesp(str);
-	int i = 0;
-	while (spl_str[i])
-	{
-		help_pipe_quote_2(spl_str[i]);
-		i++;
-	}
-	return (spl_str);
 }
