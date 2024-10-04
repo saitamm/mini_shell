@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/04 12:56:32 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:31:55 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,5 +262,5 @@ int	ft_lstsize2(t_minishell *lst);
 int	ft_lstsize_3(t_env *lst);
 //signals fcts
 void ft_sig_handling(void);
-
+void	handle_signals(void);
 #endif

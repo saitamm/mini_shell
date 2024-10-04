@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/04 12:05:52 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:31:59 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int execute_child(t_minishell *strct)
 	char *path;
 	char **env_exc;
 	int ex = 0;
+	handle_signals();
 	if (strct->cmd[0] == NULL)
 	{
 		free_minishell(&g_global->strct);
