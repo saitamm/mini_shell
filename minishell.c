@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/04 15:28:43 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:41:41 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void initialise_struct(char **env)
 
 void ft_handl_ctrl_d(void)
 {
+    int exit_s;
+
     free_list(&g_global->env);
     if (g_global->pwd)
         free(g_global->pwd);
@@ -77,8 +79,10 @@ void ft_handl_ctrl_d(void)
     // free_minishell(&g_global->strct);
     close(g_global->save_fd_int);
     close(g_global->save_fd_out);
+    exit_s = g_global->exit_status;
     free(g_global);
-    exit (0);
+    write(1, "exit\n", 6);
+    exit(exit_s);
 }
 
 int main(int ac, char **av, char **env)
@@ -104,8 +108,8 @@ int main(int ac, char **av, char **env)
             // close(g_global->save_fd_int);
             // close(g_global->save_fd_out);
             add_history(line);
-            if (g_global->pid)
-                free(g_global->pid);
+            // if (g_global->pid)
+            //     free(g_global->pid);
             // ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
             free_minishell(&g_global->strct);
             free(g_global->strct);

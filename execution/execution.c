@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/04 15:31:59 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:44:37 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,6 +399,8 @@ void ft_execution(t_minishell *strct)
 	else
 	{
 		g_global->pid = malloc(size * sizeof(int));
+		if(!g_global->pid)
+			return;
 		while (strct)
 		{
 			if (pipe(g_global->fd_pipe) == -1)
@@ -410,6 +412,8 @@ void ft_execution(t_minishell *strct)
 			else
 			{
 				g_global->pid[i] = fork();
+				signal(SIGQUIT, SIG_IGN);
+				signal(SIGINT, SIG_IGN);
 				if (g_global->pid[i] == 0)
 					ft_exec_child(strct);
 				last_pid = g_global->pid[i];
@@ -428,9 +432,23 @@ void ft_execution(t_minishell *strct)
 			waitpid(g_global->pid[i], &status, 0);
 			if (i == size - 1)
 			{
-				g_global->exit_status = WEXITSTATUS(status);
+				if(WIFEXITED(status))
+					g_global->exit_status = WEXITSTATUS(status);
+				else if(WIFSIGNALED(status))
+				{
+					if(WTERMSIG(status) == SIGINT)
+					{
+						write(1,"\n",1);
+						g_global->exit_status = 130;
+					}
+					else if(WTERMSIG(status) == SIGQUIT)
+					{
+						write(1,"Quit (core dumped)\n",20);
+						g_global->exit_status = 131;
+					}
+				}
 			}
-			// free(g_global->pid);
+			free(g_global->pid);
 			i++;
 		}
 	}
