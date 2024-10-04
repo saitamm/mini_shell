@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:51:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/02 16:20:40 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:49:32 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char	*create_file_herdoc(char *lim, enum e_token flag_quote)
 	while (1)
 	{
 		line = readline(">");
+		if (!line)
+			break;
 		if (!ft_strcmp(line, lim))
 		{
 			free(line);

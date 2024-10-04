@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/04 11:16:05 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:31:07 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ int	need_expand_her_doc(char *str, int *pos, int flag)
 		return (0);
 	while (str[i])
 	{
-	dprintf(2, ">>>>>%d\n", flag);
-	dprintf(2, ">>>>>%c\n", str[i]);
 		if (str[i] == '$' && str[i + 1] && !flag)
 		{
 			*pos = i;
