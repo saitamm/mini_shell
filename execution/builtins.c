@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 11:04:41 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:55:05 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_bashlvl(t_minishell *strct)
 	t_env	*env;
 	int		shlvl;
 	char	*new_value;
+
 
 	env = g_global->env;
 	if (ft_strcmp(strct->cmd[0], "./minishell") == 0)
