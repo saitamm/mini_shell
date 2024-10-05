@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals_herdoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 00:59:49 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 14:01:31 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:57:04 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-// for the heardoc use
-
 
 void	sig_her_doc(int signum)
 {
@@ -23,8 +20,8 @@ void	sig_her_doc(int signum)
 		write(2, "\n", 1);
 		close(0);
 	}
-	
 }
+
 static void	_exit_herdoc(int sign)
 {
 	(void)sign;

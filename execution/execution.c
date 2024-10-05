@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 16:20:10 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:48:30 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,7 +349,6 @@ void	ft_execution(t_minishell *strct)
 	int	status;
 	int	size;
 	int	i;
-	int	last_pid;
 
 	size = ft_lstsize_minishell(strct);
 	i = 0;
@@ -382,7 +381,6 @@ void	ft_execution(t_minishell *strct)
 				signal(SIGINT, SIG_IGN);
 				if (g_global->pid[i] == 0)
 					ft_exec_child(strct);
-				last_pid = g_global->pid[i];
 			}
 			close(g_global->fd_pipe[1]);
 			dup2(g_global->fd_pipe[0], STDIN_FILENO);

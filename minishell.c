@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 16:28:23 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:56:52 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void initialise_struct(char **env)
     g_global->flag_env = 1;
     g_global->exit_status = 0;
     g_global->pid = 0;
-    parse_env_var(env);
     g_global->save_fd_int = dup(STDIN_FILENO);
     g_global->save_fd_out = dup(STDOUT_FILENO);
     g_global->pwd = ft_strdup(find_value("PWD"));
@@ -100,6 +99,7 @@ int main(int ac, char **av, char **env)
     initialise_struct(env);
     while (1)
     {
+        parse_env_var(env);
         ft_sig_handling();
         line = readline("Minishell$> ");
         if (!line)

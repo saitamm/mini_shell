@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:09:53 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 18:04:33 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:21:12 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,36 +41,42 @@ int	find_key(t_env *env, const char *key)
 	return (0);
 }
 
+void	help_ft_change_key_value(char *value)
+{
+	char	*new_value;
+
+	if (g_global->separator == 1)
+	{
+		new_value = malloc(ft_strlen(g_global->env->value)
+				+ ft_strlen(value) + 1);
+		if (new_value == NULL)
+			return ;
+		ft_strcpy(new_value, g_global->env->value);
+		ft_strcat(new_value, value);
+		free(g_global->env->value);
+		g_global->env->value = new_value;
+	}
+	else
+	{
+		new_value = malloc(ft_strlen(value) + 1);
+		if (new_value == NULL)
+			return ;
+		ft_strcpy(new_value, value);
+		free(g_global->env->value);
+		g_global->env->value = new_value;
+	}
+}
+
 void	ft_change_key_value(char *key, char *value)
 {
 	t_env	*head;
-	char	*new_value;
 
 	head = g_global->env;
 	while (g_global->env)
 	{
 		if (ft_strcmp(key, g_global->env->key) == 0)
 		{
-			if (g_global->separator == 1)
-			{
-				new_value = malloc(ft_strlen(g_global->env->value)
-						+ ft_strlen(value) + 1);
-				if (new_value == NULL)
-					return ;
-				ft_strcpy(new_value, g_global->env->value);
-				ft_strcat(new_value, value);
-				free(g_global->env->value);
-				g_global->env->value = new_value;
-			}
-			else
-			{
-				new_value = malloc(ft_strlen(value) + 1);
-				if (new_value == NULL)
-					return ;
-				ft_strcpy(new_value, value);
-				free(g_global->env->value);
-				g_global->env->value = new_value;
-			}
+			help_ft_change_key_value(value);
 			break ;
 		}
 		else
