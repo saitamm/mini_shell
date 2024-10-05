@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:21:18 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 21:59:59 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 04:24:48 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	free_list(t_env **m_shell)
 	}
 	*m_shell = NULL;
 }
+
 void	ft_free_global(void)
 {
 	if (g_global->env)
@@ -46,8 +47,4 @@ void	ft_free_global(void)
 		free(g_global->oldpwd);
 	if (g_global->underscore)
 		free(g_global->underscore);
-	// if (g_global->pid)
-	// 	free(g_global->pid);
-
-	// free(g_global);
 }

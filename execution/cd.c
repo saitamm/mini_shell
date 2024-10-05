@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/02 10:48:27 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 00:56:55 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char *find_home_path(void)
+char	*find_home_path(void)
 {
-	t_env *head;
+	t_env	*head;
 
 	head = g_global->env;
 	while (head)
@@ -29,9 +29,9 @@ char *find_home_path(void)
 	return (NULL);
 }
 
-void ft_find_current_pwd(void)
+void	ft_find_current_pwd(void)
 {
-	t_env *head;
+	t_env	*head;
 
 	head = g_global->env;
 	while (g_global->env)
@@ -40,42 +40,49 @@ void ft_find_current_pwd(void)
 		{
 			free(g_global->pwd);
 			g_global->pwd = ft_strdup(g_global->env->value);
-			break;
+			break ;
 		}
 		else
 			g_global->env = g_global->env->next;
 	}
 	g_global->env = head;
 }
-
-void ft_change_curr_and_old_path(char *new_path)
+void	help_1_ft_change_curr_and_old_path(char *new_path)
 {
-	t_env *head;
+	free(g_global->env->value);
+	g_global->env->value = ft_strdup(g_global->pwd);
+	free(g_global->pwd);
+	g_global->pwd = ft_strdup(new_path);
+}
+void	help_2_ft_change_curr_and_old_path(char *new_path)
+{
+	free(g_global->env->value);
+	g_global->env->value = ft_strdup(new_path);
+	free(g_global->pwd);
+	g_global->pwd = ft_strdup(new_path);
+}
+
+void	ft_change_curr_and_old_path(char *new_path)
+{
+	t_env	*head;
 
 	head = g_global->env;
 	while (g_global->env)
 	{
 		if (ft_strcmp(g_global->env->key, "OLDPWD") == 0)
 		{
-			free(g_global->env->value);
-			g_global->env->value = ft_strdup(g_global->pwd);
-			free(g_global->pwd);
-			g_global->pwd = ft_strdup(new_path);
-			break;
+			help_1_ft_change_curr_and_old_path(new_path);
+			break ;
 		}
 		else
 			g_global->env = g_global->env->next;
 	}
-
 	while (g_global->env)
 	{
 		if (ft_strcmp(g_global->env->key, "PWD") == 0)
 		{
-			free(g_global->env->value);
-			g_global->env->value = ft_strdup(new_path);
-			free(g_global->pwd);
-			g_global->pwd = ft_strdup(new_path);
-			break;
+			help_2_ft_change_curr_and_old_path(new_path);
+			break ;
 		}
 		else
 			g_global->env = g_global->env->next;
@@ -83,18 +90,19 @@ void ft_change_curr_and_old_path(char *new_path)
 	g_global->env = head;
 }
 
-int ft_cd(char **Path)
+int	ft_cd(char **Path)
 {
-	char cwd[1024];
-	char *home_path = NULL;
+	char	cwd[1024];
+	char	*home_path;
 
+	home_path = NULL;
 	if (!Path || !Path[1])
 	{
 		home_path = find_home_path();
 		if (!home_path)
 		{
 			write(2, "MInishell : cd : HOME not set\n", 31);
-			return 1;
+			return (1);
 		}
 		ft_find_current_pwd();
 		ft_change_curr_and_old_path(home_path);
@@ -109,23 +117,19 @@ int ft_cd(char **Path)
 				perror("getcwd error");
 		}
 		else
-		{
 			perror(Path[0]);
-		}
 		free(home_path);
-		return 0;
+		return (0);
 	}
 	if (Path != NULL)
 	{
 		if (Path[2])
 		{
 			write(2, "Minishell: cd: too many arguments\n", 35);
-			return 1;
+			return (1);
 		}
 		if (ft_strcmp(Path[1], "~") == 0 || ft_strcmp(Path[1], "--") == 0)
-		{
 			home_path = find_home_path();
-		}
 		if (chdir(Path[1]) == 0)
 		{
 			if (getcwd(cwd, sizeof(cwd)) != NULL)
@@ -144,5 +148,5 @@ int ft_cd(char **Path)
 		}
 		free(home_path);
 	}
-	return 0;
+	return (0);
 }

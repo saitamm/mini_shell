@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
+#    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/10/04 21:49:01 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/10/05 04:09:38 by lai-elho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,10 @@ SRC =  minishell.c \
 		execution/get_path.c \
 		execution/free.c \
 		execution/function_size.c \
-		execution/signals.c
-
+		execution/signals.c \
+		execution/signals_herdoc.c \
+		execution/exit_function_built.c \
+		execution/export3.c 
 
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft
@@ -56,7 +58,7 @@ INCLUDES = -I . -I include -I $(LIBFT_DIR)
 
 C = cc
 
-CFLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address 
+CFLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address 
 
 all: $(NAME)
 

@@ -12,8 +12,6 @@
 
 #include "../include/minishell.h"
 
-
-
 char	*ft_strcpy(char *dest, const char *src)
 {
 	size_t	i;

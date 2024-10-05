@@ -102,11 +102,11 @@ char	*get_path(char *envp, char *cmd)
 		{
 			ft_free(str, len_double_str(str));
 			free(w_path);
-			return ( path);
+			return (path);
 		}
 		free(path);
 	}
-			free(w_path);
+	free(w_path);
 	ft_free(str, len_double_str(str));
 	return (NULL);
 }

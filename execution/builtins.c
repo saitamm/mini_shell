@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/04 14:55:05 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 00:35:46 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	ft_bashlvl(t_minishell *strct)
 {
 	t_env	*env;
-	int		shlvl;
 	char	*new_value;
-
 
 	env = g_global->env;
 	if (ft_strcmp(strct->cmd[0], "./minishell") == 0)
@@ -26,16 +24,16 @@ void	ft_bashlvl(t_minishell *strct)
 		{
 			if (ft_strcmp(env->key, "SHLVL") == 0)
 			{
-				shlvl = ft_atoi(env->value);
-				shlvl++;
-				if (shlvl == 1000)
-					shlvl = 1;
+				g_global->shelvl = ft_atoi(env->value);
+				g_global->shelvl++;
+				if (g_global->shelvl == 1000)
+					g_global->shelvl = 1;
 				new_value = malloc(12);
 				if (!new_value)
 					return ;
-				printf("new_value %d", shlvl);
+				printf("new_value %d", g_global->shelvl);
 				free(env->value);
-				env->value = ft_itoa(shlvl);
+				env->value = ft_itoa(g_global->shelvl);
 				return ;
 			}
 			env = env->next;
@@ -78,15 +76,15 @@ int	is_built(char *str)
 int	ft_builtins(t_minishell *strct)
 {
 	if (!strct || !strct->cmd || !strct->cmd[0])
-		return 0;
+		return (0);
 	else if (ft_strcmp(strct->cmd[0], "pwd") == 0)
 		return (g_global->exit_status = ft_pwd());
 	else if (ft_strcmp(strct->cmd[0], "env") == 0)
 		return (g_global->exit_status = print_env(g_global->env, strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "echo") == 0)
-		return(g_global->exit_status = ft_echo(strct->cmd));
+		return (g_global->exit_status = ft_echo(strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "cd") == 0)
-		return (g_global->exit_status =  ft_cd(strct->cmd));
+		return (g_global->exit_status = ft_cd(strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "unset") == 0)
 		return (g_global->exit_status = unset(strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "export") == 0)

@@ -12,10 +12,9 @@
 
 #include "../include/minishell.h"
 
-
-int ft_lstsize_minishell(t_minishell *lst)
+int	ft_lstsize_minishell(t_minishell *lst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!lst)
@@ -55,4 +54,3 @@ int	ft_lstsize_3(t_env *lst)
 	}
 	return (i);
 }
-

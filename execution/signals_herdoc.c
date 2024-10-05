@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   signals_herdoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/22 13:16:16 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/01 21:40:39 by lai-elho         ###   ########.fr       */
+/*   Created: 2024/10/05 00:59:49 by lai-elho          #+#    #+#             */
+/*   Updated: 2024/10/05 04:23:03 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_pwd(void)
-{
-	char	cwd[1024];
+// for the heardoc use
 
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-	{
-		printf("%s\n", cwd);
-		return (0);
-	}
-	else
-		perror("error");
-	return (-1);
+static void	_exit_herdoc(int sign)
+{
+	(void)sign;
+	printf("\n");
+	rl_replace_line("", 1);
+	exit(120);
+}
+
+void	child_singal_handler(void)
+{
+	signal(SIGINT, _exit_herdoc);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }

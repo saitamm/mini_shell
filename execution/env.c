@@ -18,7 +18,7 @@ int	print_env(t_env *head, char **cmd)
 
 	temp = head;
 	if (cmd[1])
-		return 0;
+		return (0);
 	while (temp)
 	{
 		if (!ft_strcmp(temp->key, "PATH") && !g_global->flag_env)
@@ -31,5 +31,5 @@ int	print_env(t_env *head, char **cmd)
 		else
 			temp = temp->next;
 	}
-	return(0);
+	return (0);
 }
