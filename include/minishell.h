@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 18:57:51 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:05:02 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,11 @@ void	error_export(char *str, char *error);
 int	check_error_export(char *str);
 int ft_infile(t_file *strct);
 int ft_outfile(t_file *strct);
+void	hepl_2_ft_infile(t_file *strct);
+void	hepl_3_ft_infile(t_file *strct, int infile_fd);
+void	hepl_5_ft_infile(int infile_fd);
+void	hepl_4_ft_infile(void);
+void	hepl_1_ft_infile(t_file *strct);
 // signals fcts
 void ft_sig_handling(void);
 void handle_signals(void);

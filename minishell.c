@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 18:48:54 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:20:38 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,14 @@ char *find_value(char *key)
     return NULL;
 }
 
-void initialise_struct()
+void initialise_struct(char **env)
 {
     g_global = malloc(sizeof(t_global));
     memset(g_global, 0, sizeof(t_global));
     g_global->flag_env = 1;
     g_global->exit_status = 0;
     g_global->pid = 0;
+    parse_env_var(env);
     g_global->save_fd_int = dup(STDIN_FILENO);
     g_global->save_fd_out = dup(STDOUT_FILENO);
     g_global->pwd = ft_strdup(find_value("PWD"));
@@ -76,7 +77,6 @@ void ft_handl_ctrl_d(void)
         free(g_global->oldpwd);
     if (g_global->underscore)
         free(g_global->underscore);
-    // free_minishell(&g_global->strct);
     close(g_global->save_fd_int);
     close(g_global->save_fd_out);
     exit_s = g_global->exit_status;
@@ -99,7 +99,6 @@ int main(int ac, char **av, char **env)
     initialise_struct(env);
     while (1)
     {
-        parse_env_var(env);
         ft_sig_handling();
         line = readline("Minishell$> ");
         if (!line)

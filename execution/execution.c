@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 16:48:30 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:46:31 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ int	execute_child(t_minishell *strct)
 		ex = unset(strct->cmd);
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
-		close(STDERR_FILENO);
 		close(g_global->save_fd_int);
 		close(g_global->save_fd_out);
 		ft_free_global();

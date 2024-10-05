@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 00:56:55 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:51:32 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,10 @@ int	ft_cd(char **Path)
 				perror("getcwd error");
 		}
 		else
+		{
+			write(2, "Minishell :", 12);
 			perror(Path[0]);
+		}
 		free(home_path);
 		return (0);
 	}
@@ -142,6 +145,7 @@ int	ft_cd(char **Path)
 		}
 		else
 		{
+			write(2, "Minishell :", 12);
 			perror(Path[0]);
 			free(home_path);
 			return (1);
