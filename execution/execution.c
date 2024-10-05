@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 17:23:04 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 15:46:52 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:20:10 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,6 @@ int	execute_child(t_minishell *strct)
 		ft_bashlvl(strct);
 		env_exc = env_to_array(g_global->env);
 		ft_free(spl, len_double_str(spl));
-		dprintf(2, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%s\n", g_global->env->key);
 		if (execve(path, strct->cmd, env_exc) == -1)
 		{
 			write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));

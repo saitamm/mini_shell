@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:03:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/09/28 15:49:32 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:44:47 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,9 @@ int	ft_three_in(char *str)
 {
 	int	i;
 	int	k;
-	int	flag;
 
 	k = 0;
 	i = 0;
-	flag = 0;
 	while (str[i])
 	{
 		if (str[i] == '<')

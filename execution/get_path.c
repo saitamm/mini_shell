@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:22:58 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 15:39:54 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:27:48 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char	*cmd_is_path(char **str, char *cmd_1, int flag)
 		path = ft_strdup(cmd_1);
 		if (str)
 		{
-			// ft_free_global();
 			ft_free(str, len_double_str(str));
 		}
 	}
@@ -66,7 +65,6 @@ char	*cmd_is_path(char **str, char *cmd_1, int flag)
 	{
 		perror(cmd_1);
 		ft_free(str, len_double_str(str));
-		ft_free_global();
 		exit(127);
 	}
 	return (path);
