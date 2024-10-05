@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 12:55:28 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:57:51 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,8 @@ void	ft_list_sort(t_env **env);\
 void	print_export(void);
 void	error_export(char *str, char *error);
 int	check_error_export(char *str);
+int ft_infile(t_file *strct);
+int ft_outfile(t_file *strct);
 // signals fcts
 void ft_sig_handling(void);
 void handle_signals(void);

@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 17:56:52 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:48:54 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char *find_value(char *key)
     return NULL;
 }
 
-void initialise_struct(char **env)
+void initialise_struct()
 {
     g_global = malloc(sizeof(t_global));
     memset(g_global, 0, sizeof(t_global));

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
+#    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/10/05 16:32:42 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/10/05 19:09:40 by lai-elho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,11 @@ SRC =  minishell.c \
 		execution/signals.c \
 		execution/signals_herdoc.c \
 		execution/exit_function_built.c \
-		execution/export3.c 
-
+		execution/export3.c \
+		execution/intfile.c \		
+		execution/intfile2.c \
+		execution/outfile.c
+		
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft
 LIBFT_LIB=$(LIBFT_DIR)/libft.a
