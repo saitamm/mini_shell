@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 04:12:47 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 12:55:28 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_global
 	char *underscore;
 	t_minishell *strct;
 	int flag_env;
+	int sig_herdoc;
 	//for the norm
 	int shelvl;
 	int i;
@@ -200,6 +201,8 @@ int ft_skip(char *str);
 int ft_lstsize_3(t_env *lst);
 int have_to_split(char *str);
 char *help_space(char *str);
+
+void	sig_her_doc(int signum);
 //***********************************EXECUTION**********************************
 
 typedef struct s_execution

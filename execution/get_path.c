@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:22:58 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 11:01:12 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:39:54 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	**env_to_array(t_env *env)
 		tmp = tmp->next;
 		i++;
 	}
+		// dprintf(2, ">>>>>>>>>>>>>>>..%s\n", g_global->env->key);
 	cmd[i] = NULL;
 	return (cmd);
 }
@@ -57,7 +58,7 @@ char	*cmd_is_path(char **str, char *cmd_1, int flag)
 		path = ft_strdup(cmd_1);
 		if (str)
 		{
-			ft_free_global();
+			// ft_free_global();
 			ft_free(str, len_double_str(str));
 		}
 	}
@@ -91,7 +92,10 @@ char	*get_path(char *envp, char *cmd)
 		envp++;
 	str = ft_split(envp, ':');
 	if (access(cmd, X_OK) == 0 && (cmd[0] == '.' || cmd[0] == '/' || !str))
-		return (cmd_is_path(str, cmd, 0));
+	{
+		char *test = cmd_is_path(str, cmd, 0);
+		return (test);
+	}
 	else if (cmd[0] == '.')
 		ft_fun_norm(cmd, str);
 	w_path = ft_strjoin("/", cmd);

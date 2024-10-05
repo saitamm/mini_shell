@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/04 19:31:07 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 12:48:34 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ char	*generate_filename(void)
 		if (access(name, F_OK))
 			break ;
 	}
-	free(buff);
-	return (close(fd_random), name);
+	return (free(buff),close(fd_random), name);
 }
 
 int	need_expand_her_doc(char *str, int *pos, int flag)

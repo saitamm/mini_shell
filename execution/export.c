@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 04:21:16 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 12:46:39 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	help_add_to_env(char *value, char *str, char *key, char *tmp)
 {
+	char	*exp;
 	value = ft_substr(str + ft_strlen(key) + 2, 0, ft_strlen(str)
 			- ft_strlen(key) - 2);
 	if (find_key(g_global->env, key) == 0)
@@ -23,7 +24,9 @@ void	help_add_to_env(char *value, char *str, char *key, char *tmp)
 	}
 	else
 	{
-		tmp = ft_strjoin(help_expand(key), value);
+		exp = help_expand(key);
+		tmp = ft_strjoin(exp , value);
+		free(exp);
 		ft_lstremove(key);
 		add_to_list(&g_global->env, key, tmp);
 		free(value);

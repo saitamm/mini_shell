@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_herdoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 00:59:49 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 04:23:03 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 14:01:31 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 
 // for the heardoc use
 
+
+void	sig_her_doc(int signum)
+{
+	if (signum == SIGINT)
+	{
+		g_global->sig_herdoc = -1;
+		write(2, "\n", 1);
+		close(0);
+	}
+	
+}
 static void	_exit_herdoc(int sign)
 {
 	(void)sign;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 03:08:10 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:45:37 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,29 @@
 
 t_global *g_global = NULL;
 
-void print(t_minishell *strct)
-{
-    t_file *tmp2;
-    while (strct != NULL)
-    {
-        int i = 0;
-        tmp2 = strct->files;
-        while (strct->cmd[i])
-        {
-            printf("command %d >>>> *%s*\n", i, strct->cmd[i]);
-            i++;
-        }
-        while (tmp2)
-        {
-            printf("file  >>>>*%s*\n", tmp2->file);
-            printf("file type = %d\n", tmp2->file_type);
-            printf("flag  = %d\n", tmp2->flag);
-            tmp2 = tmp2->next;
-        }
-        printf("::::::::::::::::::::::::::::::::::::::::\n");
-        strct = strct->next;
-    }
-}
-
+// void print(t_minishell *strct)
+// {
+//     t_file *tmp2;
+//     while (strct != NULL)
+//     {
+//         int i = 0;
+//         tmp2 = strct->files;
+//         while (strct->cmd[i])
+//         {
+//             printf("command %d >>>> *%s*\n", i, strct->cmd[i]);
+//             i++;
+//         }
+//         while (tmp2)
+//         {
+//             printf("file  >>>>*%s*\n", tmp2->file);
+//             printf("file type = %d\n", tmp2->file_type);
+//             printf("flag  = %d\n", tmp2->flag);
+//             tmp2 = tmp2->next;
+//         }
+//         printf("::::::::::::::::::::::::::::::::::::::::\n");
+//         strct = strct->next;
+//     }
+// }
 char *find_value(char *key)
 {
     t_env *head = g_global->env;
@@ -51,6 +50,7 @@ char *find_value(char *key)
     }
     return NULL;
 }
+
 void initialise_struct(char **env)
 {
     g_global = malloc(sizeof(t_global));
@@ -85,7 +85,13 @@ void ft_handl_ctrl_d(void)
     write(1, "exit\n", 6);
     exit(exit_s);
 }
-
+void norm_main(char *line)
+{
+    add_history(line);
+    free_minishell(&g_global->strct);
+    free(g_global->strct);
+    dup2(g_global->save_fd_int, STDIN_FILENO);
+}
 int main(int ac, char **av, char **env)
 {
     (void)ac;
@@ -97,26 +103,20 @@ int main(int ac, char **av, char **env)
         ft_sig_handling();
         line = readline("Minishell$> ");
         if (!line)
-        {
             ft_handl_ctrl_d();
-        }
+        g_global->sig_herdoc = 0;
         g_global->strct = parce(line);
-        if (g_global->strct)
+        if (g_global->sig_herdoc == -1)
+            norm_main(line);
+        else
         {
-            // print(g_global->strct);
-            ft_execution(g_global->strct);
-            dup2(g_global->save_fd_int, STDIN_FILENO);
-            // close(g_global->save_fd_int);
-            // close(g_global->save_fd_out);
-            add_history(line);
-            // if (g_global->pid)
-            //     free(g_global->pid);
-            // ft_free(g_global->strct->cmd, len_double_str(g_global->strct->cmd));
-            free_minishell(&g_global->strct);
-            free(g_global->strct);
+            if (g_global->strct)
+            {
+                ft_execution(g_global->strct);
+                norm_main(line);
+            }
         }
-        if (line)
-            free(line);
+        free(line);
     }
     ft_free_global();
 }

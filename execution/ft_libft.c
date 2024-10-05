@@ -6,17 +6,22 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:44:00 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/03 11:00:59 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 12:39:26 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+char *ft_strcpy(char *dest, const char *src)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
+	if (!src)
+	{
+		dest[0] = '\0';
+		return (dest);
+	}
 	while (src[i])
 	{
 		dest[i] = src[i];
@@ -26,9 +31,9 @@ char	*ft_strcpy(char *dest, const char *src)
 	return (dest);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+int ft_strcmp(const char *s1, const char *s2)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (s1[i] || s2[i])
@@ -42,10 +47,10 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-char	*ft_strcat(char *dest, const char *src)
+char *ft_strcat(char *dest, const char *src)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;
