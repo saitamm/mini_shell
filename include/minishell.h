@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 21:05:02 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 09:59:13 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,9 @@ void	hepl_3_ft_infile(t_file *strct, int infile_fd);
 void	hepl_5_ft_infile(int infile_fd);
 void	hepl_4_ft_infile(void);
 void	hepl_1_ft_infile(t_file *strct);
+int ft_outfile_built(t_file *strct);
+int	ft_append_built(t_file *strct);
+int	help1_append(t_file *strct, int fd);
 // signals fcts
 void ft_sig_handling(void);
 void handle_signals(void);
