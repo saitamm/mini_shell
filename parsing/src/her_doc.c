@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/05 12:48:34 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 11:29:45 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*generate_filename(void)
 		if (access(name, F_OK))
 			break ;
 	}
-	return (free(buff),close(fd_random), name);
+	return (free(buff), close(fd_random), name);
 }
 
 int	need_expand_her_doc(char *str, int *pos, int flag)
@@ -89,6 +89,7 @@ char	*expand_herdoc(char *line, enum e_token flag_quote)
 
 	line_exp = ft_strdup(line);
 	if (flag_quote != Q_HER)
+	{
 		while (need_expand_her_doc(line_exp, &pos, 0))
 		{
 			exp = expand_str(line_exp, pos);
@@ -96,6 +97,7 @@ char	*expand_herdoc(char *line, enum e_token flag_quote)
 			line_exp = ft_strdup(exp);
 			free(exp);
 		}
+	}
 	return (line_exp);
 }
 

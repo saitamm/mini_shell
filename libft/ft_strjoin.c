@@ -42,6 +42,7 @@ static char	*ft_cpy(const char *s1, char const *s2)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*d;
+
 	if ((!s1 || !s1[0]) && (!s2 || !s2[0]))
 		return (NULL);
 	if (!s1)

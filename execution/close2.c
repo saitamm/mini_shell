@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:38:26 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 12:02:18 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:30:37 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_5(t_minishell *strct, char **spl)
 	exit(126);
 }
 
-void	free_6(t_minishell *strct, char **spl, char *path, char *h_ex)
+void	free_6(t_minishell *strct, char *path, char *h_ex)
 {
 	write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
 	write(2, ": command not found\n", 21);
@@ -35,7 +35,6 @@ void	free_6(t_minishell *strct, char **spl, char *path, char *h_ex)
 	free(path);
 	free_minishell(&g_global->strct);
 	free(g_global->pid);
-	ft_free(spl, len_double_str(spl));
 	ft_free_global();
 	free(h_ex);
 	free(g_global);

@@ -65,10 +65,10 @@ char	**split_str(char *str, int *f)
 		temp = help_pipe_quote_2(temp);
 		spl_str = malloc(2 * sizeof(char *));
 		if (!spl_str)
-			return (free(temp),NULL);
+			return (free(temp), NULL);
 		spl_str[0] = ft_strdup(temp);
 		spl_str[1] = NULL;
-		return (free(temp),spl_str);
+		return (free(temp), spl_str);
 	}
 	str = help_space(str);
 	temp = remove_quote(str);

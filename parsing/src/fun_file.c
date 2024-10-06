@@ -6,17 +6,17 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:12:52 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/04 11:13:54 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 11:29:27 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char *ft_file(char *str)
+char	*ft_file(char *str)
 {
-	char *file;
-	t_flag b;
-	int i;
+	char	*file;
+	t_flag	b;
+	int		i;
 
 	i = 0;
 	b.s_quote = 0;
@@ -27,11 +27,11 @@ char *ft_file(char *str)
 	{
 		update_quotes(&b.s_quote, &b.d_quote, str[i]);
 		if (!b.s_quote && !b.d_quote && ft_whitespace(str[i]))
-			break;
+			break ;
 		if (str[i] == '<' && !b.s_quote && !b.d_quote)
-			break;
+			break ;
 		if (str[i] == '>' && !b.s_quote && !b.d_quote)
-			break;
+			break ;
 		if (str[i])
 			i++;
 	}
@@ -39,12 +39,12 @@ char *ft_file(char *str)
 	return (file);
 }
 
-char *help_norm_expand(char *string, t_file *s)
+char	*help_norm_expand(char *string, t_file *s)
 {
-	int pos;
-	char *new_src;
-	pos = 0;
+	int		pos;
+	char	*new_src;
 
+	pos = 0;
 	while (need_expand(string, &pos) && s->file_type != HER_DOC)
 	{
 		new_src = expand_str(string, pos);
@@ -54,10 +54,11 @@ char *help_norm_expand(char *string, t_file *s)
 	}
 	return (string);
 }
-char *help_file(char *str, t_file **s, char *src)
+
+char	*help_file(char *str, t_file **s, char *src)
 {
-	char **spl_str;
-	int pos;
+	char	**spl_str;
+	int		pos;
 
 	pos = 0;
 	src = help_norm_expand(src, *s);
@@ -82,23 +83,11 @@ char *help_file(char *str, t_file **s, char *src)
 	return (ft_free(spl_str, len_double_str(spl_str)), src);
 }
 
-int no_red_af(char *str)
+char	*skip_red(char *str)
 {
-	int i;
-
-	i = 0;
-	while (ft_whitespace(str[i]))
-		i++;
-	if (str[i] != '>' && str[i] != '<')
-		return (1);
-	return (0);
-}
-
-char *skip_red(char *str)
-{
-	int i;
-	bool s_flag;
-	bool d_flag;
+	int		i;
+	bool	s_flag;
+	bool	d_flag;
 
 	i = 0;
 	s_flag = false;
@@ -120,14 +109,4 @@ char *skip_red(char *str)
 		str++;
 	}
 	return (NULL);
-}
-
-int ft_skip(char *str)
-{
-	int i;
-
-	i = 0;
-	while (ft_whitespace(str[i]) && str[i])
-		i++;
-	return (i);
 }

@@ -3,29 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   execute_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:04:16 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 12:01:16 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:28:17 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	help_2_execute_child(t_minishell *strct, char **spl)
+void	handle_special(t_minishell *strct)
+{
+	if (!ft_strcmp(strct->cmd[0], "."))
+	{
+		write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
+		write(2, ": .: filename argument required\n", 33);
+		write(2, ".: usage: . filename [arguments]", 33);
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		ft_free_global();
+		free(g_global);
+		exit(126);
+	}
+	else if (!ft_strcmp(strct->cmd[0], ".."))
+	{
+		write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
+		write(2, "command not found\n", 19);
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		ft_free_global();
+		free(g_global);
+		exit(126);
+	}
+}
+
+void	help_2_execute_child(t_minishell *strct)
 {
 	char	*path;
 	char	**env_exc;
 	char	*h_ex;
 
+	handle_special(strct);
 	h_ex = help_expand("PATH");
 	path = get_path(h_ex, strct->cmd[0]);
 	if (!path)
-		free_6(strct, spl, path, h_ex);
+		free_6(strct, path, h_ex);
 	free(h_ex);
 	ft_bashlvl(strct);
 	env_exc = env_to_array(g_global->env);
-	ft_free(spl, len_double_str(spl));
 	if (execve(path, strct->cmd, env_exc) == -1)
 		free_7(strct, path, env_exc);
 }
@@ -52,7 +81,8 @@ void	help_execute_child(t_minishell *strct)
 		if (is_directory(strct->cmd[0]))
 			free_5(strct, spl);
 	}
-	help_2_execute_child(strct, spl);
+	ft_free(spl, len_double_str(spl));
+	help_2_execute_child(strct);
 }
 
 int	execute_child(t_minishell *strct)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
+#    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/10/06 13:09:19 by lai-elho         ###   ########.fr        #
+#    Updated: 2024/10/06 13:32:35 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC =  minishell.c \
 		parsing/src/to_final_struct.c \
 		parsing/src/her_doc.c\
 		parsing/src/help_herdoc.c \
+		parsing/src/helper_func.c \
 		execution/echo.c \
 		execution/env.c \
 		execution/builtins.c \

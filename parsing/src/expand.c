@@ -81,8 +81,8 @@ char	*expand_str(char *string, int pos)
 	final = ft_strjoin(sub_2, string + pos + ft_strlen(sub_3) + 1);
 	free(sub_1);
 	free(sub_exp);
-    free(sub_3);
-    free(sub_2);
+	free(sub_3);
+	free(sub_2);
 	return (final);
 }
 

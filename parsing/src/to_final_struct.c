@@ -6,20 +6,11 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:47:36 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/03 16:55:30 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 11:30:33 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-t_minishell	*lstlast_minishell(t_minishell *lst)
-{
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
 
 int	ft_lstsize(t_cmd *lst)
 {
