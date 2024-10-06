@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int help_1_ft_outfile(t_file *strct)
+int	help_1_ft_outfile(t_file *strct)
 {
 	write(2, "Minishell:", 11);
 	write(2, strct->file, ft_strlen(strct->file));
@@ -28,7 +28,7 @@ int help_1_ft_outfile(t_file *strct)
 	exit(1);
 }
 
-int help_1_ft_outfile_built(t_file *strct)
+int	help_1_ft_outfile_built(t_file *strct)
 {
 	write(2, "Minishell:", 11);
 	write(2, strct->file, ft_strlen(strct->file));
@@ -37,7 +37,7 @@ int help_1_ft_outfile_built(t_file *strct)
 	return (1);
 }
 
-int help_2_ft_outfile(t_file *strct, int outfile_fd)
+int	help_2_ft_outfile(t_file *strct, int outfile_fd)
 {
 	write(2, "Minishell:", 11);
 	perror(strct->file);
@@ -53,14 +53,14 @@ int help_2_ft_outfile(t_file *strct, int outfile_fd)
 	exit(1);
 }
 
-int ft_outfile(t_file *strct)
+int	ft_outfile(t_file *strct)
 {
-	int outfile_fd;
+	int	outfile_fd;
 
 	if (strct->flag == AMB)
 	{
 		help_1_ft_outfile(strct);
-		return(1);
+		return (1);
 	}
 	outfile_fd = open(strct->file, O_CREAT | O_TRUNC | O_WRONLY, 0640);
 	if (outfile_fd == -1)
@@ -79,14 +79,14 @@ int ft_outfile(t_file *strct)
 	}
 	return (0);
 }
-int ft_outfile_built(t_file *strct)
+int	ft_outfile_built(t_file *strct)
 {
-	int outfile_fd;
+	int	outfile_fd;
 
 	if (strct->flag == AMB)
 	{
 		help_1_ft_outfile_built(strct);
-		return (1);	
+		return (1);
 	}
 	outfile_fd = open(strct->file, O_CREAT | O_TRUNC | O_WRONLY, 0640);
 	if (outfile_fd == -1)

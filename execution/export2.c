@@ -47,8 +47,8 @@ void	help_ft_change_key_value(char *value)
 
 	if (g_global->separator == 1)
 	{
-		new_value = malloc(ft_strlen(g_global->env->value)
-				+ ft_strlen(value) + 1);
+		new_value = malloc(ft_strlen(g_global->env->value) + ft_strlen(value)
+				+ 1);
 		if (new_value == NULL)
 			return ;
 		ft_strcpy(new_value, g_global->env->value);

@@ -12,9 +12,9 @@
 
 #include "../include/minishell.h"
 
-int is_directory(const char *path)
+int	is_directory(const char *path)
 {
-	struct stat path_stat;
+	struct stat	path_stat;
 
 	if (access(path, F_OK) != 0)
 	{
@@ -33,10 +33,10 @@ int is_directory(const char *path)
 	return (0);
 }
 
-char **ft_execve_arg(char **str)
+char	**ft_execve_arg(char **str)
 {
-	char **argv;
-	int i;
+	char	**argv;
+	int		i;
 
 	i = 0;
 	argv = malloc((len_double_str(str) + 1) * sizeof(char *));
@@ -50,14 +50,14 @@ char **ft_execve_arg(char **str)
 	argv[i] = NULL;
 	return (argv);
 }
-int execute_child(t_minishell *strct)
+int	execute_child(t_minishell *strct)
 {
-	char *path;
-	char **env_exc;
-	int ex;
-	char **spl;
-	int l;
-	char *h_ex;
+	char	*path;
+	char	**env_exc;
+	int		ex;
+	char	**spl;
+	int		l;
+	char	*h_ex;
 
 	ex = 0;
 	handle_signals();
@@ -261,7 +261,7 @@ int execute_child(t_minishell *strct)
 	exit(ex);
 }
 
-void ft_exec_child(t_minishell *strct)
+void	ft_exec_child(t_minishell *strct)
 {
 	redirection(strct);
 	close(g_global->fd_pipe[0]);
@@ -269,9 +269,9 @@ void ft_exec_child(t_minishell *strct)
 	execute_child(strct);
 }
 
-int ft_infile_built(t_file *strct)
+int	ft_infile_built(t_file *strct)
 {
-	int infile_fd;
+	int	infile_fd;
 
 	if (strct->flag == AMB)
 	{
@@ -316,10 +316,10 @@ int ft_infile_built(t_file *strct)
 	return (0);
 }
 
-int redirection_buils(t_minishell *strct)
+int	redirection_buils(t_minishell *strct)
 {
-	t_minishell *head;
-	t_file *current_file;
+	t_minishell	*head;
+	t_file		*current_file;
 
 	head = strct;
 	// while (head)
@@ -349,18 +349,18 @@ int redirection_buils(t_minishell *strct)
 	return (0);
 }
 
-void ft_execution(t_minishell *strct)
+void	ft_execution(t_minishell *strct)
 {
-	int status;
-	int size;
-	int i;
+	int	status;
+	int	size;
+	int	i;
 
 	size = ft_lstsize_minishell(strct);
 	i = 0;
 	if (size == 1 && is_built(strct->cmd[0]))
 	{
 		if (redirection_buils(strct))
-			return;
+			return ;
 		ft_builtins(strct);
 		ft_underscore(strct);
 		dup2(g_global->save_fd_out, STDOUT_FILENO);
@@ -370,14 +370,14 @@ void ft_execution(t_minishell *strct)
 	{
 		g_global->pid = malloc(size * sizeof(int));
 		if (!g_global->pid)
-			return;
+			return ;
 		while (strct)
 		{
 			if (pipe(g_global->fd_pipe) == -1)
 			{
 				perror("pipe error");
 				ft_free_global();
-				return;
+				return ;
 			}
 			else
 			{

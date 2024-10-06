@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
+#    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/10/05 21:00:13 by sait-amm         ###   ########.fr        #
+#    Updated: 2024/10/06 10:19:34 by lai-elho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC =  minishell.c \
  		execution/env_struct.c \
 		execution/pwd.c \
 		execution/cd.c \
+		execution/cd2.c \
 		execution/ft_libft.c \
 		execution/execution.c \
 		execution/unset.c \
@@ -51,7 +52,8 @@ SRC =  minishell.c \
 		execution/export3.c \
 		execution/intfile.c \
 		execution/intfile2.c \
-		execution/outfile.c
+		execution/outfile.c \
+		execution/get_path2.c 
 		
 OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft

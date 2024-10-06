@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 09:59:13 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 10:20:08 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,17 @@ void	hepl_1_ft_infile(t_file *strct);
 int ft_outfile_built(t_file *strct);
 int	ft_append_built(t_file *strct);
 int	help1_append(t_file *strct, int fd);
+void	ft_change_curr_and_old_path(char *new_path);
+char	*find_home_path(void);
+void	ft_find_current_pwd(void);
+void	help_1_ft_change_curr_and_old_path(char *new_path);
+void	help_2_ft_change_curr_and_old_path(char *new_path);
+void	ft_change_curr_and_old_path(char *new_path);
+void	error_fun(char *str, int h);
+char	**env_to_array(t_env *env);
+void	ft_double_free(char **str, char *cmd_1, char *w_path);
+char	*cmd_is_path(char **str, char *cmd_1, int flag);
+
 // signals fcts
 void ft_sig_handling(void);
 void handle_signals(void);
