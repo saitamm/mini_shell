@@ -66,10 +66,8 @@ void	free_minishell(t_minishell **m_shell)
 
 	if (!m_shell)
 		return ;
-	
 	while (*m_shell)
 	{
-		
 		k = *m_shell;
 		if ((*m_shell)->cmd)
 			ft_free((*m_shell)->cmd, len_double_str(g_global->strct->cmd));
