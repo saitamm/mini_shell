@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 21:20:38 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 12:02:38 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,10 @@ int main(int ac, char **av, char **env)
         g_global->sig_herdoc = 0;
         g_global->strct = parce(line);
         if (g_global->sig_herdoc == -1)
+        {
+            g_global->exit_status = 130;
             norm_main(line);
+        }
         else
         {
             if (g_global->strct)
