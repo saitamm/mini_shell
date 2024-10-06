@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 13:34:11 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 22:30:46 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,12 @@ int	ft_cd(char **Path)
 	char	*home_path;
 
 	home_path = NULL;
-	if (!Path || !Path[1])
+	if (!Path || !Path[1] || (ft_strcmp(Path[1], "~") == 0 || ft_strcmp(Path[1], "--") == 0))
 		return (help_cd_home(Path));
 	if (Path != NULL)
 	{
 		if (Path[2])
 			return (write(2, "Minishell: cd: too many arguments\n", 35), 1);
-		if (ft_strcmp(Path[1], "~") == 0 || ft_strcmp(Path[1], "--") == 0)
-			home_path = find_home_path();
 		if (chdir(Path[1]) == 0)
 			help_cd_path();
 		else

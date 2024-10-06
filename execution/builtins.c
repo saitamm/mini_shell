@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 00:35:46 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 22:19:25 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ int	ft_builtins(t_minishell *strct)
 	else if (ft_strcmp(strct->cmd[0], "unset") == 0)
 		return (g_global->exit_status = unset(strct->cmd));
 	else if (ft_strcmp(strct->cmd[0], "export") == 0)
+	{
 		ft_export(strct);
+		return(0);	
+	}
 	else if (ft_strcmp(strct->cmd[0], "exit") == 0)
 		return (g_global->exit_status = ft_exit(strct->cmd));
 	return (-1);

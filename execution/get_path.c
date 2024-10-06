@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:22:58 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 10:26:31 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 21:48:13 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_path(char *envp, char *cmd)
 	char	*w_path;
 	char	*path;
 
-	envp = find_env_slash(envp);
+	// envp = find_env_slash(envp);
 	str = ft_split(envp, ':');
 	if (access(cmd, X_OK) == 0 && (cmd[0] == '.' || cmd[0] == '/' || !str))
 		return (cmd_is_path(str, cmd, 0));

@@ -6,13 +6,13 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:04:16 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 15:29:13 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 22:20:21 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	handle_special(t_minishell *strct)
+void handle_special(t_minishell *strct)
 {
 	if (!ft_strcmp(strct->cmd[0], "."))
 	{
@@ -41,11 +41,11 @@ void	handle_special(t_minishell *strct)
 	}
 }
 
-void	help_2_execute_child(t_minishell *strct)
+void help_2_execute_child(t_minishell *strct)
 {
-	char	*path;
-	char	**env_exc;
-	char	*h_ex;
+	char *path;
+	char **env_exc;
+	char *h_ex;
 
 	handle_special(strct);
 	h_ex = help_expand("PATH");
@@ -59,33 +59,36 @@ void	help_2_execute_child(t_minishell *strct)
 		free_7(strct, path, env_exc);
 }
 
-void	help_execute_child(t_minishell *strct)
+void help_execute_child(t_minishell *strct)
 {
-	char	**spl;
-	int		l;
+	char **spl;
+	int l;
 
-	spl = ft_split(strct->cmd[0], ' ');
-	if (!spl[0] || strct->cmd[0][0] == '\0')
-		free_2(strct, spl);
-	if (ft_strchr(strct->cmd[0], '/'))
+	if (ft_builtins(strct) == -1)
 	{
-		if (access(strct->cmd[0], X_OK) == -1)
+		spl = ft_split(strct->cmd[0], ' ');
+		if (!spl[0] || strct->cmd[0][0] == '\0')
+			free_2(strct, spl);
+		if (ft_strchr(strct->cmd[0], '/'))
 		{
-			l = open(strct->cmd[0], X_OK);
-			if (l == -1)
-				free_3(strct, spl);
-			else
-				free_4(strct, spl, l);
-			close(l);
+			if (access(strct->cmd[0], X_OK) == -1)
+			{
+				l = open(strct->cmd[0], X_OK);
+				if (l == -1)
+					free_3(strct, spl);
+				else
+					free_4(strct, spl, l);
+				close(l);
+			}
+			if (is_directory(strct->cmd[0]))
+				free_5(strct, spl);
 		}
-		if (is_directory(strct->cmd[0]))
-			free_5(strct, spl);
+		ft_free(spl, len_double_str(spl));
+		help_2_execute_child(strct);
 	}
-	ft_free(spl, len_double_str(spl));
-	help_2_execute_child(strct);
 }
 
-int	execute_child(t_minishell *strct)
+int execute_child(t_minishell *strct)
 {
 	handle_signals();
 	if (strct->cmd[0] == NULL)

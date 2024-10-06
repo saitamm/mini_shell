@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parce_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:16:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/06 11:30:40 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 22:21:24 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	check_pipe(char *line)
 int	parce_error(char *line)
 {
 	if (check_pipe(line))
-		synt_error(ERROR, '|');
+		return (synt_error(ERROR, '|'));
 	if (check_quote(line))
 		return (synt_error(ERROR, '"'));
 	if (check_bracket(line))
