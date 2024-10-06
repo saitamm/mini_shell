@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:16:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/06 11:30:40 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:17:47 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ int	check_bracket(char *str)
 	return (0);
 }
 
-int	check_pipe(char *line)
+int		check_pipe(char *line)
 {
-	char	*line_t;
-	int		i;
+	char *line_t;
+	int	i;
 
 	line_t = ft_strtrim(line, "\n\r\v\f\t ");
 	if (line_t[0] == '|')
@@ -76,10 +76,9 @@ int	check_pipe(char *line)
 		}
 		i++;
 	}
-	free(line_t);
+			free(line_t);
 	return (0);
 }
-
 int	parce_error(char *line)
 {
 	if (check_pipe(line))

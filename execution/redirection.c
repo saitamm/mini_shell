@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 12:00:57 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 09:58:27 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int help1_append(t_file *strct, int fd)
+int	help1_append(t_file *strct, int fd)
 {
 	write(2, "Minishell:", 11);
 	perror(strct->file);
@@ -22,23 +22,16 @@ int help1_append(t_file *strct, int fd)
 	exit(g_global->exit_status);
 }
 
-int ft_append(t_file *strct)
+int	ft_append(t_file *strct)
 {
-	int fd;
+	int	fd;
 
 	if (strct->flag == AMB)
 	{
 		write(2, "Minishell:", 11);
 		write(2, strct->file, ft_strlen(strct->file));
-		write(2, ": ambiguous redirect\n", 22);
-		close(g_global->save_fd_int);
-		close(g_global->save_fd_out);
-		close(g_global->fd_pipe[1]);
-		close(g_global->fd_pipe[0]);
-		free_minishell(&g_global->strct);
-		free(g_global->pid);
-		ft_free_global();
-		free(g_global);
+		write(2, ": ambiguous redirect \n", 22);
+		g_global->exit_status = 1;
 		exit(1);
 	}
 	fd = open(strct->file, O_CREAT | O_WRONLY | O_APPEND, 0640);
@@ -58,7 +51,7 @@ int ft_append(t_file *strct)
 	return (0);
 }
 
-int help_handle_redirection(int flag, t_file *current_file)
+int	help_handle_redirection(int flag, t_file *current_file)
 {
 	if (current_file->file_type == IN || current_file->file_type == HER_DOC)
 		ft_infile(current_file);
@@ -75,10 +68,10 @@ int help_handle_redirection(int flag, t_file *current_file)
 	return (flag);
 }
 
-int handle_redirection(t_minishell *head)
+int	handle_redirection(t_minishell *head)
 {
-	t_file *current_file;
-	int flag;
+	t_file	*current_file;
+	int		flag;
 
 	flag = 0;
 	if (head->files == NULL && head->next)
@@ -97,9 +90,9 @@ int handle_redirection(t_minishell *head)
 	return (flag);
 }
 
-int redirection(t_minishell *strct)
+int	redirection(t_minishell *strct)
 {
-	int flag;
+	int	flag;
 
 	flag = handle_redirection(strct);
 	if (flag == 0 && strct->next)

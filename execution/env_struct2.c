@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:31:58 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 10:50:43 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:15:58 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,18 @@ char	*ft_putkey(char *env_var)
 void	env_manuel(void)
 {
 	char	cwd[1024];
+	char	*str;
+	char	*str2;
 
 	add_to_list(&g_global->env, "PWD", getcwd(cwd, sizeof(cwd)));
 	add_to_list(&g_global->env, "SHLVL", "1");
 	add_to_list(&g_global->env, "_", "/usr/bin/env");
-	add_to_list(&g_global->env, "PATH",
-		"/nfs/homes/sait-amm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
+	str = ft_strjoin("/nfs/homes/sait-amm/bin:/usr/local/sbin",
+			":/usr/local/bin:/usr/sbin:");
+	str2 = ft_strjoin(str,
+			"/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
+	add_to_list(&g_global->env, "PATH", str2);
+	free(str);
+	free(str2);
 	g_global->flag_env = 0;
 }

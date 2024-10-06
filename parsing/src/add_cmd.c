@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:40:57 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/06 11:30:19 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:45:05 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,10 @@ void	add_cmd(int *i, t_data **s, char *str)
 	*i = *i + ft_skip(str + (*i)) + k;
 	free(file_cmd);
 }
-
-char	*help_norm_expand_cmd(char *string)
+char *help_norm_expand_cmd(char *string)
 {
-	int		pos;
-	char	*new_src;
-
+	int pos;
+	char *new_src;
 	pos = 0;
 	while (need_expand(string, &pos))
 	{
@@ -39,7 +37,6 @@ char	*help_norm_expand_cmd(char *string)
 	}
 	return (string);
 }
-
 t_cmd	*ft_lstlast_cmd(t_cmd *lst)
 {
 	if (lst == NULL)
