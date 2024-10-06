@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 10:20:08 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 10:48:15 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,6 +294,7 @@ void	error_fun(char *str, int h);
 char	**env_to_array(t_env *env);
 void	ft_double_free(char **str, char *cmd_1, char *w_path);
 char	*cmd_is_path(char **str, char *cmd_1, int flag);
+void	env_manuel(void);
 
 // signals fcts
 void ft_sig_handling(void);

@@ -3,102 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env_struct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:52:20 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/09/30 13:26:06 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 10:51:01 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_env	*create_node(char *key, char *value)
+char	*help_get_key(int separator_pos, char *key, char *s, int j)
 {
-	t_env	*new_node;
-
-	new_node = (t_env *)malloc(sizeof(t_env));
-	if (!new_node)
-		return (NULL);
-	if (key == NULL)
-	{
-		free(new_node);
-		return (NULL);
-	}
-	new_node->key = ft_strdup(key);
-	new_node->value = ft_strdup(value);
-	new_node->next = NULL;
-	return (new_node);
-}
-
-void	add_to_list(t_env **head, char *key, char *value)
-{
-	t_env	*new_node;
-
-	new_node = create_node(key, value);
-	if (!new_node)
-		return ;
-	new_node->next = *head;
-	*head = new_node;
-}
-
-int	ft_find_key_len(char *env_var)
-{
-	int	i;
-
-	i = 0;
-	while (env_var[i] != '=' && env_var)
-		i++;
-	if (env_var[i - 1] == '+')
-	{
-		g_global->flag = 1;
-		i--;
-	}
-	return (i);
-}
-
-char	*ft_putkey(char *env_var)
-{
-	int		i;
-	int		key_len;
-	char	*key;
-
-	i = 0;
-	key_len = ft_find_key_len(env_var);
-	key = malloc(key_len);
-	while (i < key_len)
-	{
-		key[i] = env_var[i];
-		i++;
-	}
-	return (key);
-}
-
-char	*get_key(char *s)
-{
-	int		i;
-	int		j;
-	int		separator_pos;
-	char	*key;
-
-	i = 0;
-	j = 0;
-	separator_pos = -1;
-	while (s[i])
-	{
-		if (s[i] == '=')
-		{
-			separator_pos = i;
-			if (i > 0 && s[i - 1] == '+')
-			{
-				g_global->separator = 1;
-				separator_pos--;
-			}
-			else
-				g_global->separator = 0;
-			break ;
-		}
-		i++;
-	}
 	if (separator_pos == -1)
 		return (NULL);
 	key = malloc((sizeof(char) * separator_pos) + 1);
@@ -110,6 +25,35 @@ char	*get_key(char *s)
 		j++;
 	}
 	key[separator_pos] = '\0';
+	return (key);
+}
+
+char	*get_key(char *s)
+{
+	int		separator_pos;
+	char	*key;
+
+	g_global->i = 0;
+	g_global->j = 0;
+	key = NULL;
+	separator_pos = -1;
+	while (s[g_global->i])
+	{
+		if (s[g_global->i] == '=')
+		{
+			separator_pos = g_global->i;
+			if (g_global->i > 0 && s[g_global->i - 1] == '+')
+			{
+				g_global->separator = 1;
+				separator_pos--;
+			}
+			else
+				g_global->separator = 0;
+			break ;
+		}
+		g_global->i++;
+	}
+	key = help_get_key(separator_pos, key, s, g_global->j);
 	return (key);
 }
 
@@ -130,23 +74,31 @@ void	ft_set_underscor_value(void)
 	}
 }
 
-void	env_manuel(void)
+void	hepl_parse_env_var(char **env_var, int i)
 {
-	char	cwd[1024];
-
-	add_to_list(&g_global->env, "PWD", getcwd(cwd, sizeof(cwd)));
-	add_to_list(&g_global->env, "SHLVL", "1");
-	add_to_list(&g_global->env, "_", "/usr/bin/env");
-	add_to_list(&g_global->env, "PATH",
-		"/nfs/homes/sait-amm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
-	g_global->flag_env = 0;
-}
-void	parse_env_var(char **env_var)
-{
-	int		i;
 	char	*equal_sign;
 	char	*key;
 	char	*value;
+
+	equal_sign = NULL;
+	key = NULL;
+	value = NULL;
+	equal_sign = ft_strchr(env_var[i], '=');
+	if (equal_sign)
+	{
+		key = get_key(env_var[i]);
+		value = ft_substr(equal_sign + 1, 0, ft_strlen(equal_sign + 1));
+		if (!key || !value)
+			return ;
+		add_to_list(&g_global->env, key, value);
+		free(key);
+		free(value);
+	}
+}
+
+void	parse_env_var(char **env_var)
+{
+	int	i;
 
 	i = 0;
 	if (!env_var[0])
@@ -158,17 +110,7 @@ void	parse_env_var(char **env_var)
 		return ;
 	while (env_var[i])
 	{
-		equal_sign = ft_strchr(env_var[i], '=');
-		if (equal_sign)
-		{
-			key = get_key(env_var[i]);
-			value = ft_substr(equal_sign + 1, 0, ft_strlen(equal_sign + 1));
-			if (!key || !value)
-				return ;
-			add_to_list(&g_global->env, key, value);
-			free(key);
-			free(value);
-		}
+		hepl_parse_env_var(env_var, i);
 		i++;
 	}
 	ft_set_underscor_value();

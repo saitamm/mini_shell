@@ -6,7 +6,7 @@
 #    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/10/06 10:19:34 by lai-elho         ###   ########.fr        #
+#    Updated: 2024/10/06 10:43:29 by lai-elho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC =  minishell.c \
 		execution/env.c \
 		execution/builtins.c \
  		execution/env_struct.c \
+		execution/env_struct2.c \
 		execution/pwd.c \
 		execution/cd.c \
 		execution/cd2.c \
