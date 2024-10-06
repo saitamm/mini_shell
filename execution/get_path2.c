@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:18:43 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 10:28:24 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 15:28:59 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	**env_to_array(t_env *env)
 	int		size;
 	char	**cmd;
 	int		i;
+	char	*tmp_1;
 	t_env	*tmp;
 
 	size = ft_lstsize_3(env);
@@ -33,8 +34,9 @@ char	**env_to_array(t_env *env)
 	i = 0;
 	while (tmp)
 	{
-		cmd[i] = ft_strjoin(tmp->key, "=");
-		cmd[i] = ft_strjoin(cmd[i], tmp->value);
+		tmp_1 = ft_strjoin(tmp->key, "=");
+		cmd[i] = ft_strjoin(tmp_1, tmp->value);
+		free(tmp_1);
 		tmp = tmp->next;
 		i++;
 	}

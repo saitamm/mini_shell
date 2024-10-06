@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:38:26 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 13:30:37 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 15:18:36 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	free_6(t_minishell *strct, char *path, char *h_ex)
 
 void	free_7(t_minishell *strct, char *path, char **env_exc)
 {
-	write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
 	perror(strct->cmd[0]);
 	free(path);
 	close(g_global->save_fd_int);
 	close(g_global->save_fd_out);
 	free_minishell(&g_global->strct);
 	free(g_global->pid);
+	ft_free_global();
 	free(g_global);
 	ft_free(env_exc, len_double_str(env_exc));
 	exit(2);
