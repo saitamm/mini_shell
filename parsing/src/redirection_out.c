@@ -3,46 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_out.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:01:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/05 16:44:53 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 23:19:54 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	check_red_out(char *str)
+int check_red_out(char *str)
 {
-	int		i;
-	t_flag	f;
+	int i;
+	t_flag f;
+	char *line_t;
 
 	i = 0;
 	f.s_quote = 0;
 	f.d_quote = 0;
-	while (str[i])
+	line_t = ft_strtrim(str, "\n\r\v\f\t ");
+	if (line_t[0] == '<')
+		return (1);
+	while (line_t[i])
 	{
-		update_quotes(&f.s_quote, &f.d_quote, str[i]);
-		if (str[i] == '>' && (!str[i + 1] || ft_space_out(str + i)
-				|| ft_three_out(str + i) || ft_pipe_out(str + i)) && !f.s_quote
-			&& !f.d_quote)
+		update_quotes(&f.s_quote, &f.d_quote, line_t[i]);
+		if (line_t[i] == '>' && (!line_t[i + 1] || ft_space_out(line_t + i) || ft_three_out(line_t + i) || ft_pipe_out(line_t + i)) && !f.s_quote && !f.d_quote)
+		{
+			free(line_t);
 			return (1);
+		}
+		if (line_t[i] == '>' && !str[i+1])
+			return (free(line_t), 1);
 		i++;
 	}
+	free(line_t);
 	return (0);
 }
 
-int	ft_pipe_out(char *str)
+int ft_pipe_out(char *str)
 {
 	if (str[0] == '>' && str[1] == '|')
 		return (1);
 	return (0);
 }
 
-int	ft_three_out(char *str)
+int ft_three_out(char *str)
 {
-	int	i;
-	int	k;
+	int i;
+	int k;
 
 	k = 0;
 	i = 0;
@@ -59,10 +67,10 @@ int	ft_three_out(char *str)
 	return (0);
 }
 
-int	ft_space_out(char *str)
+int ft_space_out(char *str)
 {
-	int	i;
-	int	flag;
+	int i;
+	int flag;
 
 	i = 0;
 	flag = 0;

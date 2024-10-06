@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:16:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/06 22:21:24 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 23:21:16 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	check_pipe(char *line)
 	if (line_t[0] == '|')
 		return (1);
 	i = 0;
-	while (line[i])
+	while (line_t[i])
 	{
 		if (line_t[i] == '|' && !line_t[i + 1])
 		{
