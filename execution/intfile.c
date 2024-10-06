@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intfile.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 18:43:40 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 19:11:44 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:53:23 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	ft_infile(t_file *strct)
 	if (infile_fd == -1)
 		handle_open_error(strct, infile_fd);
 	redirect_input(infile_fd, strct);
+	if (strct->file_type == HER_DOC)
+		unlink(strct->file);
 	close(infile_fd);
 	return (0);
 }

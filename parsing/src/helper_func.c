@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:10:35 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/06 13:39:02 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:54:44 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,23 @@ t_minishell	*lstlast_minishell(t_minishell *lst)
 	return (lst);
 }
 
+void	unlink_here_doc()
+{
+	t_file	*file;
+
+	file = g_global->strct->files;
+	while (file)
+	{
+		if (file->file_type == HER_DOC)
+			unlink(file->file);
+		file = file->next;
+	}
+}
 int	her_doc_sig(char *line)
 {
 	if (g_global->sig_herdoc == -1)
 	{
+		unlink_here_doc();
 		g_global->exit_status = 130;
 		norm_main(line);
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 13:38:47 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:44:19 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ char						*help_space(char *str);
 
 void						sig_her_doc(int signum);
 int							her_doc_sig(char *line);
+void						norm_main(char *line);
 //***********************************EXECUTION**********************************
 
 typedef struct s_execution
@@ -223,6 +224,7 @@ int							ft_cd(char **Path);
 int							print_env(t_env *head, char **cmd);
 char						*ft_strchr(const char *str, int c);
 int							ft_strcmp(const char *s1, const char *s2);
+void						ft_free_3_in_exit(char **cmd);
 int							ft_strncmp(const char *s1, const char *s2,
 								size_t n);
 size_t						ft_strlen(const char *c);
@@ -232,7 +234,6 @@ int							unset(char **av);
 int							ft_exit(char **cmd);
 void						ft_free_1_in_exit(void);
 void						ft_free_2_in_exit(void);
-void						ft_free_3_in_exit(void);
 void						add_to_list(t_env **head, char *key, char *value);
 char						*get_key(char *s);
 char						*ft_putkey(char *env_var);
