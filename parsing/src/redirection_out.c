@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_out.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:01:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/06 23:19:54 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:39:07 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int check_red_out(char *str)
 	f.s_quote = 0;
 	f.d_quote = 0;
 	line_t = ft_strtrim(str, "\n\r\v\f\t ");
-	if (line_t[0] == '<')
-		return (1);
 	while (line_t[i])
 	{
 		update_quotes(&f.s_quote, &f.d_quote, line_t[i]);

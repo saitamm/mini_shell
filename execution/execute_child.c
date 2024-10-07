@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:04:16 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 22:20:21 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:24:40 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,15 @@ void help_execute_child(t_minishell *strct)
 		}
 		ft_free(spl, len_double_str(spl));
 		help_2_execute_child(strct);
+	}
+	else
+	{
+		free_minishell(&g_global->strct);
+		close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		free(g_global->pid);
+		ft_free_global();
+		free(g_global);
 	}
 }
 
