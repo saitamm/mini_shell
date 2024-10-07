@@ -59,7 +59,8 @@ int	ft_cd(char **Path)
 	char	*home_path;
 
 	home_path = NULL;
-	if (!Path || !Path[1] || (ft_strcmp(Path[1], "~") == 0 || ft_strcmp(Path[1], "--") == 0))
+	if (!Path || !Path[1] || (ft_strcmp(Path[1], "~") == 0 || ft_strcmp(Path[1],
+				"--") == 0))
 		return (help_cd_home(Path));
 	if (Path != NULL)
 	{

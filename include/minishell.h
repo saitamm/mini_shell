@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 13:44:19 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:14:58 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,7 @@ int							ft_execution_built(t_minishell *strct);
 void						ft_child(t_minishell *strct, int i);
 void						ft_wait(int size);
 void						help_wait(int status);
+void						handle_special(t_minishell *strct);
 // signals fcts
 void						ft_sig_handling(void);
 void						handle_signals(void);

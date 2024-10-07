@@ -21,12 +21,12 @@ int	ft_pwd(void)
 		printf("%s\n", cwd);
 		return (0);
 	}
-	else if(g_global->pwd)
+	else if (g_global->pwd)
 	{
 		write(1, g_global->pwd, ft_strlen(g_global->pwd));
-		write(1,"\n",1);
+		write(1, "\n", 1);
 		return (0);
-	}	
+	}
 	else
 		perror("error");
 	return (-1);

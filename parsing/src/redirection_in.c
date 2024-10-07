@@ -12,10 +12,10 @@
 
 #include "../../include/minishell.h"
 
-int ft_space_in(char *str)
+int	ft_space_in(char *str)
 {
-	int i;
-	int flag;
+	int	i;
+	int	flag;
 
 	i = 0;
 	flag = 0;
@@ -30,10 +30,10 @@ int ft_space_in(char *str)
 	return (0);
 }
 
-int ft_three_in(char *str)
+int	ft_three_in(char *str)
 {
-	int i;
-	int k;
+	int	i;
+	int	k;
 
 	k = 0;
 	i = 0;
@@ -50,7 +50,7 @@ int ft_three_in(char *str)
 	return (0);
 }
 
-int in_norm(char *str, int s_flag, int d_flag)
+int	in_norm(char *str, int s_flag, int d_flag)
 {
 	if (str[0] == '<' && !str[1] && !s_flag && !d_flag)
 		return (1);
@@ -65,23 +65,22 @@ int in_norm(char *str, int s_flag, int d_flag)
 	return (0);
 }
 
-int check_red_in(char *line)
+int	check_red_in(char *line)
 {
-	int i;
-	t_flag l;
+	int		i;
+	t_flag	l;
 	char	*line_t;
 
 	i = 0;
 	l.s_quote = 0;
 	l.d_quote = 0;
 	line_t = ft_strtrim(line, "\n\r\v\f\t ");
-	
 	while (line_t[i])
 	{
 		update_quotes(&l.s_quote, &l.d_quote, line_t[i]);
 		if (in_norm(line_t + i, l.s_quote, l.d_quote))
 			return (free(line_t), 1);
-		if (line_t[i] == '<' && !line_t[i+1])
+		if (line_t[i] == '<' && !line_t[i + 1])
 			return (free(line_t), 1);
 		i++;
 	}

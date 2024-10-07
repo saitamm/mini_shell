@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:59:33 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 12:01:33 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:14:22 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,33 @@ void	handle_builtins(t_minishell *strct)
 	}
 	handle_builtins_2(strct);
 	handle_builtins_3(strct);
+}
+
+void	handle_special(t_minishell *strct)
+{
+	if (!ft_strcmp(strct->cmd[0], "."))
+	{
+		write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
+		write(2, ": .: filename argument required\n", 33);
+		write(2, ".: usage: . filename [arguments]", 33);
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		ft_free_global();
+		free(g_global);
+		exit(126);
+	}
+	else if (!ft_strcmp(strct->cmd[0], ".."))
+	{
+		write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
+		write(2, "command not found\n", 19);
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		ft_free_global();
+		free(g_global);
+		exit(126);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_func.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:10:35 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/06 13:54:44 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:18:32 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_minishell	*lstlast_minishell(t_minishell *lst)
 	return (lst);
 }
 
-void	unlink_here_doc()
+void	unlink_here_doc(void)
 {
 	t_file	*file;
 
@@ -55,6 +55,7 @@ void	unlink_here_doc()
 		file = file->next;
 	}
 }
+
 int	her_doc_sig(char *line)
 {
 	if (g_global->sig_herdoc == -1)

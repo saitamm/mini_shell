@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/07 11:03:18 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:20:18 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,6 @@
 
 t_global	*g_global = NULL;
 
-void print(t_minishell *strct)
-{
-    t_file *tmp2;
-    while (strct != NULL)
-    {
-        int i = 0;
-        tmp2 = strct->files;
-        while (strct->cmd[i])
-        {
-            printf("command %d >>>> *%s*\n", i, strct->cmd[i]);
-            i++;
-        }
-        while (tmp2)
-        {
-            printf("file  >>>>*%s*\n", tmp2->file);
-            printf("file type = %d\n", tmp2->file_type);
-            printf("flag  = %d\n", tmp2->flag);
-            tmp2 = tmp2->next;
-        }
-        printf("::::::::::::::::::::::::::::::::::::::::\n");
-        strct = strct->next;
-    }
-}
 char	*find_value(char *key)
 {
 	t_env	*head;
@@ -109,6 +86,7 @@ int	main(int ac, char **av, char **env)
 			ft_handl_ctrl_d();
 		g_global->sig_herdoc = 0;
 		g_global->strct = parce(line);
+		print(g_global->strct);
 		if (her_doc_sig(line))
 		{
 			if (g_global->strct)

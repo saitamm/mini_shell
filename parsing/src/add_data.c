@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/07 11:08:22 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:19:11 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	full_command(t_data **data, char *str)
 			add_file(&i, str, &s);
 		else
 			add_cmd(&i, &s, str);
-				
 	}
 	s->next = NULL;
 	data = add_data(data, s);

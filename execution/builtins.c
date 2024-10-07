@@ -90,7 +90,7 @@ int	ft_builtins(t_minishell *strct)
 	else if (ft_strcmp(strct->cmd[0], "export") == 0)
 	{
 		ft_export(strct);
-		return(0);	
+		return (0);
 	}
 	else if (ft_strcmp(strct->cmd[0], "exit") == 0)
 		return (g_global->exit_status = ft_exit(strct->cmd));
