@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:40:57 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/07 10:52:37 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:04:55 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	add_cmd(int *i, t_data **s, char *str)
 
 	file_cmd = ft_file(str + (*i));
 	k = ft_strlen(file_cmd);
+	if (k == 0)
+		k = 1;
 	ft_lstadd_cmd(&(*s)->command, file_cmd);
 	*i = *i + ft_skip(str + (*i)) + k;
 	free(file_cmd);

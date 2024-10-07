@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/07 10:57:58 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:08:22 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	full_command(t_data **data, char *str)
 	{
 		while (ft_whitespace(str[i]))
 			i++;
-		// while ((str[i] == '"' || str[i] == '\'') && (str[i + 1] == str[i]))
 		update_quotes(&flag.d_quote, &flag.s_quote, str[i]);
 		if ((str[i] == '<' || str[i] == '>') && !flag.s_quote && !flag.d_quote)
 			add_file(&i, str, &s);
 		else
 			add_cmd(&i, &s, str);
+				
 	}
 	s->next = NULL;
 	data = add_data(data, s);
