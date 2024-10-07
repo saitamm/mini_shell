@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/07 12:14:58 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:24:41 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,18 +248,15 @@ int							find_key(t_env *env, const char *key);
 void						ft_change_key_value(char *key, char *value);
 void						ft_lstremove(char *key);
 void						ft_execution(t_minishell *strct);
-// void	ft_export(t_minishell *strct);
 int							ft_check_export_unset_args(char *str);
 void						ft_check_key(char *str);
 char						*ft_strcat(char *dest, const char *src);
 void						ft_change_curr_and_old_path(char *new_path);
 int							ft_lstsize2(t_minishell *lst);
 
-void						ft_write_in_pipe(t_file *files_head);
 char						*get_path(char *envp, char *cmd);
 char						**env_to_array(t_env *env);
 int							need_expand_her_doc(char *str, int *pos, int flag);
-void						print(t_minishell *strct);
 int							is_built(char *str);
 int							ft_builtins(t_minishell *strct);
 int							ft_infile(t_file *strct);

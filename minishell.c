@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/07 12:20:18 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:25:08 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	main(int ac, char **av, char **env)
 			ft_handl_ctrl_d();
 		g_global->sig_herdoc = 0;
 		g_global->strct = parce(line);
-		print(g_global->strct);
 		if (her_doc_sig(line))
 		{
 			if (g_global->strct)
