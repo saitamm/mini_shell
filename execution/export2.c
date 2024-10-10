@@ -6,11 +6,11 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:09:53 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 17:21:12 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:38:27 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int	ft_check_export_unset_args(char *str)
 {

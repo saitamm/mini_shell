@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:04:16 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/07 12:16:02 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/10 00:45:58 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	free_8(void)
 void	ft_open_file(t_minishell *strct, char **spl)
 {
 	int	l;
-
 	l = open(strct->cmd[0], X_OK);
 	if (l == -1)
 		free_3(strct, spl);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:19:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 12:08:56 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/10 00:46:27 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	free_3(t_minishell *strct, char **spl)
 	ft_free(spl, len_double_str(spl));
 	ft_free_global();
 	free(g_global);
-	exit(127);
+	exit(126);
 }
 
 void	free_4(t_minishell *strct, char **spl, int l)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+         #
+#    By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/02 12:49:12 by sait-amm          #+#    #+#              #
-#    Updated: 2024/10/06 23:23:39 by lai-elho         ###   ########.fr        #
+#    Updated: 2024/10/09 09:55:45 by sait-amm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,6 @@ SRC =  minishell.c \
 		execution/close.c \
 		execution/close2.c \
 		
-OBJF = $(SRC:.c=.o)
 LIBFT_DIR=libft
 LIBFT_LIB=$(LIBFT_DIR)/libft.a
 NAME = minishell
@@ -73,19 +72,16 @@ INCLUDES = -I . -I include -I $(LIBFT_DIR)
 
 C = cc
 
-CFLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address 
+CFLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address 
 
 all: $(NAME)
 
-$(NAME): $(OBJF) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(OBJF) -lreadline  $(LIBFT_LIB) -o $(NAME)
+$(NAME): $(SRC) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(SRC) -lreadline  $(LIBFT_LIB) -o $(NAME)
 
 $(LIBFT_LIB):
 	@$(MAKE) -C $(LIBFT_DIR)
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 clean:
-	rm -rf $(OBJF)
 	$(MAKE) -C $(LIBFT_DIR) clean
 fclean: clean
 	rm -rf $(NAME)
