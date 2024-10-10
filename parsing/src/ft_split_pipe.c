@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 09:30:13 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/09 10:18:17 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:00:51 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,5 @@ char	**ft_split_with_pipe(char *line)
 		help_pipe_quote_2(str[i]);
 		i++;
 	}
-	line = help_pipe_quote_2(line);
 	return (str);
 }

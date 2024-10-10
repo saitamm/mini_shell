@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execute_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:04:16 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/10 00:45:58 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:46:43 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	help_2_execute_child(t_minishell *strct)
+void help_2_execute_child(t_minishell *strct)
 {
-	char	*path;
-	char	**env_exc;
-	char	*h_ex;
+	char *path;
+	char **env_exc;
+	char *h_ex;
 
 	handle_special(strct);
 	h_ex = help_expand("PATH");
@@ -30,7 +30,7 @@ void	help_2_execute_child(t_minishell *strct)
 		free_7(strct, path, env_exc);
 }
 
-void	free_8(void)
+void free_8(void)
 {
 	free_minishell(&g_global->strct);
 	close(g_global->save_fd_int);
@@ -40,20 +40,33 @@ void	free_8(void)
 	free(g_global);
 }
 
-void	ft_open_file(t_minishell *strct, char **spl)
+void ft_open_file(t_minishell *strct, char **spl)
 {
-	int	l;
-	l = open(strct->cmd[0], X_OK);
-	if (l == -1)
-		free_3(strct, spl);
+	int l;
+
+	if (access(strct->cmd[0], X_OK) == -1)
+	{
+		l = open(strct->cmd[0], X_OK);
+		if (l == -1)
+			free_3(strct, spl);
+		perror(strct->cmd[0]);
+		free_minishell(&g_global->strct);
+		free(g_global->pid);
+		close(g_global->save_fd_int);
+		close(g_global->save_fd_out);
+		ft_free(spl, len_double_str(spl));
+		ft_free_global();
+		free(g_global);
+		close(l);
+		exit(126);
+	}
 	else
-		free_4(strct, spl, l);
-	close(l);
+		free_4(strct, spl);
 }
 
-void	help_execute_child(t_minishell *strct)
+void help_execute_child(t_minishell *strct)
 {
-	char	**spl;
+	char **spl;
 
 	if (ft_builtins(strct) == -1)
 	{
@@ -74,7 +87,7 @@ void	help_execute_child(t_minishell *strct)
 		free_8();
 }
 
-int	execute_child(t_minishell *strct)
+int execute_child(t_minishell *strct)
 {
 	handle_signals();
 	if (strct->cmd[0] == NULL)

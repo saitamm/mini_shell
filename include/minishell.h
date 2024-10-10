@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/07 12:24:41 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:47:00 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,7 +307,7 @@ void						free_0(void);
 void						free_1(void);
 void						free_2(t_minishell *strct, char **spl);
 void						free_3(t_minishell *strct, char **spl);
-void						free_4(t_minishell *strct, char **spl, int l);
+void						free_4(t_minishell *strct, char **spl);
 void						free_5(t_minishell *strct, char **spl);
 void						free_6(t_minishell *strct, char *path, char *h_ex);
 void						free_7(t_minishell *strct, char *path,

@@ -6,7 +6,7 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 09:44:02 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 22:19:25 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:18:06 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_bashlvl(t_minishell *strct)
 				new_value = malloc(12);
 				if (!new_value)
 					return ;
-				printf("new_value %d", g_global->shelvl);
 				free(env->value);
 				env->value = ft_itoa(g_global->shelvl);
 				return ;

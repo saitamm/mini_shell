@@ -6,16 +6,16 @@
 /*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 04:06:54 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 04:11:01 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:35:30 by lai-elho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_swaped(t_env *a, t_env *b)
+void ft_swaped(t_env *a, t_env *b)
 {
-	char	*tmp_key;
-	char	*tmp_value;
+	char *tmp_key;
+	char *tmp_value;
 
 	tmp_key = a->key;
 	tmp_value = a->value;
@@ -25,13 +25,13 @@ void	ft_swaped(t_env *a, t_env *b)
 	b->value = tmp_value;
 }
 
-void	ft_list_sort(t_env **env)
+void ft_list_sort(t_env **env)
 {
-	t_env	*tmp;
-	int		i;
+	t_env *tmp;
+	int i;
 
 	if (!env || !*env)
-		return ;
+		return;
 	i = 1;
 	while (i)
 	{
@@ -49,26 +49,31 @@ void	ft_list_sort(t_env **env)
 	}
 }
 
-void	print_export(void)
+void print_export(void)
 {
-	t_env	*tmp;
+	t_env *tmp;
 
 	tmp = g_global->env;
 	ft_list_sort(&tmp);
 	while (tmp)
 	{
-		if (!tmp->value)
-			printf("declare -x %s\n", tmp->key);
-		else if (tmp->value && tmp->key)
-			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
-		tmp = tmp->next;
+		if (ft_strcmp(tmp->key, "_") == 0)
+			tmp = tmp->next;
+		else
+		{
+			if (!tmp->value)
+				printf("declare -x %s\n", tmp->key);
+			else if (tmp->value && tmp->key)
+				printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+			tmp = tmp->next;
+		}
 	}
 }
 
-void	error_export(char *str, char *error)
+void error_export(char *str, char *error)
 {
-	int		i;
-	char	*key;
+	int i;
+	char *key;
 
 	i = 0;
 	while (str[i] && str[i] != '=')
@@ -82,9 +87,9 @@ void	error_export(char *str, char *error)
 	free(key);
 }
 
-int	check_error_export(char *str)
+int check_error_export(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!ft_isalpha(str[i]) && str[0] != '_')
@@ -92,7 +97,7 @@ int	check_error_export(char *str)
 	while (str[i] && str[i] != '=')
 	{
 		if (str[i] == '+' && str[i + 1] == '=')
-			break ;
+			break;
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (error_export(str, "not a valid identifier\n"), 1);
 		i++;
