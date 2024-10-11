@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:54:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/06 11:29:45 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:25:15 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*convert_hex(const char *str, size_t len, const char *base)
 	j = 0;
 	name = malloc((len * 2 + 1) * sizeof(char));
 	if (!name)
-		return (write(2, "failed to allocate memory\n", 27), NULL);
+		return (write(2, "failed to allocate memory\n", 26), NULL);
 	while (i < len)
 	{
 		name[j++] = base[(str[i] >> 4) & 0xF];
@@ -43,15 +43,15 @@ char	*generate_filename(void)
 
 	fd_random = open("/dev/random", O_RDONLY);
 	if (fd_random < 0)
-		return (write(2, "failed to open random\n", 22), NULL);
+		return (write(2, "failed to open random\n", 21), NULL);
 	buff = malloc(12 * sizeof(char));
 	if (!buff)
-		return (write(2, "failed to allocate memory\n", 27), NULL);
+		return (write(2, "failed to allocate memory\n", 26), NULL);
 	while (1)
 	{
 		size = read(fd_random, buff, 11);
 		if (size < 0)
-			return (write(2, "failed to read number of bytes\n", 29), NULL);
+			return (write(2, "failed to read number of bytes\n", 28), NULL);
 		buff[11] = '\0';
 		k = convert_hex(buff, 11, "0123456789abcdef");
 		name = ft_strjoin("/tmp/.", k);

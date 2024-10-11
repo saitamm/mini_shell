@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:51:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/11 10:27:51 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:24:53 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_write_in_file(char *name_file, char *d)
 	fd = open(name_file, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, 0400);
 	if (fd < 0)
 	{
-		write(2, "failed to open file\n", 21);
+		write(2, "failed to open file\n", 20);
 		return ;
 	}
 	if (!d)

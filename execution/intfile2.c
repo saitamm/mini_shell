@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intfile2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 19:09:59 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 19:12:31 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:38:39 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	hepl_1_ft_infile(t_file *strct)
 {
-	write(2, "Minishell:", 11);
+	write(2, "Minishell:", 10);
 	write(2, strct->file, ft_strlen(strct->file));
-	write(2, ": ambiguous redirect\n", 22);
+	write(2, ": ambiguous redirect\n", 21);
 	close(g_global->save_fd_int);
 	close(g_global->save_fd_out);
 	close(g_global->fd_pipe[1]);
@@ -29,7 +29,7 @@ void	hepl_1_ft_infile(t_file *strct)
 
 void	hepl_2_ft_infile(t_file *strct)
 {
-	write(2, "Minishell:", 11);
+	write(2, "Minishell:", 10);
 	perror(strct->file);
 	close(g_global->save_fd_int);
 	close(g_global->save_fd_out);
@@ -43,7 +43,7 @@ void	hepl_2_ft_infile(t_file *strct)
 
 void	hepl_3_ft_infile(t_file *strct, int infile_fd)
 {
-	write(2, "Minishell:", 11);
+	write(2, "Minishell:", 10);
 	perror(strct->file);
 	g_global->exit_status = 1;
 	close(infile_fd);

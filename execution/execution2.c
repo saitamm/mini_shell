@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 13:07:42 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 22:09:42 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:22:44 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	help_wait(int status)
 	}
 	else if (WTERMSIG(status) == SIGQUIT)
 	{
-		write(1, "Quit (core dumped)\n", 20);
+		write(1, "Quit (core dumped)\n", 29);
 		g_global->exit_status = 131;
 	}
 }

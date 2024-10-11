@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outfile.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 18:46:24 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 12:07:08 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:24:00 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	help_1_ft_outfile(t_file *strct)
 {
-	write(2, "Minishell:", 11);
+	write(2, "Minishell:", 10);
 	write(2, strct->file, ft_strlen(strct->file));
-	write(2, ": ambiguous redirect\n", 22);
+	write(2, ": ambiguous redirect\n", 21);
 	close(g_global->save_fd_int);
 	close(g_global->save_fd_out);
 	close(g_global->fd_pipe[1]);
@@ -30,7 +30,7 @@ int	help_1_ft_outfile(t_file *strct)
 
 int	help_2_ft_outfile(t_file *strct, int outfile_fd)
 {
-	write(2, "Minishell:", 11);
+	write(2, "Minishell:", 10);
 	perror(strct->file);
 	free_minishell(&g_global->strct);
 	close(g_global->save_fd_int);
@@ -60,7 +60,7 @@ int	ft_outfile(t_file *strct)
 	{
 		if (dup2(outfile_fd, STDOUT_FILENO) == -1)
 		{
-			write(2, "Error with dup2\n", 17);
+			write(2, "Error with dup2\n", 16);
 			g_global->exit_status = 1;
 			close(outfile_fd);
 			return (1);

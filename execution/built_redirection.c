@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:02:16 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 11:15:51 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:21:13 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	handle_ambiguous_redirect(t_file *strct)
 {
 	if (strct->flag == AMB)
 	{
-		write(2, "Minishell:", 11);
+		write(2, "Minishell:", 10);
 		write(2, strct->file, ft_strlen(strct->file));
-		write(2, ": ambiguous redirect\n", 22);
+		write(2, ": ambiguous redirect\n", 21);
 		g_global->exit_status = 1;
 		return (1);
 	}
@@ -34,13 +34,13 @@ int	open_infile(t_file *strct)
 	{
 		if (access(strct->file, F_OK) != 0)
 		{
-			write(2, "Minishell:", 11);
+			write(2, "Minishell:", 10);
 			perror(strct->file);
 			g_global->exit_status = 1;
 		}
 		else if (access(strct->file, R_OK) != 0)
 		{
-			write(2, "Minishell:", 11);
+			write(2, "Minishell:", 10);
 			perror(strct->file);
 			g_global->exit_status = 1;
 		}

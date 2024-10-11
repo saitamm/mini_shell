@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_child2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:59:33 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/07 12:14:22 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:22:28 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	handle_special(t_minishell *strct)
 	if (!ft_strcmp(strct->cmd[0], "."))
 	{
 		write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
-		write(2, ": .: filename argument required\n", 33);
-		write(2, ".: usage: . filename [arguments]", 33);
+		write(2, ": .: filename argument required\n", 32);
+		write(2, ".: usage: . filename [arguments]", 32);
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
 		close(g_global->save_fd_int);
@@ -93,7 +93,7 @@ void	handle_special(t_minishell *strct)
 	else if (!ft_strcmp(strct->cmd[0], ".."))
 	{
 		write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
-		write(2, "command not found\n", 19);
+		write(2, "command not found\n", 18);
 		free_minishell(&g_global->strct);
 		free(g_global->pid);
 		close(g_global->save_fd_int);

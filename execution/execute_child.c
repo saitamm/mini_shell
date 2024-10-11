@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:04:16 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/11 20:14:58 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:32:02 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void ft_open_file(t_minishell *strct, char **spl)
 
 	if (access(strct->cmd[0], X_OK) == -1)
 	{
-		l = open(strct->cmd[0], X_OK);
+		l = access(strct->cmd[0], F_OK);
 		if (l == -1)
 			free_3(strct, spl);
 		perror(strct->cmd[0]);
@@ -57,7 +57,6 @@ void ft_open_file(t_minishell *strct, char **spl)
 		ft_free(spl, len_double_str(spl));
 		ft_free_global();
 		free(g_global);
-		close(l);
 		exit(126);
 	}
 	else

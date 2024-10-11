@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:38:26 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 15:18:36 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:41:25 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	free_5(t_minishell *strct, char **spl)
 {
+	write(2, "Minishell :", 10);
 	write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
-	write(2, ": is a directory\n", 18);
+	write(2, ": is a directory\n", 17);
 	free_minishell(&g_global->strct);
 	free(g_global->pid);
 	close(g_global->save_fd_int);
@@ -29,7 +30,7 @@ void	free_5(t_minishell *strct, char **spl)
 void	free_6(t_minishell *strct, char *path, char *h_ex)
 {
 	write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
-	write(2, ": command not found\n", 21);
+	write(2, ": command not found\n", 20);
 	close(g_global->save_fd_int);
 	close(g_global->save_fd_out);
 	free(path);

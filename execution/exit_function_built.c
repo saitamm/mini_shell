@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_function_built.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:06:43 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/05 03:51:06 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:22:53 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	ft_free_2_in_exit(void)
 
 void	ft_free_3_in_exit(char **cmd)
 {
-	write(2, "exit \nMinishell: exit: ", 24);
+	write(2, "exit \nMinishell: exit: ", 23);
 	write(2, cmd[1], ft_strlen(cmd[1]));
-	write(2, ": numeric argument required\n", 29);
+	write(2, ": numeric argument required\n", 28);
 	if (ft_lstsize_minishell(g_global->strct))
 	{
 		close(g_global->save_fd_int);

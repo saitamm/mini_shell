@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/07 12:25:08 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:20:48 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_handl_ctrl_d(void)
 	close(g_global->save_fd_out);
 	exit_s = g_global->exit_status;
 	free(g_global);
-	write(1, "exit\n", 6);
+	write(1, "exit\n", 5);
 	exit(exit_s);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:56:12 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 04:27:26 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:23:03 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_exit(char **cmd)
 			ft_free_2_in_exit();
 			exit(ex);
 		}
-		write(2, "exit \nMinishell : exit: too many arguments\n", 44);
+		write(2, "exit \nMinishell : exit: too many arguments\n", 43);
 		return (1);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 09:58:27 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:39:18 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	help1_append(t_file *strct, int fd)
 {
-	write(2, "Minishell:", 11);
+	write(2, "Minishell:", 10);
 	perror(strct->file);
 	g_global->exit_status = 1;
 	close(fd);
@@ -28,9 +28,9 @@ int	ft_append(t_file *strct)
 
 	if (strct->flag == AMB)
 	{
-		write(2, "Minishell:", 11);
+		write(2, "Minishell:", 10);
 		write(2, strct->file, ft_strlen(strct->file));
-		write(2, ": ambiguous redirect \n", 22);
+		write(2, ": ambiguous redirect \n", 21);
 		g_global->exit_status = 1;
 		exit(1);
 	}
@@ -41,7 +41,7 @@ int	ft_append(t_file *strct)
 	{
 		if (dup2(fd, STDOUT_FILENO) == -1)
 		{
-			write(2, "Error with dup2\n", 17);
+			write(2, "Error with dup2\n", 16);
 			g_global->exit_status = 1;
 			close(fd);
 			return (1);
