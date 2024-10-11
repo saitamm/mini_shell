@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/10 12:47:00 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:16:13 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ t_cmd						*ft_lstlast_cmd(t_cmd *lst);
 void						ft_lstadd_cmd(t_cmd **head, char *str);
 t_data						*ft_lstlast_data(t_data *lst);
 void						add_cmd(int *i, t_data **s, char *str);
-char						**help_cmd(char *str);
+char						**help_cmd(char *str, t_cmd *s);
 void						full_command(t_data **data, char *str);
 t_minishell					*lstlast_minishell(t_minishell *lst);
 t_data						**add_data(t_data **data, t_data *new);
@@ -184,7 +184,7 @@ int							synt_error(char *str, char c);
 char						**ft_split_whitesp(const char *s);
 char						*ft_cpy_dolar(char *str);
 char						*expand_str(char *string, int pos);
-char						**split_str(char *str, int *f);
+char						**split_str(char *str, int *f, int r);
 char						*help_quote_exp(char *str);
 char						*remove_quote(char *str);
 t_minishell					*parce(char *line);

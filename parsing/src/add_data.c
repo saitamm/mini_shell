@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   add_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/07 12:19:11 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:27:20 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_data	*ft_lstlast_data(t_data *lst)
+t_data *ft_lstlast_data(t_data *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -21,45 +21,47 @@ t_data	*ft_lstlast_data(t_data *lst)
 	return (lst);
 }
 
-void	full_command(t_data **data, char *str)
+void full_command(t_data **data, char *str)
 {
-	int		i;
-	t_flag	flag;
-	t_data	*s;
+	int i;
+	t_flag flag;
+	t_data *s;
 
 	i = 0;
 	flag.s_quote = false;
 	flag.d_quote = false;
 	s = (t_data *)malloc(sizeof(t_data));
 	if (!s)
-		return ;
+		return;
 	s->files = NULL;
 	s->command = NULL;
 	while (str[i])
 	{
 		while (ft_whitespace(str[i]))
 			i++;
-		update_quotes(&flag.d_quote, &flag.s_quote, str[i]);
 		if ((str[i] == '<' || str[i] == '>') && !flag.s_quote && !flag.d_quote)
 			add_file(&i, str, &s);
 		else
+		{
 			add_cmd(&i, &s, str);
+			update_quotes(&flag.d_quote, &flag.s_quote, str[i]);
+		}
 	}
 	s->next = NULL;
 	data = add_data(data, s);
 }
 
-void	init_data(t_data **data, char **line)
+void init_data(t_data **data, char **line)
 {
-	size_t	i;
-	size_t	p_nmbr;
-	char	**str;
+	size_t i;
+	size_t p_nmbr;
+	char **str;
 
 	i = 0;
 	p_nmbr = len_double_str(line);
 	str = malloc((p_nmbr + 1) * sizeof(char *));
 	if (!str)
-		return ;
+		return;
 	while (line[i])
 	{
 		str[i] = ft_strtrim(line[i], "\n\r\v\f\t ");
@@ -75,9 +77,9 @@ void	init_data(t_data **data, char **line)
 	ft_free(str, p_nmbr);
 }
 
-t_data	**add_data(t_data **data, t_data *new)
+t_data **add_data(t_data **data, t_data *new)
 {
-	t_data	*d;
+	t_data *d;
 
 	if (!data)
 		return (NULL);

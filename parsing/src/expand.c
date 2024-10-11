@@ -6,16 +6,16 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/03 13:31:16 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/11 11:56:08 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	help_help(char c, bool d_quote)
+int	help_help(char c, bool d_quote, bool s_quote)
 {
 	if ((ft_isalnum(c) || c == '_') || c == '$' || (c == '"' && !d_quote)
-		|| c == '?')
+		|| c == '?' || (c == '\'' && !s_quote))
 		return (1);
 	return (0);
 }
@@ -35,7 +35,7 @@ int	need_expand(char *str, int *pos)
 		update_quotes(&flag.s_quote, &flag.d_quote, str[i]);
 		if (str[i] == '$' && !flag.s_quote && str[i + 1])
 		{
-			if (help_help(str[i + 1], flag.d_quote))
+			if (help_help(str[i + 1], flag.d_quote, flag.s_quote))
 			{
 				*pos = i;
 				return (1);

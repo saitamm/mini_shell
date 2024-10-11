@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parce_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:16:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/07 12:18:09 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/11 11:46:57 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	check_pipe(char *line)
 
 	line_t = ft_strtrim(line, "\n\r\v\f\t ");
 	if (line_t[0] == '|')
-		return (1);
+		return (free(line_t),1);
 	i = 0;
 	while (line_t[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:39:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/04 11:13:23 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:25:15 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,31 @@ char	**help_pipe_double(char **str)
 	}
 	return (str);
 }
+int	special(int r, char *str)
+{
+	int	i;
+	char	**spl;
+	char	*sub;
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	sub = ft_substr(str, 0, i);
+	spl = ft_split_whitesp(sub);
+	if (r && len_double_str(spl) == 1)
+		return (ft_free(spl, len_double_str(spl)), free(sub), 1);
+	ft_free(spl, len_double_str(spl));
+	free(sub);
+	return (0);
+}
 
-char	**split_str(char *str, int *f)
+char	**split_str(char *str, int *f, int r)
 {
 	char	**spl_str;
 	char	*temp;
 
 	if (!str)
 		return (NULL);
-	if (!have_to_split(str))
+	if (!have_to_split(str) || special(r, str))
 	{
 		if (ft_strchr(str, '"') || ft_strchr(str, '\''))
 			*f = 1;
