@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:16:07 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/11 11:46:57 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 17:23:25 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	check_pipe(char *line)
 	i = 0;
 	while (line_t[i])
 	{
-		if (line_t[i] == '|' && !line_t[i + 1])
+		if ((line_t[i] == '|' && !line_t[i + 1]))
 		{
 			free(line_t);
 			return (1);
@@ -80,10 +80,34 @@ int	check_pipe(char *line)
 	return (0);
 }
 
+int	chech_pipe_2(char *line)
+{
+	t_flag	d;
+	int		i;
+	char	*line_t;
+
+	i = 0;
+	line_t = ft_strtrim(line, "\n\r\v\f\t ");
+	d.s_quote = false;
+	d.d_quote = false;
+	while (line_t[i])
+	{
+		update_quotes(&d.s_quote, &d.d_quote, line_t[i]);
+		if (line_t[i] != '|' && !d.s_quote && !d.d_quote)
+			break ;
+		i++;
+	}
+	while (ft_whitespace(line_t[i]))
+		i++;
+	if (line_t[i] == '|')
+		return (free(line_t), 1);
+	return (free(line_t), 0);
+}
+
 int	parce_error(char *line)
 {
 	if (check_pipe(line))
-		return (synt_error(ERROR, '|'));
+		return (synt_error(ERROR, '|') || chech_pipe_2(line));
 	if (check_quote(line))
 		return (synt_error(ERROR, '"'));
 	if (check_bracket(line))

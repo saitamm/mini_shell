@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 09:45:29 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/11 11:56:08 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:51:20 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,16 @@ int	have_to_split(char *str)
 	int		i;
 	t_flag	b;
 
+	i = 0;
+	b.s_quote = false;
+	b.d_quote = false;
+	while (str[i])
+	{
+		update_quotes(&b.s_quote, &b.d_quote, str[i]);
+		if (str[i] == '$' && !b.s_quote && !b.d_quote)
+			return (0);
+		i++;
+	}
 	i = 0;
 	b.s_quote = false;
 	b.d_quote = false;

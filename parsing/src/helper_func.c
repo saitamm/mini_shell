@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_func.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:10:35 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/07 12:18:32 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:26:39 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,10 @@ void	unlink_here_doc(void)
 	}
 }
 
-int	her_doc_sig(char *line)
+void	norm_main_herdoc(char *line)
 {
-	if (g_global->sig_herdoc == -1)
-	{
-		unlink_here_doc();
-		g_global->exit_status = 130;
-		norm_main(line);
-		return (0);
-	}
-	return (1);
+	add_history(line);
+	free_minishell(&g_global->strct);
+	free(g_global->strct);
+	dup2(g_global->save_fd_int, STDIN_FILENO);
 }

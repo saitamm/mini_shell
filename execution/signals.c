@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 11:06:55 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 01:01:43 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:18:41 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ void	ft_sig_handling(void)
 void	sigint(int sig)
 {
 	(void)sig;
+	rl_clear_history();
 	exit(130);
 }
 
 void	sigquit(int sig)
 {
 	(void)sig;
+	rl_clear_history();
 	exit(131);
 }
 

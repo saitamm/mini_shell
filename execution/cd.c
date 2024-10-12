@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:11:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/11 20:38:17 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 17:32:14 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_cd(char **Path)
 		else
 		{
 			write(2, "Minishell :", 10);
-			perror(Path[0]);
+			write(2, "no such file or directory\n", 26);
 			free(home_path);
 			return (1);
 		}

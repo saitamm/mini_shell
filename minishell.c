@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:23 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/11 20:20:48 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:19:15 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_handl_ctrl_d(void)
 {
 	int	exit_s;
 
+	rl_clear_history();
 	free_list(&g_global->env);
 	if (g_global->pwd)
 		free(g_global->pwd);
@@ -63,9 +64,8 @@ void	ft_handl_ctrl_d(void)
 	exit(exit_s);
 }
 
-void	norm_main(char *line)
+void	norm_main(void)
 {
-	add_history(line);
 	free_minishell(&g_global->strct);
 	free(g_global->strct);
 	dup2(g_global->save_fd_int, STDIN_FILENO);
@@ -91,7 +91,8 @@ int	main(int ac, char **av, char **env)
 			if (g_global->strct)
 			{
 				ft_execution(g_global->strct);
-				norm_main(line);
+				norm_main();
+				add_history(line);
 			}
 		}
 		free(line);

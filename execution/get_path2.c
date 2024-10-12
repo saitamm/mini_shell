@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:18:43 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/06 15:28:59 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:14:42 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	error_fun(char *str, int h)
 {
+	rl_clear_history();
 	perror(str);
 	exit(h);
 }
@@ -68,6 +69,7 @@ char	*cmd_is_path(char **str, char *cmd_1, int flag)
 	{
 		perror(cmd_1);
 		ft_free(str, len_double_str(str));
+		rl_clear_history();
 		exit(127);
 	}
 	return (path);

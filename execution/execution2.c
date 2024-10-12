@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 13:07:42 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/11 20:22:44 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 14:32:09 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	help_wait(int status)
 	}
 	else if (WTERMSIG(status) == SIGQUIT)
 	{
-		write(1, "Quit (core dumped)\n", 29);
+		write(1, "Quit (core dumped)\n", 20);
 		g_global->exit_status = 131;
 	}
 }

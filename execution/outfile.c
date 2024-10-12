@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 18:46:24 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/11 20:24:00 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:15:50 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	help_1_ft_outfile(t_file *strct)
 	free(g_global->pid);
 	ft_free_global();
 	free(g_global);
+	rl_clear_history();
 	exit(1);
 }
 
@@ -41,6 +42,7 @@ int	help_2_ft_outfile(t_file *strct, int outfile_fd)
 	ft_free_global();
 	free(g_global);
 	close(outfile_fd);
+	rl_clear_history();
 	exit(1);
 }
 

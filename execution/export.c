@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 23:13:05 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/11 10:06:17 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 10:07:38 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ void	help_add_to_env(char *value, char *str, char *key, char *tmp)
 	}
 }
 
-void	add_to_env_list(char *value, char *key, char *str)
+void	add_env_help(char *str, char *key)
 {
+	char	*value;
+
 	value = ft_substr(str + ft_strlen(key) + 1, 0, ft_strlen(str)
 			- ft_strlen(key) - 1);
 	if (!value)
@@ -64,7 +66,7 @@ void	add_to_env(char *str, char *key)
 	value = NULL;
 	tmp = NULL;
 	if (str[ft_strlen(key)] == '=')
-		add_to_env_list(value, key, str);
+		add_env_help(str, key);
 	else if (str[ft_strlen(key)] == '+')
 		help_add_to_env(value, str, key, tmp);
 	else if (find_key(g_global->env, key) == 0)

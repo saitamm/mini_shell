@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/11 10:16:13 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:26:16 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,8 @@ char						*help_space(char *str);
 
 void						sig_her_doc(int signum);
 int							her_doc_sig(char *line);
-void						norm_main(char *line);
+void						norm_main(void);
+int							her_doc_sig(char *line);
 //***********************************EXECUTION**********************************
 
 typedef struct s_execution
@@ -312,7 +313,6 @@ void						free_5(t_minishell *strct, char **spl);
 void						free_6(t_minishell *strct, char *path, char *h_ex);
 void						free_7(t_minishell *strct, char *path,
 								char **env_exc);
-void						handle_builtins(t_minishell *strct);
 int							help_2_ft_outfile(t_file *strct, int outfile_fd);
 int							ft_execution_built(t_minishell *strct);
 void						ft_child(t_minishell *strct, int i);

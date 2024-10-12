@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:48 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/11 10:27:20 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 10:02:43 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ t_data	*ft_lstlast_data(t_data *lst)
 	return (lst);
 }
 
+void	init_flag_norm(t_flag *flag)
+{
+	flag->d_quote = false;
+	flag->s_quote = false;
+}
+
 void	full_command(t_data **data, char *str)
 {
 	int		i;
@@ -28,8 +34,7 @@ void	full_command(t_data **data, char *str)
 	t_data	*s;
 
 	i = 0;
-	flag.s_quote = false;
-	flag.d_quote = false;
+	init_flag_norm(&flag);
 	s = (t_data *)malloc(sizeof(t_data));
 	if (!s)
 		return ;

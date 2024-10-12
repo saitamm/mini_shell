@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 09:17:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/11 20:39:18 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:17:10 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	help1_append(t_file *strct, int fd)
 {
+	rl_clear_history();
 	write(2, "Minishell:", 10);
 	perror(strct->file);
 	g_global->exit_status = 1;
@@ -28,6 +29,7 @@ int	ft_append(t_file *strct)
 
 	if (strct->flag == AMB)
 	{
+		rl_clear_history();
 		write(2, "Minishell:", 10);
 		write(2, strct->file, ft_strlen(strct->file));
 		write(2, ": ambiguous redirect \n", 21);
@@ -43,8 +45,7 @@ int	ft_append(t_file *strct)
 		{
 			write(2, "Error with dup2\n", 16);
 			g_global->exit_status = 1;
-			close(fd);
-			return (1);
+			return (close(fd), 1);
 		}
 		close(fd);
 	}

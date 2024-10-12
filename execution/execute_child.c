@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:04:16 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/11 20:32:02 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:11:04 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,17 @@ void	help_2_execute_child(t_minishell *strct)
 
 void	free_8(void)
 {
+	int	ex;
+
+	rl_clear_history();
+	ex = g_global->exit_status;
 	free_minishell(&g_global->strct);
 	close(g_global->save_fd_int);
 	close(g_global->save_fd_out);
 	free(g_global->pid);
 	ft_free_global();
 	free(g_global);
+	exit(ex);
 }
 
 void	ft_open_file(t_minishell *strct, char **spl)
@@ -57,6 +62,7 @@ void	ft_open_file(t_minishell *strct, char **spl)
 		ft_free(spl, len_double_str(spl));
 		ft_free_global();
 		free(g_global);
+		rl_clear_history();
 		exit(126);
 	}
 	else
@@ -95,5 +101,6 @@ int	execute_child(t_minishell *strct)
 		free_0();
 	else
 		help_execute_child(strct);
+	rl_clear_history();
 	exit(0);
 }

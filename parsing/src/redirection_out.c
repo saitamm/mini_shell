@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:01:51 by sait-amm          #+#    #+#             */
-/*   Updated: 2024/10/07 09:39:07 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 17:24:45 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int	ft_space_out(char *str)
 		flag = 1;
 	}
 	if ((str[i] == '|' || str[i] == '>' || str[i] == '<') && flag)
+		return (1);
+	if (str[i] == '<')
 		return (1);
 	return (0);
 }

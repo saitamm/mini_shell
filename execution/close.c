@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 11:19:14 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/11 20:29:10 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:04:48 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	free_0(void)
 {
+	rl_clear_history();
 	free_minishell(&g_global->strct);
 	close(g_global->save_fd_int);
 	close(g_global->save_fd_out);
@@ -35,6 +36,7 @@ void	free_1(void)
 
 void	free_2(t_minishell *strct, char **spl)
 {
+	rl_clear_history();
 	write(2, strct->cmd[0], ft_strlen(strct->cmd[0]));
 	write(2, ": command not found\n", 20);
 	free_minishell(&g_global->strct);
@@ -49,6 +51,7 @@ void	free_2(t_minishell *strct, char **spl)
 
 void	free_3(t_minishell *strct, char **spl)
 {
+	rl_clear_history();
 	perror(strct->cmd[0]);
 	free_minishell(&g_global->strct);
 	free(g_global->pid);
@@ -62,6 +65,7 @@ void	free_3(t_minishell *strct, char **spl)
 
 void	free_4(t_minishell *strct, char **spl)
 {
+	rl_clear_history();
 	perror(strct->cmd[0]);
 	free_minishell(&g_global->strct);
 	free(g_global->pid);
