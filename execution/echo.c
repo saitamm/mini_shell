@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lai-elho <lai-elho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 01:02:07 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/05 03:50:36 by lai-elho         ###   ########.fr       */
+/*   Updated: 2024/10/12 21:17:08 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@ void	ft_find_in_env(char *search_key)
 int	check_n(const char *s)
 {
 	int	i;
+	int	flag;
 
 	i = 1;
+	flag = 0;
 	while (s[i] == 'n')
+	{
 		i++;
-	if (s[i] == '\0')
+		flag = 1;
+	}
+	if (s[i] == '\0' && flag)
 		return (1);
 	else
 		return (0);

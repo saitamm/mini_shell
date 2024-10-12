@@ -6,7 +6,7 @@
 /*   By: sait-amm <sait-amm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:30:09 by lai-elho          #+#    #+#             */
-/*   Updated: 2024/10/12 18:26:16 by sait-amm         ###   ########.fr       */
+/*   Updated: 2024/10/12 20:11:40 by sait-amm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,8 @@ void						sig_her_doc(int signum);
 int							her_doc_sig(char *line);
 void						norm_main(void);
 int							her_doc_sig(char *line);
+void						norm_main_herdoc(char *line);
+void						unlink_here_doc(void);
 //***********************************EXECUTION**********************************
 
 typedef struct s_execution
