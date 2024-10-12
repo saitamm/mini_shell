@@ -65,7 +65,7 @@ int	check_pipe(char *line)
 
 	line_t = ft_strtrim(line, "\n\r\v\f\t ");
 	if (line_t[0] == '|')
-		return (free(line_t),1);
+		return (free(line_t), 1);
 	i = 0;
 	while (line_t[i])
 	{

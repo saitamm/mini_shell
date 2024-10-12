@@ -48,7 +48,7 @@ int	unset(char **cmd)
 	{
 		if (ft_check_export_unset_args(cmd[i]) == 0)
 			return (0);
-		if (ft_strcmp(cmd[i] , "_") == 0)
+		if (ft_strcmp(cmd[i], "_") == 0)
 			return (0);
 		ft_lstremove(cmd[i]);
 		if (!ft_strcmp(cmd[i], "PWD"))

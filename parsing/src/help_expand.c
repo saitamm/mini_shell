@@ -49,11 +49,13 @@ char	**help_pipe_double(char **str)
 	}
 	return (str);
 }
+
 int	special(int r, char *str)
 {
-	int	i;
+	int		i;
 	char	**spl;
 	char	*sub;
+
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;

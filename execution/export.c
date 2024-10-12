@@ -12,11 +12,12 @@
 
 #include "../include/minishell.h"
 
-void help_add_to_env(char *value, char *str, char *key, char *tmp)
+void	help_add_to_env(char *value, char *str, char *key, char *tmp)
 {
-	char *exp;
+	char	*exp;
 
-	value = ft_substr(str + ft_strlen(key) + 2, 0, ft_strlen(str) - ft_strlen(key) - 2);
+	value = ft_substr(str + ft_strlen(key) + 2, 0, ft_strlen(str)
+			- ft_strlen(key) - 2);
 	if (find_key(g_global->env, key) == 0)
 	{
 		add_to_list(&g_global->env, key, value);
@@ -34,48 +35,52 @@ void help_add_to_env(char *value, char *str, char *key, char *tmp)
 	}
 }
 
-void add_to_env(char *str, char *key)
+void	add_to_env_list(char *value, char *key, char *str)
 {
-	char *value;
-	char *tmp;
+	value = ft_substr(str + ft_strlen(key) + 1, 0, ft_strlen(str)
+			- ft_strlen(key) - 1);
+	if (!value)
+	{
+		free(value);
+		value = ft_strdup("");
+	}
+	if (find_key(g_global->env, key) == 0)
+	{
+		add_to_list(&g_global->env, key, value);
+		free(value);
+	}
+	else
+	{
+		ft_change_key_value(key, value);
+		free(value);
+	}
+}
+
+void	add_to_env(char *str, char *key)
+{
+	char	*value;
+	char	*tmp;
 
 	value = NULL;
 	tmp = NULL;
 	if (str[ft_strlen(key)] == '=')
-	{
-		value = ft_substr(str + ft_strlen(key) + 1, 0, ft_strlen(str) - ft_strlen(key) - 1);
-		if (!value)
-		{
-			free(value);
-			value = ft_strdup("");
-		}
-		if (find_key(g_global->env, key) == 0)
-		{
-			add_to_list(&g_global->env, key, value);
-			free(value);
-		}
-		else
-		{
-			ft_change_key_value(key, value);
-			free(value);
-		}
-	}
+		add_to_env_list(value, key, str);
 	else if (str[ft_strlen(key)] == '+')
 		help_add_to_env(value, str, key, tmp);
 	else if (find_key(g_global->env, key) == 0)
 		add_to_list(&g_global->env, key, NULL);
 }
 
-void add_key_export(char *str)
+void	add_key_export(char *str)
 {
-	int i;
-	char *key;
+	int		i;
+	char	*key;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '=' || str[i] == '+')
-			break;
+			break ;
 		i++;
 	}
 	key = ft_substr(str, 0, i);
@@ -87,9 +92,9 @@ void add_key_export(char *str)
 	free(key);
 }
 
-void ft_export(t_minishell *strct)
+void	ft_export(t_minishell *strct)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (strct->cmd[1] == NULL)
@@ -101,7 +106,7 @@ void ft_export(t_minishell *strct)
 			if (check_error_export(strct->cmd[i]))
 			{
 				i++;
-				continue;
+				continue ;
 			}
 			add_key_export(strct->cmd[i]);
 			i++;

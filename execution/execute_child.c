@@ -12,11 +12,11 @@
 
 #include "../include/minishell.h"
 
-void help_2_execute_child(t_minishell *strct)
+void	help_2_execute_child(t_minishell *strct)
 {
-	char *path;
-	char **env_exc;
-	char *h_ex;
+	char	*path;
+	char	**env_exc;
+	char	*h_ex;
 
 	handle_special(strct);
 	h_ex = help_expand("PATH");
@@ -30,7 +30,7 @@ void help_2_execute_child(t_minishell *strct)
 		free_7(strct, path, env_exc);
 }
 
-void free_8(void)
+void	free_8(void)
 {
 	free_minishell(&g_global->strct);
 	close(g_global->save_fd_int);
@@ -40,9 +40,9 @@ void free_8(void)
 	free(g_global);
 }
 
-void ft_open_file(t_minishell *strct, char **spl)
+void	ft_open_file(t_minishell *strct, char **spl)
 {
-	int l;
+	int	l;
 
 	if (access(strct->cmd[0], X_OK) == -1)
 	{
@@ -63,9 +63,9 @@ void ft_open_file(t_minishell *strct, char **spl)
 		free_4(strct, spl);
 }
 
-void help_execute_child(t_minishell *strct)
+void	help_execute_child(t_minishell *strct)
 {
-	char **spl;
+	char	**spl;
 
 	if (ft_builtins(strct) == -1)
 	{
@@ -86,7 +86,7 @@ void help_execute_child(t_minishell *strct)
 		free_8();
 }
 
-int execute_child(t_minishell *strct)
+int	execute_child(t_minishell *strct)
 {
 	handle_signals();
 	if (strct->cmd[0] == NULL)

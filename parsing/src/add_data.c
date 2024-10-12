@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-t_data *ft_lstlast_data(t_data *lst)
+t_data	*ft_lstlast_data(t_data *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -21,18 +21,18 @@ t_data *ft_lstlast_data(t_data *lst)
 	return (lst);
 }
 
-void full_command(t_data **data, char *str)
+void	full_command(t_data **data, char *str)
 {
-	int i;
-	t_flag flag;
-	t_data *s;
+	int		i;
+	t_flag	flag;
+	t_data	*s;
 
 	i = 0;
 	flag.s_quote = false;
 	flag.d_quote = false;
 	s = (t_data *)malloc(sizeof(t_data));
 	if (!s)
-		return;
+		return ;
 	s->files = NULL;
 	s->command = NULL;
 	while (str[i])
@@ -51,17 +51,17 @@ void full_command(t_data **data, char *str)
 	data = add_data(data, s);
 }
 
-void init_data(t_data **data, char **line)
+void	init_data(t_data **data, char **line)
 {
-	size_t i;
-	size_t p_nmbr;
-	char **str;
+	size_t	i;
+	size_t	p_nmbr;
+	char	**str;
 
 	i = 0;
 	p_nmbr = len_double_str(line);
 	str = malloc((p_nmbr + 1) * sizeof(char *));
 	if (!str)
-		return;
+		return ;
 	while (line[i])
 	{
 		str[i] = ft_strtrim(line[i], "\n\r\v\f\t ");
@@ -77,9 +77,9 @@ void init_data(t_data **data, char **line)
 	ft_free(str, p_nmbr);
 }
 
-t_data **add_data(t_data **data, t_data *new)
+t_data	**add_data(t_data **data, t_data *new)
 {
-	t_data *d;
+	t_data	*d;
 
 	if (!data)
 		return (NULL);
